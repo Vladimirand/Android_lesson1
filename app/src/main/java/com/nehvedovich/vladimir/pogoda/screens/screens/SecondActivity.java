@@ -11,8 +11,17 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_main);
         ViewUtilities.makeToast(getApplicationContext(), "onCreate");
+//        ImageButton toHome = findViewById(R.id.toHome);
+//        toHome.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(SecondActivity.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+
     }
 
     @Override
