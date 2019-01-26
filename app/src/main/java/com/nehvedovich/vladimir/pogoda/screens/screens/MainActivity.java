@@ -1,13 +1,12 @@
-package com.nehvedovich.vladimir.pogoda.screens;
+package com.nehvedovich.vladimir.pogoda.screens.screens;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.nehvedovich.vladimir.pogoda.R;
-import com.nehvedovich.vladimir.pogoda.utils.ViewUtilities;
+import com.nehvedovich.vladimir.pogoda.screens.utils.ViewUtilities;
 
 public class MainActivity extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ViewUtilities.makeToast(getApplicationContext(), "onCreate");
     }
+
     @Override
     protected void onStart() {
         super.onStart();
