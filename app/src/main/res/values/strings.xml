@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">My application Pogoda</string>
     <string name="pogoda">Погода</string>
+    <string name="cityName">City</string>
+    <string name="temperature">25°C</string>
+    <string name="weatherConditions">Солнечно</string>
+    <string name="windSpeed">2 м/с,</string>
+    <string name="directionWind">ю/з</string>
+    <string name="humidity">55 %</string>
+    <string name="pressurey">760 мм рт. ст.</string>
 </resources>
