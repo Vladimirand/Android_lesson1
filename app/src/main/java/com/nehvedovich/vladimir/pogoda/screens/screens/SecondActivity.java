@@ -21,42 +21,5 @@ public class SecondActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-
     }
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        ViewUtilities.makeToast(getApplicationContext(), "onStart");
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        ViewUtilities.makeToast(getApplicationContext(), "onResume");
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        ViewUtilities.makeToast(getApplicationContext(), "onPause");
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        ViewUtilities.makeToast(getApplicationContext(), "onStop");
-//    }
-//
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        ViewUtilities.makeToast(getApplicationContext(), "onDestroy");
-//    }
-//
-//    @Override
-//    protected void onRestart() {
-//        super.onRestart();
-//        ViewUtilities.makeToast(getApplicationContext(), "onRestart");
-//    }
 }

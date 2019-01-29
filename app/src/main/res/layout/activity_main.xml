@@ -27,48 +27,48 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/to_city1"
+                android:id="@+id/to_city_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/translucent"
-                android:text="@string/cityName"
+                android:text="@string/city_name"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/to_city2"
+                android:id="@+id/to_city_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/translucent"
-                android:text="@string/cityName2"
+                android:text="@string/city_name_2"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/to_city3"
+                android:id="@+id/to_city_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/translucent"
-                android:text="@string/cityName3"
+                android:text="@string/city_name_3"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
-                android:id="@+id/to_city4"
+                android:id="@+id/to_city_4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:background="@color/translucent"
-                android:text="@string/cityName4"
+                android:text="@string/city_name_4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:buttonTint="@color/colorDarkSlateGray"
+                android:buttonTint="@color/color_dark_slate_gray"
                 android:text="wind" />
 
             <CheckBox
@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:buttonTint="@color/colorDarkSlateGray"
+                android:buttonTint="@color/color_dark_slate_gray"
                 android:text="humidity" />
 
             <CheckBox
@@ -95,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:buttonTint="@color/colorDarkSlateGray"
+                android:buttonTint="@color/color_dark_slate_gray"
                 android:text="pressure" />
         </LinearLayout>
     </ScrollView>

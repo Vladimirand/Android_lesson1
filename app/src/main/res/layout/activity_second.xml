@@ -24,7 +24,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cityName"
+            android:text="@string/city_name"
             android:textSize="25sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.04"
@@ -37,7 +37,7 @@
             android:layout_height="150dp"
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
-            android:src="@drawable/sun001_icon" />
+            android:src="@drawable/sun_001_icon" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/weatherConditions"
+            android:text="@string/weather_conditions"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -62,7 +62,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/windSpeed"
+            android:text="@string/wind_speed"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -72,7 +72,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/directionWind"
+            android:text="@string/direction_wind"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -106,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
-            android:indeterminateTint="@color/colorGray"
+            android:indeterminateTint="@color/color_gray"
             android:indeterminateTintMode="src_atop" />
 
 
