@@ -7,5 +7,8 @@
     <string name="windSpeed">2 м/с,</string>
     <string name="directionWind">ю/з</string>
     <string name="humidity">55 %</string>
-    <string name="pressurey">760 мм рт. ст.</string>
+    <string name="pressure">760 мм рт. ст.</string>
+    <string name="cityName2">City 2</string>
+    <string name="cityName3">City 3</string>
+    <string name="cityName4">City 4</string>
 </resources>
