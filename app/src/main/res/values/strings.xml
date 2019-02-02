@@ -1,14 +1,20 @@
 <resources>
-    <string name="app_name">My application Pogoda</string>
-    <string name="pogoda">Погода</string>
-    <string name="city_name">City</string>
+    <string name="app_name">My application Weather</string>
+    <string name="activity_name_settings">Settings</string>
+    <string name="pogoda">Weather</string>
     <string name="temperature">25°C</string>
-    <string name="weather_conditions">Солнечно</string>
-    <string name="wind_speed">2 м/с,</string>
-    <string name="direction_wind">ю/з</string>
+    <string name="weather_conditions">Sunny</string>
+    <string name="wind_speed">2 m/s,</string>
+    <string name="direction_wind">w/s</string>
     <string name="humidity">55 %</string>
-    <string name="pressure">760 мм рт. ст.</string>
+    <string name="pressure">760 mmHg.</string>
+    <string name="city_name">City 1</string>
     <string name="city_name_2">City 2</string>
     <string name="city_name_3">City 3</string>
     <string name="city_name_4">City 4</string>
+    <string name="wind_indication">wind</string>
+    <string name="humidity_indication">humidity</string>
+    <string name="pressure_indication">pressure</string>
+    <string name="dark_theme">Dark Theme</string>
+
 </resources>

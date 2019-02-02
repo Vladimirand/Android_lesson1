@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Мое приложение Погода</string>
+    <string name="activity_name_settings">Настройки</string>
+    <string name="pogoda">Погода</string>
+    <string name="temperature">25°C</string>
+    <string name="weather_conditions">Солнечно</string>
+    <string name="wind_speed">2 м/с,</string>
+    <string name="direction_wind">ю/з</string>
+    <string name="humidity">55 %</string>
+    <string name="pressure">760 мм.рт.ст.</string>
+    <string name="city_name">Город 1</string>
+    <string name="city_name_2">Город 2</string>
+    <string name="city_name_3">Город 3</string>
+    <string name="city_name_4">Город 4</string>
+    <string name="wind_indication">ветер</string>
+    <string name="humidity_indication">влажность</string>
+    <string name="pressure_indication">давление</string>
+    <string name="dark_theme">Темная тема</string>
+</resources>
