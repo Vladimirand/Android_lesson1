@@ -15,6 +15,14 @@
         android:scaleType="centerCrop"
         android:src="@drawable/front" />
 
+    <ImageView
+        android:id="@+id/landscapeNight"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/front_night"
+        android:visibility="gone" />
+
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -31,44 +39,29 @@
                 style="@style/ButtonCityStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/city_name"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/city_name1" />
 
             <Button
                 android:id="@+id/to_city_2"
                 style="@style/ButtonCityStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/city_name_2"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/city_name_2" />
 
-            <Button
-                android:id="@+id/to_city_3"
-                style="@style/ButtonCityStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/city_name_3"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <Button
                 android:id="@+id/to_city_4"
                 style="@style/ButtonCityStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/city_name_4"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/city_name_4" />
+
+            <Button
+                android:id="@+id/to_city_3"
+                style="@style/ButtonCityStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/city_name_3" />
 
             <CheckBox
                 android:id="@+id/checkBoxWind"
@@ -78,14 +71,14 @@
                 android:text="@string/wind_indication" />
 
             <CheckBox
-                android:id="@+id/checkBoxH"
+                android:id="@+id/checkBoxHumidity"
                 style="@style/CheckBoxStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/humidity_indication" />
 
             <CheckBox
-                android:id="@+id/checkBoxP"
+                android:id="@+id/checkBoxPressure"
                 style="@style/CheckBoxStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

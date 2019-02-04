@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,13 +24,8 @@
             android:id="@+id/cityNameInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/city_name"
-            android:textSize="25sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.04"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@string/city_name1"
+            android:textSize="25sp" />
 
         <ImageView
             android:layout_width="150dp"
@@ -44,21 +38,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/temperature"
-            android:textSize="36sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="36sp" />
 
         <TextView
             style="@style/TextStandardStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/weather_conditions"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@string/weather_conditions" />
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -70,11 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="5dp"
-                android:text="@string/wind_speed"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/wind_speed" />
 
             <TextView
                 android:id="@+id/directionWind"
@@ -83,32 +65,22 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/textWind"
                 android:gravity="center"
-                android:text="@string/direction_wind"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:text="@string/direction_wind" />
         </RelativeLayout>
 
         <TextView
+            android:id="@+id/textHumidity"
             style="@style/TextStandardStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/humidity"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@string/humidity" />
 
         <TextView
+            android:id="@+id/textPressure"
             style="@style/TextStandardStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/pressure"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:text="@string/pressure" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -127,6 +99,7 @@
         android:id="@+id/toHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:layout_gravity="bottom"
         android:background="@color/transparent"
         android:src="?attr/homeAsUpIndicator" />

@@ -9,10 +9,10 @@
     <string name="direction_wind">ю/з</string>
     <string name="humidity">55 %</string>
     <string name="pressure">760 мм.рт.ст.</string>
-    <string name="city_name">Город 1</string>
-    <string name="city_name_2">Город 2</string>
-    <string name="city_name_3">Город 3</string>
-    <string name="city_name_4">Город 4</string>
+    <string name="city_name1">Минск</string>
+    <string name="city_name_2">Москва</string>
+    <string name="city_name_3">Рим</string>
+    <string name="city_name_4">Санкт-Петербург</string>
     <string name="wind_indication">ветер</string>
     <string name="humidity_indication">влажность</string>
     <string name="pressure_indication">давление</string>
