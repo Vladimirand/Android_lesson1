@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, SecondActivity.class);
             Button btn = findViewById(v.getId());
             String cityName = (String) btn.getText();
+
             if (cityName != null) {
                 intent.putExtra(SecondActivity.CITY_NAME_EXSTRA, cityName);
             }

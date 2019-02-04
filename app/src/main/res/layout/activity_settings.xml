@@ -16,8 +16,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:visibility="gone"
-            android:src="@color/color_primary" />
+            android:src="@color/color_primary"
+            android:visibility="gone" />
 
 
         <LinearLayout
@@ -37,11 +37,10 @@
 
         <ImageButton
             android:id="@+id/toHome"
+            style="@style/ButtonBottomStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:layout_gravity="bottom"
-            android:background="@color/transparent"
             android:src="?attr/homeAsUpIndicator" />
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

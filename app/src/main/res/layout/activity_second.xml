@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,6 +11,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
         android:scaleType="centerCrop"
         android:src="@drawable/fon" />
 
@@ -82,6 +84,12 @@
             android:layout_height="wrap_content"
             android:text="@string/pressure" />
 
+        <Button
+            android:id="@+id/moreInformation"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/more_information" />
+
         <ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
@@ -95,14 +103,28 @@
 
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/toHome"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_gravity="bottom"
-        android:background="@color/transparent"
-        android:src="?attr/homeAsUpIndicator" />
+        android:layout_gravity="bottom">
+
+        <ImageButton
+            android:id="@+id/toHome"
+            style="@style/ButtonBottomStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="?attr/homeAsUpIndicator" />
+
+        <ImageButton
+            android:id="@+id/imageButtonShare"
+            style="@style/ButtonBottomStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="5dp"
+            app:srcCompat="@android:drawable/ic_menu_share" />
+
+    </RelativeLayout>
 
 
 </FrameLayout>

@@ -16,5 +16,6 @@
     <string name="humidity_indication">humidity</string>
     <string name="pressure_indication">pressure</string>
     <string name="dark_theme">Dark Theme</string>
+    <string name="more_information">Detailed</string>
 
 </resources>

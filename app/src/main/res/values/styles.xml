@@ -44,6 +44,12 @@
         <item name="android:buttonTint">@color/color_dark_slate_gray</item>
     </style>
 
+    <style name="ButtonBottomStyle">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+
     <!--Base application theme. -->
 
 
