@@ -4,27 +4,45 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.nehvedovich.vladimir.pogoda.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private  CheckBox darkThemeCheckbox;
+     private CheckBox darkThemeCheckbox;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        ImageButton toHome = findViewById(R.id.toHome);
+         ImageButton toHome = findViewById(R.id.toHome);
         toHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
+
             }
         });
 
-        darkThemeCheckbox = (CheckBox)findViewById(R.id.darkThemeCheckBox);
 
+        darkThemeCheckbox = (CheckBox) findViewById(R.id.darkThemeCheckBox);
+        final ImageView darkThema = (ImageView) findViewById(R.id.backgroundSettings);
+
+        darkThemeCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    darkThema.setVisibility(View.VISIBLE);
+
+                } else {
+                    darkThema.setVisibility(View.GONE);
+
+                }
+            }
+        });
     }
 }

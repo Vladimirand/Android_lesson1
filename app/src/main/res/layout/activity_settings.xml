@@ -12,10 +12,12 @@
         tools:context=".screens.screens.SecondActivity">
 
         <ImageView
+            android:id="@+id/backgroundSettings"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@color/color_primary"/>
+            android:src="@color/color_primary"
+            android:visibility="gone" />
 
 
         <LinearLayout
@@ -35,10 +37,10 @@
 
         <ImageButton
             android:id="@+id/toHome"
+            style="@style/ButtonBottomStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="@color/transparent"
             android:src="?attr/homeAsUpIndicator" />
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

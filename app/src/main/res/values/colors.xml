@@ -7,4 +7,6 @@
     <color name="color_gray">#808080</color>
     <color name="color_dark_slate_gray">#2F4F4F</color>
     <color name="translucent">#1000</color>
+    <color name="color_dark_cyan">#008B8B</color>
+    <color name="color_gainsboro">#DCDCDC</color>
 </resources>

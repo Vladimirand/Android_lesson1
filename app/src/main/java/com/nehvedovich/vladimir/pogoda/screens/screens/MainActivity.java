@@ -13,7 +13,9 @@ import com.nehvedovich.vladimir.pogoda.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    public CheckBox checkBoxWind;
+    public static final String CHECK_BOX_WIND = "checkBoxWind";
+    public static final String CHECK_BOX_HUMIDITY = "checkBoxHumidity";
+    public static final String CHECK_BOX_PRESSURE = "checkBoxPressure";
 
 
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
@@ -22,13 +24,16 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, SecondActivity.class);
             Button btn = findViewById(v.getId());
             String cityName = (String) btn.getText();
+
             if (cityName != null) {
                 intent.putExtra(SecondActivity.CITY_NAME_EXSTRA, cityName);
             }
+            intent.putExtra(CHECK_BOX_WIND, getCheckBoxWind());
+            intent.putExtra(CHECK_BOX_HUMIDITY, getCheckBoxHumidity());
+            intent.putExtra(CHECK_BOX_PRESSURE, getCheckBoxPressure());
             startActivity(intent);
         }
     };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,38 +49,31 @@ public class MainActivity extends AppCompatActivity {
         button3.setOnClickListener(onClickListener);
         button4.setOnClickListener(onClickListener);
 
+        setTheme(R.style.SettingsTheme2);
 
         ImageButton settings = findViewById(R.id.settings);
+
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             }
         });
+    }
 
+    public Boolean getCheckBoxWind() {
+        CheckBox wind = findViewById(R.id.checkBoxWind);
+        return wind.isChecked();
+    }
 
-//Обработка CheckBox Wind
+    public Boolean getCheckBoxHumidity() {
+        CheckBox humidity = findViewById(R.id.checkBoxHumidity);
+        return humidity.isChecked();
+    }
 
-        checkBoxWind = (CheckBox) findViewById(R.id.checkBoxWind);
-
-        checkBoxWind.findViewById(R.id.checkBoxWind);
-//        checkBoxWind.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//
-//                Intent intent1 = new Intent(MainActivity.this, SecondActivity.class);
-//
-//                boolean check1;
-//                if (isChecked) {
-//
-//                    check1 = true;
-//                } else {
-//                    check1 = false;
-//                }
-////                intent1.putExtra(SecondActivity.WIND, true);
-//            }
-//        });
-
+    public Boolean getCheckBoxPressure() {
+        CheckBox pressure = findViewById(R.id.checkBoxPressure);
+        return pressure.isChecked();
     }
 
 }

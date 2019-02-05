@@ -1,12 +1,28 @@
 <resources>
     <!--Base application theme. -->
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
-    <style name="AppThemeNew" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="AppThemeNoTitle" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/color_primary</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent</item>
+        <item name="android:windowBackground">@color/color_gainsboro</item>
         <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AppThemeSettings" parent="Theme.AppCompat.DayNight">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="android:windowBackground">@color/color_gainsboro</item>
+    </style>
+
+    <style name="SettingsTheme2" parent="Theme.AppCompat">
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowBackground">@color/color_gray</item>
     </style>
 
     <style name="TextStandardStyle" parent="TextAppearance.AppCompat.Medium">
@@ -19,13 +35,22 @@
         <item name="android:background">@color/translucent</item>
     </style>
 
+    <style name="CheckBoxNormalStyle">
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
     <style name="CheckBoxStyle">
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:buttonTint">@color/color_dark_slate_gray</item>
     </style>
 
+    <style name="ButtonBottomStyle">
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+
     <!--Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-                   </style>
+
 
 </resources>
