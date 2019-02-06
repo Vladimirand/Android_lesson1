@@ -39,7 +39,8 @@
                 style="@style/ButtonCityStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/city_name1" />
+                android:text="@string/city_name_1"
+                 />
 
             <Button
                 android:id="@+id/to_city_2"

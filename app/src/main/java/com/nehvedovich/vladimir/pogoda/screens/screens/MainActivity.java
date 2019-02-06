@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Button button = findViewById(R.id.to_city_1);
         Button button2 = findViewById(R.id.to_city_2);
         Button button3 = findViewById(R.id.to_city_3);
