@@ -25,7 +25,6 @@ public class CityInfoFragment extends Fragment {
         return layout;
 
         Bundle bundle = getgetIntent().getExtras();
-
         boolean wind = false;
         boolean humidity = false;
         boolean pressure = false;
@@ -47,9 +46,7 @@ public class CityInfoFragment extends Fragment {
                 String cityName = (String) city.getText();
                 Uri uri = Uri.parse("http://yandex.ru/pogoda/" + cityName);
                 intent.setData(uri);
-
                 if (intent.resolveActivity(getPackageManager()) != null) {
-
                     startActivity(intent);
                 } else {
                     Toast.makeText(SecondActivity.this, "\n" +
