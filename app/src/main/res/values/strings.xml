@@ -18,10 +18,4 @@
     <string name="dark_theme">Dark Theme</string>
     <string name="more_information">Detailed</string>
 
-    <string-array name="towns">
-        <item>Minsk</item>
-        <item>Moscow</item>
-        <item>Rome</item>
-        <item>Saint-Petersburg</item>
-    </string-array>
 </resources>

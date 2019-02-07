@@ -21,85 +21,11 @@
         android:layout_margin="15dp"
         android:orientation="vertical">
 
-
-        <TextView
-            android:id="@+id/cityNameInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/city_name_1"
-            android:textSize="25sp" />
-
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:src="@drawable/sun_001_icon" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/temperature"
-            android:textSize="36sp" />
-
-        <TextView
-            style="@style/TextStandardStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/weather_conditions" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/textWind"
-                style="@style/TextStandardStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="5dp"
-                android:text="@string/wind_speed" />
-
-            <TextView
-                android:id="@+id/directionWind"
-                style="@style/TextStandardStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/textWind"
-                android:gravity="center"
-                android:text="@string/direction_wind" />
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/textHumidity"
-            style="@style/TextStandardStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/humidity" />
-
-        <TextView
-            android:id="@+id/textPressure"
-            style="@style/TextStandardStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pressure" />
-
-        <Button
-            android:id="@+id/moreInformation"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="@string/more_information" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-            android:indeterminateTint="@color/color_gray"
-            android:indeterminateTintMode="src_atop" />
-
+        <FrameLayout
+            android:id="@+id/infoFragment"
+            android:name="com.nehvedovich.vladimir.pogoda.screens.screens.CityInfoFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
@@ -125,6 +51,5 @@
             app:srcCompat="@android:drawable/ic_menu_share" />
 
     </RelativeLayout>
-
 
 </FrameLayout>
