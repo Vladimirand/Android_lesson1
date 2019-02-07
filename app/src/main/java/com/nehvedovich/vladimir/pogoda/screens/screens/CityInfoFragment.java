@@ -24,7 +24,9 @@ public class CityInfoFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_info, container, false);
         return layout;
 
-        Bundle bundle = getgetIntent().getExtras(); //не смог разобраться (подсвечивает красным)
+        //не смог разобраться (подсвечивает красным)
+        Bundle bundle = getgetIntent().getExtras();
+
         boolean wind = false;
         boolean humidity = false;
         boolean pressure = false;
@@ -46,10 +48,15 @@ public class CityInfoFragment extends Fragment {
                 String cityName = (String) city.getText();
                 Uri uri = Uri.parse("http://yandex.ru/pogoda/" + cityName);
                 intent.setData(uri);
-                if (intent.resolveActivity(getPackageManager()) != null) {  //не успел разобраться (подсвечивает красным)
+
+                //не успел разобраться (подсвечивает красным)
+                if (intent.resolveActivity(getPackageManager()) != null) {
+
                     startActivity(intent);
                 } else {
-                    Toast.makeText(SecondActivity.this, "\n" +    ////не успел разобраться (подчеркивает красным)
+
+                    //не успел разобраться (подчеркивает красным)
+                    Toast.makeText(SecondActivity.this, "\n" +
                             "Application does not exist", Toast.LENGTH_SHORT).show();
                 }
             }
