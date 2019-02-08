@@ -29,6 +29,14 @@
 
     </LinearLayout>
 
+    <Button
+        android:id="@+id/moreInformation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_margin="10dp"
+        android:text="@string/more_information" />
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

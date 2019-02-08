@@ -14,7 +14,6 @@ import com.nehvedovich.vladimir.pogoda.R;
 
 public class CitiesFragment extends Fragment {
 
-
     public static final String CHECK_BOX_WIND = "checkBoxWind";
     public static final String CHECK_BOX_HUMIDITY = "checkBoxHumidity";
     public static final String CHECK_BOX_PRESSURE = "checkBoxPressure";
@@ -29,7 +28,7 @@ public class CitiesFragment extends Fragment {
             String cityName = (String) btn.getText();
 
             if (cityName != null) {
-                intent.putExtra(SecondActivity.CITY_NAME_EXSTRA, cityName);
+                intent.putExtra(CityInfoFragment.CITY_NAME_EXSTRA, cityName);
             }
 
             intent.putExtra(CHECK_BOX_WIND, getCheckBoxWind());
@@ -62,6 +61,15 @@ public class CitiesFragment extends Fragment {
         button3.setOnClickListener(onClickListener);
         button4.setOnClickListener(onClickListener);
     }
+
+//    @Override
+//    public void onSaveInstanceState(Bundle outState) {
+//        super.onSaveInstanceState(outState);
+//        outState.putSerializable("cityLookingFor", CityInfoFragment.CITY_NAME_EXSTRA);
+//        outState.putSerializable("checkBoxWind", CHECK_BOX_WIND);
+//        outState.putSerializable("checkBoxHumidity", CHECK_BOX_HUMIDITY);
+//        outState.putSerializable("checkBoxPressure", CHECK_BOX_PRESSURE);
+//    }
 
 
     public Boolean getCheckBoxWind() {
