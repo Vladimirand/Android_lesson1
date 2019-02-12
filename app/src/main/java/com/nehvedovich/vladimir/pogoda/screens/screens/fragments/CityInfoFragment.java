@@ -1,4 +1,4 @@
-package com.nehvedovich.vladimir.pogoda.screens.screens;
+package com.nehvedovich.vladimir.pogoda.screens.screens.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

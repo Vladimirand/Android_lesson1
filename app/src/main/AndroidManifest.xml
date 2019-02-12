@@ -19,18 +19,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".screens.screens.SecondActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSettings" />
+        <activity
+            android:name=".screens.screens.InfoActivity"
+            android:label="@string/activity_name_temperature"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSettings"></activity>
         <activity
             android:name=".screens.screens.SettingsActivity"
             android:label="@string/activity_name_settings"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeSettings">
-
-        </activity>
-
+            android:theme="@style/AppThemeSettings"></activity>
     </application>
 
 </manifest>

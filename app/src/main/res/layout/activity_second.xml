@@ -29,13 +29,25 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/moreInformation"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_margin="10dp"
-        android:text="@string/more_information" />
+        android:layout_margin="10dp">
+
+        <Button
+            android:id="@+id/moreInformation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/more_information" />
+
+        <Button
+            android:id="@+id/infoTemperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/moreInformation"
+            android:text="@string/history" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -47,7 +59,8 @@
             style="@style/ButtonBottomStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="?attr/homeAsUpIndicator" />
+            android:src="?attr/homeAsUpIndicator"
+            android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/imageButtonShare"
