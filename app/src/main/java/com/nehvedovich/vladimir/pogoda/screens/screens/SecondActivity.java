@@ -3,7 +3,9 @@ package com.nehvedovich.vladimir.pogoda.screens.screens;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nehvedovich.vladimir.pogoda.R;
+import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CityInfoFragment;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -24,6 +27,18 @@ public class SecondActivity extends AppCompatActivity {
             details.setArguments(getIntent().getExtras());
             getSupportFragmentManager().beginTransaction().add(android.R.id.content, details).commit();
         }
+
+        Button info = findViewById(R.id.infoTemperature);
+        info.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SecondActivity.this, InfoActivity.class));
+            }
+        });
+
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setHomeButtonEnabled(true);
+        actionbar.setDisplayHomeAsUpEnabled(true);
 
         Button details = findViewById(R.id.moreInformation);
         details.setOnClickListener(new View.OnClickListener() {
@@ -63,12 +78,21 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton toHome = findViewById(R.id.toHome);
-        toHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+//        ImageButton toHome = findViewById(R.id.toHome);
+//        toHome.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onBackPressed();
+//            }
+//        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

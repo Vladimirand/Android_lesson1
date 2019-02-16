@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">My application Weather</string>
     <string name="activity_name_settings">Settings</string>
+    <string name="activity_name_temperature">Temperature history</string>
     <string name="pogoda">Weather</string>
     <string name="temperature">25°C</string>
     <string name="weather_conditions">Sunny</string>
@@ -17,5 +18,34 @@
     <string name="pressure_indication">pressure</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="more_information">Detailed</string>
+    <string name="history">history</string>
+
+
+    <string-array name="Temperatures">
+        <item></item>
+        <item>+7</item>
+        <item>+5</item>
+        <item>+9</item>
+        <item>+8</item>
+        <item>+8</item>
+        <item>+5</item>
+        <item>+4</item>
+        <item>+6</item>
+        <item>+9</item>
+        <item>+8</item>
+        <item>+8</item>
+        <item>+5</item>
+        <item>+4</item>
+        <item>+6</item>
+        <item>+5</item>
+        <item>+8</item>
+        <item>+6</item>
+        <item>+8</item>
+        <item>+10</item>
+        <item>+9</item>
+        <item>+8</item>
+        <item>+12</item>
+        <item>+13</item>
+    </string-array>
 
 </resources>

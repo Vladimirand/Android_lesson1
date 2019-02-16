@@ -1,8 +1,10 @@
-package com.nehvedovich.vladimir.pogoda.screens.screens;
+package com.nehvedovich.vladimir.pogoda.screens.screens.fragments;
 
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.nehvedovich.vladimir.pogoda.R;
+import com.nehvedovich.vladimir.pogoda.screens.screens.SecondActivity;
 
 public class CitiesFragment extends Fragment {
 
@@ -47,14 +50,14 @@ public class CitiesFragment extends Fragment {
 
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
 
-        Button button = getActivity().findViewById(R.id.to_city_1);
-        Button button2 = getActivity().findViewById(R.id.to_city_2);
-        Button button3 = getActivity().findViewById(R.id.to_city_3);
-        Button button4 = getActivity().findViewById(R.id.to_city_4);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Button button = view.findViewById(R.id.to_city_1);
+        Button button2 = view.findViewById(R.id.to_city_2);
+        Button button3 = view.findViewById(R.id.to_city_3);
+        Button button4 = view.findViewById(R.id.to_city_4);
 
         button.setOnClickListener(onClickListener);
         button2.setOnClickListener(onClickListener);
@@ -62,7 +65,7 @@ public class CitiesFragment extends Fragment {
         button4.setOnClickListener(onClickListener);
     }
 
-//    @Override
+    //    @Override
 //    public void onSaveInstanceState(Bundle outState) {
 //        super.onSaveInstanceState(outState);
 //        outState.putSerializable("cityLookingFor", CityInfoFragment.CITY_NAME_EXSTRA);
