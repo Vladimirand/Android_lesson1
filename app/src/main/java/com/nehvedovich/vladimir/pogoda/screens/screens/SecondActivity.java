@@ -78,13 +78,13 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton toHome = findViewById(R.id.toHome);
-        toHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+//        ImageButton toHome = findViewById(R.id.toHome);
+//        toHome.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onBackPressed();
+//            }
+//        });
     }
 
     @Override

@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/city_name_3" />
 
+
             <CheckBox
                 android:id="@+id/checkBoxWind"
                 style="@style/CheckBoxStyle"
