@@ -34,6 +34,10 @@
         <item name="android:visibility">visible</item>
     </style>
 
+    <style name="ButtonCityStyleNight">
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+
     <style name="ButtonCityStyle">
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:background">@color/translucent</item>

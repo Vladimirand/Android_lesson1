@@ -14,6 +14,7 @@
     <!--android:layout_height="match_parent"-->
     <!--tools:context=".screens.screens.MainActivity">-->
 
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,10 +29,20 @@
         android:src="@drawable/front_night"
         android:visibility="gone" />
 
+    //исправить хардкод
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="550dp"
+        android:textColor="@color/color_gray"
+        android:text="by Vladimir Nehvedovich" />
+
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/app_bar_height"
+        android:background="@color/transparent"
         android:fitsSystemWindows="true"
         android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -42,8 +53,8 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar"
-            android:background="@color/color__cadet_blue">
+            app:toolbarId="@+id/toolbar">
+
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -63,6 +74,8 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".ScrollingActivity">
 
+
+
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -79,6 +92,7 @@
                     android:name="com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CitiesFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
+
             </LinearLayout>
 
         </ScrollView>
@@ -92,5 +106,11 @@
         <!--app:srcCompat="@android:drawable/ic_menu_preferences" />-->
 
         <!--</FrameLayout>-->
+
+
     </android.support.v4.widget.NestedScrollView>
+
+
+
+
 </android.support.design.widget.CoordinatorLayout>

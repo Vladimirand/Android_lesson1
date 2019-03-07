@@ -1,25 +1,32 @@
 <resources>
-    <string name="app_name">My application Weather</string>
+    <string name="app_name">Weather</string>
     <string name="activity_name_settings">Settings</string>
     <string name="activity_name_temperature">Temperature history</string>
     <string name="pogoda">Weather</string>
-    <string name="temperature">25°C</string>
+    <string name="temperature" translatable="false">°C</string>
     <string name="weather_conditions">Sunny</string>
-    <string name="wind_speed">2 m/s,</string>
-    <string name="direction_wind">w/s</string>
-    <string name="humidity">55 %</string>
-    <string name="pressure">760 mmHg.</string>
+    <string name="wind_speed">- m/s,</string>
+    <string name="direction_wind">no data</string>
+    <string name="humidity">- %</string>
+    <string name="pressure">- mmHg.</string>
     <string name="city_name_1">Minsk</string>
     <string name="city_name_2">Moscow</string>
     <string name="city_name_3">Rome</string>
-    <string name="city_name_4">Saint-Petersburg</string>
-    <string name="wind_indication">wind</string>
-    <string name="humidity_indication">humidity</string>
-    <string name="pressure_indication">pressure</string>
+    <string name="city_name_4">Saint Petersburg</string>
+    <string name="wind_indication">Wind</string>
+    <string name="humidity_indication">Humidity</string>
+    <string name="pressure_indication">Pressure</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="more_information">Detailed</string>
-    <string name="history">history</string>
-
+    <string name="history">History</string>
+    <string name="feels_like">Feels like</string>
+    <string name="feel_like_temperature"> no data</string>
+    <string name="choose_city">Enter city</string>
+    <string name="ok" translatable="false">OK</string>
+    <string name="delete">Delete</string>
+    <string name="link">Link</string>
+    <string name="screenshot">Screenshot</string>
+    <string name="location">en</string>
 
     <string-array name="Temperatures">
         <item></item>
@@ -47,5 +54,19 @@
         <item>+12</item>
         <item>+13</item>
     </string-array>
+
+
+    <string name="place_not_found">Sorry, no weather data found.</string>
+
+    <string name="weather_sunny">&#xf00d;</string>
+    <string name="weather_clear_night">&#xf02e;</string>
+    <string name="weather_foggy">&#xf014;</string>
+    <string name="weather_cloudy">&#xf013;</string>
+    <string name="weather_rainy">&#xf019;</string>
+    <string name="weather_snowy">&#xf01b;</string>
+    <string name="weather_thunder">&#xf01e;</string>
+    <string name="weather_drizzle">&#xf01c;</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
 
 </resources>

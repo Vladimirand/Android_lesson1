@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -46,31 +45,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/moreInformation"
+            android:visibility="gone"
             android:text="@string/history" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
-
-        <ImageButton
-            android:id="@+id/toHome"
-            style="@style/ButtonBottomStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="?attr/homeAsUpIndicator"
-            android:visibility="gone" />
-
-        <ImageButton
-            android:id="@+id/imageButtonShare"
-            style="@style/ButtonBottomStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_margin="5dp"
-            app:srcCompat="@android:drawable/ic_menu_share" />
-
     </RelativeLayout>
 
 </FrameLayout>
