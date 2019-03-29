@@ -5,28 +5,37 @@
     <string name="pogoda">Weather</string>
     <string name="temperature" translatable="false">°C</string>
     <string name="weather_conditions">Sunny</string>
-    <string name="wind_speed">- m/s,</string>
-    <string name="direction_wind">no data</string>
-    <string name="humidity">- %</string>
-    <string name="pressure">- mmHg.</string>
+    <string name="wind_speed_m_s"> m/s,</string>
+    <string name="direction_wind">N/A</string>
+    <string name="humidity">%</string>
+    <string name="pressure_mmHg">mmHg.</string>
+
     <string name="city_name_1">Minsk</string>
     <string name="city_name_2">Moscow</string>
     <string name="city_name_3">Rome</string>
     <string name="city_name_4">Saint Petersburg</string>
+
     <string name="wind_indication">Wind</string>
     <string name="humidity_indication">Humidity</string>
     <string name="pressure_indication">Pressure</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="more_information">Detailed</string>
     <string name="history">History</string>
-    <string name="feels_like">Feels like</string>
-    <string name="feel_like_temperature"> no data</string>
+    <string name="feels_like_text">Feels like</string>
+    <string name="feel_like_data" translatable="false"> N/A</string>
     <string name="choose_city">Enter city</string>
     <string name="ok" translatable="false">OK</string>
     <string name="delete">Delete</string>
     <string name="link">Link</string>
     <string name="screenshot">Screenshot</string>
     <string name="location">en</string>
+
+    <string-array name="cities">
+        <item>Minsk</item>
+        <item>Moscow</item>
+        <item>Rome</item>
+        <item>Saint Petersburg</item>
+    </string-array>
 
     <string-array name="Temperatures">
         <item></item>
@@ -58,15 +67,31 @@
 
     <string name="place_not_found">Sorry, no weather data found.</string>
 
-    <string name="weather_sunny">&#xf00d;</string>
-    <string name="weather_clear_night">&#xf02e;</string>
-    <string name="weather_foggy">&#xf014;</string>
-    <string name="weather_cloudy">&#xf013;</string>
-    <string name="weather_rainy">&#xf019;</string>
-    <string name="weather_snowy">&#xf01b;</string>
-    <string name="weather_thunder">&#xf01e;</string>
-    <string name="weather_drizzle">&#xf01c;</string>
+    <string name="weather_sunny" translatable="false">&#xf00d;</string>
+    <string name="weather_clear_night" translatable="false">&#xf02e;</string>
+    <string name="weather_foggy" translatable="false">&#xf014;</string>
+    <string name="weather_cloudy" translatable="false">&#xf013;</string>
+    <string name="weather_rainy" translatable="false">&#xf019;</string>
+    <string name="weather_snowy" translatable="false">&#xf01b;</string>
+    <string name="weather_thunder" translatable="false">&#xf01e;</string>
+    <string name="weather_drizzle" translatable="false">&#xf01c;</string>
+    <string name="humidity_icon" translatable="false">&#xf07a;</string>
+    <string name="pressure_icon" translatable="false">&#xf079;</string>
+    <string name="wind_icon" translatable="false">&#xf050;</string>
+
+    <string name="north_wind_icon" translatable="false">&#xf044;</string>
+    <string name="south_wind_icon" translatable="false">&#xf058;</string>
+    <string name="east_wind_icon" translatable="false">&#xf048;</string>
+    <string name="west_wind_icon" translatable="false">&#xf04d;</string>
+    <string name="north_east_wind_icon" translatable="false">&#xf043;</string>
+    <string name="south_west_wind_icon" translatable="false">&#xf057;</string>
+    <string name="north_west_wind_icon" translatable="false">&#xf088;</string>
+    <string name="south_east_wind_icon" translatable="false">&#xf087;</string>
+
     <string name="sunrise">Sunrise</string>
     <string name="sunset">Sunset</string>
+    <string name="city_name">City</string>
+    <string name="sunrise_sunset">Sunrise and sunset</string>
+    <string name="developer_name" translatable="false">by Vladimir Nehvedovich</string>
 
 </resources>

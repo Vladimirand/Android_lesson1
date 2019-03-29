@@ -5,21 +5,23 @@
     <string name="activity_name_settings">Настройки</string>
     <string name="pogoda">Погода</string>
     <string name="weather_conditions">Солнечно</string>
-    <string name="wind_speed">- м/с,</string>
-    <string name="direction_wind">нет данных</string>
-    <string name="humidity">- %</string>
-    <string name="pressure">- мм.рт.ст.</string>
+    <string name="wind_speed_m_s"> м/с,</string>
+    <string name="direction_wind">N/A</string>
+    <string name="humidity">%</string>
+    <string name="pressure_mmHg">мм.рт.ст.</string>
+
     <!--<string name="city_name_1">Минск</string>-->
     <!--<string name="city_name_2">Москва</string>-->
     <!--<string name="city_name_3">Рим</string>-->
     <!--<string name="city_name_4">Санкт-Петербург</string>-->
+
     <string name="wind_indication">Ветер</string>
     <string name="humidity_indication">Влажность</string>
     <string name="pressure_indication">Давление</string>
     <string name="dark_theme">Темная тема</string>
     <string name="more_information">Подробнее</string>
     <string name="history">История</string>
-    <string name="feels_like">Ощущается как</string>
+    <string name="feels_like_text">Ощущается как</string>
     <string name="choose_city">Введите город</string>
     <string name="delete">Удалить</string>
     <string name="link">Ссылка</string>
@@ -27,4 +29,10 @@
     <string name="location">ru</string>
     <string name="sunrise">Восход</string>
     <string name="sunset">Закат</string>
+    <string name="city_name">Город</string>
+    <string name="sunrise_sunset">Восход и закат</string>
+
+    <string name="place_not_found">
+Извините, данные о погоде не найдены.</string>
+
 </resources>

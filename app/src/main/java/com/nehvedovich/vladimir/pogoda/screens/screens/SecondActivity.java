@@ -1,10 +1,13 @@
 package com.nehvedovich.vladimir.pogoda.screens.screens;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,8 +18,15 @@ import android.widget.Toast;
 import com.nehvedovich.vladimir.pogoda.R;
 import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CityInfoFragment;
 
-public class SecondActivity extends AppCompatActivity {
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
+public class SecondActivity extends AppCompatActivity {
+    public File imagePath;
+
+//    File imagePath = new File(context.getFilesDir(), "screenshot");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +55,14 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                TextView city = findViewById(R.id.cityNameInfo);
+
+                TextView city = findViewById(R.id.cityName);
                 String cityName = (String) city.getText();
+                if(cityName.contains(" ")){
+                    cityName= cityName.substring(0, cityName.indexOf(","));}
+
+
+
                 Uri uri = Uri.parse("http://yandex.ru/pogoda/" + cityName);
                 intent.setData(uri);
                 if (intent.resolveActivity(getPackageManager()) != null) {
@@ -69,8 +85,14 @@ public class SecondActivity extends AppCompatActivity {
         //отправляем ссылку о состоянии погоды в городе отображенном на экране
         if (item.getItemId() == R.id.share_link){
             Intent intent = new Intent(Intent.ACTION_SEND);
-            TextView city = findViewById(R.id.cityNameInfo);
+//            TextView city = findViewById(R.id.cityNameInfo);
+//            String cityName = (String) city.getText();
+
+            TextView city = findViewById(R.id.cityName);
             String cityName = (String) city.getText();
+            if(cityName.contains(" ")){
+                cityName= cityName.substring(0, cityName.indexOf(","));}
+
             String t = ("http://yandex.ru/pogoda/" + cityName);
             intent.putExtra(Intent.EXTRA_TEXT, t);
             intent.setType("text/plain");
@@ -81,6 +103,13 @@ public class SecondActivity extends AppCompatActivity {
                 Toast.makeText(SecondActivity.this, "\n" +
                         "Application does not exist", Toast.LENGTH_SHORT).show();
             }
+        }
+        //Делаем скриншот экрана и отправляем его другу
+        if (item.getItemId() == R.id.share_screenshot){
+            Bitmap bitmap = takeScreenshot();
+            saveBitmap(bitmap);
+            shareIt();
+
         }
 
         //noinspection SimplifiableIfStatement
@@ -95,4 +124,38 @@ public class SecondActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_for_second_activity, menu);
         return true;
     }
+
+    public Bitmap takeScreenshot() {
+        View rootView = findViewById(android.R.id.content).getRootView();
+        rootView.setDrawingCacheEnabled(true);
+        return rootView.getDrawingCache();
+    }
+
+    public void saveBitmap(Bitmap bitmap) {
+        imagePath = new File(Environment.getExternalStorageDirectory() + "/screenshot.png");
+        FileOutputStream fos;
+        try {
+            fos = new FileOutputStream(imagePath);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.flush();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            Log.e("GREC", e.getMessage(), e);
+        } catch (IOException e) {
+            Log.e("GREC", e.getMessage(), e);
+        }
+    }
+
+    private void shareIt() {
+        Uri uri = Uri.fromFile(imagePath);
+        Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+        sharingIntent.setType("image/*");
+//        String shareBody = "In Tweecher, My highest score with screen shot";
+        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "My Tweecher score");
+//        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+        sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
+
+        startActivity(Intent.createChooser(sharingIntent, "Share via"));
+    }
+
 }

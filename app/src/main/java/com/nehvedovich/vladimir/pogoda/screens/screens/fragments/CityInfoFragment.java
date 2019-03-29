@@ -24,18 +24,25 @@ import java.util.Date;
 public class CityInfoFragment extends Fragment {
 
     public static final String CITY_NAME_EXSTRA = "cityLookingFor";
-
     private static final String FONT_FILENAME = "fonts/weathericons.ttf";
 
     private final Handler handler = new Handler();
     private Typeface weatherFont;
     private TextView cityTextView;
+    private TextView cityName;
     //    private TextView updatedTextView;
 //    private TextView detailsTextView;
     private TextView sunriseTextView;
     private TextView sunsetTextView;
     private TextView weatherConditions;
     private TextView currentTemperatureTextView;
+    private TextView humidityTextView;
+    private TextView humidityIcon;
+    private TextView windTextView;
+    private TextView windIcon;
+    private TextView directionWindIcon;
+    private TextView pressureTextView;
+    private TextView pressureIcon;
     private TextView weatherIcon;
     private ProgressBar progressBar;
 
@@ -47,11 +54,11 @@ public class CityInfoFragment extends Fragment {
 
         Bundle bundle = getArguments();
 
-        boolean wind = false;
-        boolean humidity = false;
+//        boolean wind = false;
+//        boolean humidity = false;
         boolean pressure = false;
         boolean feelLike = false;
-
+        boolean sunriseSunset = false;
 
         if (bundle != null) {
             TextView cityName = layout.findViewById(R.id.cityNameInfo);
@@ -59,36 +66,43 @@ public class CityInfoFragment extends Fragment {
 //загружаем данные погоды
             updateWeatherData(bundle.getString(CITY_NAME_EXSTRA), getString(R.string.location));
 
-            wind = bundle.getBoolean(CitiesFragment.CHECK_BOX_WIND);
-            humidity = bundle.getBoolean(CitiesFragment.CHECK_BOX_HUMIDITY);
+//            wind = bundle.getBoolean(CitiesFragment.CHECK_BOX_WIND);
+//            humidity = bundle.getBoolean(CitiesFragment.CHECK_BOX_HUMIDITY);
             pressure = bundle.getBoolean(CitiesFragment.CHECK_BOX_PRESSURE);
             feelLike = bundle.getBoolean(CitiesFragment.CHECK_BOX_FEEL_LIKE);
+            sunriseSunset = bundle.getBoolean(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET);
+
         }
 
-//        Обработка CheckBox Wind
-        TextView textWind = (TextView) layout.findViewById(R.id.textWind);
-        TextView textDirection = (TextView) layout.findViewById(R.id.directionWind);
+////        Обработка CheckBox Wind
+//        View textWind = (View) layout.findViewById(R.id.viewWind);
+//        if (wind == true) {
+//            textWind.setVisibility(View.VISIBLE);
+//        } else {
+//            textWind.setVisibility(View.GONE);
+//        }
 
-        if (wind == true) {
-            textWind.setVisibility(View.VISIBLE);
-            textDirection.setVisibility(View.VISIBLE);
+//        //Обработка CheckBox humidity
+//        View textHumidity = (View) layout.findViewById(R.id.viewHumidity);
+//        if (humidity == true) {
+//            textHumidity.setVisibility(View.VISIBLE);
+//        } else {
+//            textHumidity.setVisibility(View.GONE);
+//        }
+//
+        //Обработка CheckBox SunriseAndSunset
+        TextView textSunrise = (TextView) layout.findViewById(R.id.textSunrise);
+        TextView textSunset = (TextView) layout.findViewById(R.id.textSunset);
+        if (sunriseSunset == true) {
+            textSunrise.setVisibility(View.VISIBLE);
+            textSunset.setVisibility(View.VISIBLE);
         } else {
-            textWind.setVisibility(View.GONE);
-            textDirection.setVisibility(View.GONE);
-        }
-
-        //Обработка CheckBox humidity
-        TextView textHumidity = (TextView) layout.findViewById(R.id.textHumidity);
-
-        if (humidity == true) {
-            textHumidity.setVisibility(View.VISIBLE);
-        } else {
-            textHumidity.setVisibility(View.GONE);
+            textSunrise.setVisibility(View.GONE);
+            textSunset.setVisibility(View.GONE);
         }
 
         //Обработка CheckBox Pressure
-        TextView textPressure = (TextView) layout.findViewById(R.id.textPressure);
-
+        View textPressure = (View) layout.findViewById(R.id.viewPressure);
         if (pressure == true) {
             textPressure.setVisibility(View.VISIBLE);
         } else {
@@ -98,7 +112,6 @@ public class CityInfoFragment extends Fragment {
         //Обработка CheckBox FeelLike
         TextView textFeelLike = (TextView) layout.findViewById(R.id.textFeelsLike);
         TextView textFeelLikeT = (TextView) layout.findViewById(R.id.textFeelsLikeT);
-
         if (feelLike == true) {
             textFeelLike.setVisibility(View.VISIBLE);
             textFeelLikeT.setVisibility(View.VISIBLE);
@@ -106,18 +119,33 @@ public class CityInfoFragment extends Fragment {
             textFeelLike.setVisibility(View.GONE);
             textFeelLikeT.setVisibility(View.GONE);
         }
+        cityTextView = layout.findViewById(R.id.cityName);
+        cityName = layout.findViewById(R.id.cityNameInfo);
 
         currentTemperatureTextView = layout.findViewById(R.id.textTemperature);
         weatherIcon = layout.findViewById(R.id.weather_icon);
         weatherFont = Typeface.createFromAsset(getActivity().getAssets(), FONT_FILENAME);
         weatherIcon.setTypeface(weatherFont);
+
         weatherConditions = layout.findViewById(R.id.weather_conditions);
         progressBar = layout.findViewById(R.id.progressBar);
         sunriseTextView = layout.findViewById(R.id.textSunrise);
         sunsetTextView = layout.findViewById(R.id.textSunset);
+        humidityTextView = layout.findViewById(R.id.textHumidity);
+        humidityIcon = layout.findViewById(R.id.iconHumidity);
+        humidityIcon.setTypeface(weatherFont);
+
+        windTextView = layout.findViewById(R.id.textWind);
+        windIcon = layout.findViewById(R.id.iconWind);
+        windIcon.setTypeface(weatherFont);
+        directionWindIcon = layout.findViewById(R.id.directionWind);
+        directionWindIcon.setTypeface(weatherFont);
+
+        pressureTextView = layout.findViewById(R.id.textPressure);
+        pressureIcon = layout.findViewById(R.id.iconPressure);
+        pressureIcon.setTypeface(weatherFont);
         return layout;
     }
-
 
 //    private void setViews() {
 ////        cityTextView = getActivity().findViewById(R.id.cityNameInfo);
@@ -157,23 +185,35 @@ public class CityInfoFragment extends Fragment {
         Log.d("Log", "json " + json.toString());
 
         try {
-//            cityTextView.setText(json.getString("name").toUpperCase(Locale.US) +
-//                    ", " +
-//                    json.getJSONObject("sys").getString("country"));
+            cityTextView.setText(json.getString("name") +
+                    ", " +
+                    json.getJSONObject("sys").getString("country"));
+
 
             JSONObject details = json.getJSONArray("weather").getJSONObject(0);
             JSONObject main = json.getJSONObject("main");
-            weatherConditions.setText(details.getString("description"));
+            JSONObject wind = json.getJSONObject("wind");
+            weatherConditions.setText(details.getString("description").toUpperCase());
 
-//            detailsTextView.setText(details.getString("description").toUpperCase(Locale.US) +
-//                    "\n" +
-//                    "Humidity: " +
-//                    main.getString("humidity")
-//                    "%" +
-//                    "\n" +
-//                    "Pressure: " +
-//                    main.getString("pressure")
-//                    + " hPa");
+            windIcon.setText(getString(R.string.wind_icon));
+            windTextView.setText(wind.getString("speed") + " " + getString(R.string.wind_speed_m_s));
+
+            //получаем направление ветра
+            setWindDirecrionIcon(wind.getInt("deg"));
+
+            humidityIcon.setText(getString(R.string.humidity_icon));
+            humidityTextView.setText(main.getString("humidity") + "%");
+
+            pressureIcon.setText(getString(R.string.pressure_icon));
+
+//          pressureTextView.setText(main.getString("pressure") + "hPa");
+
+            //переводим значение hPa в мм.рт.ст
+            String s = (main.getString("pressure"));
+            double i = Double.valueOf(s) * 0.750062;
+            String si = String.format("%.0f", i); //отображаем только значение до запятой
+            pressureTextView.setText(si + " " + getString(R.string.pressure_mmHg));
+
 
             currentTemperatureTextView.setText(String.format("%.0f", main.getDouble("temp")) + " ℃");
 
@@ -181,8 +221,6 @@ public class CityInfoFragment extends Fragment {
 //            DateFormat sunrise = DateFormat.getDateTimeInstance();  //отображение даты полностью
             DateFormat sunrise = new SimpleDateFormat("HH:mm"); //отображение только времени часы/минуты
             String sunriseTime = sunrise.format(new Date(json.getJSONObject("sys").getLong("sunrise") * 1000));
-//            DateFormat t = new SimpleDateFormat("HH/mm");
-//            Date tt = t.parse(t.format(sunriseTime));
 
             sunriseTextView.setText(getString(R.string.sunrise) + ":  " + sunriseTime);
 
@@ -243,5 +281,28 @@ public class CityInfoFragment extends Fragment {
             }
         }
         weatherIcon.setText(icon);
+    }
+
+    //обработка данных для получения направления ветра
+    private void setWindDirecrionIcon(int deg) {
+        String icon = "";
+        if (deg >= 23 & deg <= 67) {
+            icon = getString(R.string.north_east_wind_icon);
+        } else if (deg >= 68 & deg <= 112) {
+            icon = getString(R.string.east_wind_icon);
+        } else if (deg >= 113 & deg <= 157) {
+            icon = getString(R.string.south_east_wind_icon);
+        } else if (deg >= 158 & deg <= 202) {
+            icon = getString(R.string.south_wind_icon);
+        } else if (deg >= 203 & deg <= 247) {
+            icon = getString(R.string.south_west_wind_icon);
+        } else if (deg >= 248 & deg <= 292) {
+            icon = getString(R.string.west_wind_icon);
+        } else if (deg >= 293 & deg <= 337) {
+            icon = getString(R.string.north_west_wind_icon);
+        } else {
+            icon = getString(R.string.north_wind_icon);
+        }
+        directionWindIcon.setText(icon);
     }
 }

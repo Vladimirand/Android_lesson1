@@ -29,14 +29,13 @@
         android:src="@drawable/front_night"
         android:visibility="gone" />
 
-    //исправить хардкод
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="550dp"
         android:textColor="@color/color_gray"
-        android:text="by Vladimir Nehvedovich" />
+        android:text="@string/developer_name" />
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"

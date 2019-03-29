@@ -24,11 +24,11 @@ public class MainActivity extends AppCompatActivity {
 
     public static boolean NIGHT;
 
-    public CheckBox wind;
-    public CheckBox humidity;
+//    public CheckBox wind;
+//    public CheckBox humidity;
     public CheckBox pressure;
     public CheckBox feelsLike;
-
+    public CheckBox sunriseSunset;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,29 +37,32 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        wind = (CheckBox) findViewById(R.id.checkBoxWind);
-        humidity = (CheckBox) findViewById(R.id.checkBoxHumidity);
+//        wind = (CheckBox) findViewById(R.id.checkBoxWind);
+//        humidity = (CheckBox) findViewById(R.id.checkBoxHumidity);
         pressure = (CheckBox) findViewById(R.id.checkBoxPressure);
         feelsLike = (CheckBox) findViewById(R.id.checkBoxFeelsLike);
+        sunriseSunset = (CheckBox) findViewById(R.id.checkBoxSunriseAndSunset);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        save1(wind.isChecked());
-        save2(humidity.isChecked());
+//        save1(wind.isChecked());
+//        save2(humidity.isChecked());
         save3(pressure.isChecked());
         save4(feelsLike.isChecked());
+        save5(sunriseSunset.isChecked());
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        wind.setChecked(load1());
-        humidity.setChecked(load2());
+//        wind.setChecked(load1());
+//        humidity.setChecked(load2());
         pressure.setChecked(load3());
         feelsLike.setChecked(load4());
+        sunriseSunset.setChecked(load5());
 
         ImageView imageNight = (ImageView) findViewById(R.id.landscapeNight);
 
@@ -97,6 +100,12 @@ public class MainActivity extends AppCompatActivity {
         editor.putBoolean("check4", isChecked);
         editor.commit();
     }
+    private void save5(final boolean isChecked) {
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("check5", isChecked);
+        editor.commit();
+    }
 
     private boolean load1() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
@@ -116,6 +125,10 @@ public class MainActivity extends AppCompatActivity {
     private boolean load4() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean("check4", false);
+    }
+    private boolean load5() {
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean("check5", false);
     }
 
     //меню
@@ -146,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //показать диалог выбора города
+    //показать диалог выбора города (ПОИСК)
     private void showInputDialog() {
         AlertDialog.Builder chooseCity = new AlertDialog.Builder(this);
         chooseCity.setIcon(R.mipmap.ic_launcher);
@@ -164,14 +177,14 @@ public class MainActivity extends AppCompatActivity {
                 if (city != null) {
                     intent.putExtra(CityInfoFragment.CITY_NAME_EXSTRA, city);
                 }
-                intent.putExtra(CitiesFragment.CHECK_BOX_WIND, wind.isChecked());
-                intent.putExtra(CitiesFragment.CHECK_BOX_HUMIDITY, humidity.isChecked());
+//                intent.putExtra(CitiesFragment.CHECK_BOX_WIND, wind.isChecked());
+//                intent.putExtra(CitiesFragment.CHECK_BOX_HUMIDITY, humidity.isChecked());
                 intent.putExtra(CitiesFragment.CHECK_BOX_PRESSURE, pressure.isChecked());
                 intent.putExtra(CitiesFragment.CHECK_BOX_FEEL_LIKE, feelsLike.isChecked());
+                intent.putExtra(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET, sunriseSunset.isChecked());
                 startActivity(intent);
             }
         });
         chooseCity.show();
-
     }
 }
