@@ -69,7 +69,7 @@ public class SecondActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     Toast.makeText(SecondActivity.this, "\n" +
-                            "Application does not exist", Toast.LENGTH_SHORT).show();
+                            getString(R.string.application_absent), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -101,7 +101,7 @@ public class SecondActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 Toast.makeText(SecondActivity.this, "\n" +
-                        "Application does not exist", Toast.LENGTH_SHORT).show();
+                        getString(R.string.application_absent), Toast.LENGTH_SHORT).show();
             }
         }
         //Делаем скриншот экрана и отправляем его другу

@@ -48,6 +48,12 @@
                 android:layout_height="wrap_content"
                 android:text="@string/city_name_3" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="25dp"
+                android:text="@string/more_info_text" />
+
             <RadioGroup
                 android:id="@+id/checkBoxGroup"
                 android:layout_width="wrap_content"
@@ -75,18 +81,18 @@
                     android:text="@string/sunrise_sunset" />
 
                 <!--<CheckBox-->
-                    <!--android:id="@+id/checkBoxWind"-->
-                    <!--style="@style/CheckBoxStyle"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="@string/wind_indication" />-->
+                <!--android:id="@+id/checkBoxWind"-->
+                <!--style="@style/CheckBoxStyle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/wind_indication" />-->
 
                 <!--<CheckBox-->
-                    <!--android:id="@+id/checkBoxHumidity"-->
-                    <!--style="@style/CheckBoxStyle"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="@string/humidity_indication" />-->
+                <!--android:id="@+id/checkBoxHumidity"-->
+                <!--style="@style/CheckBoxStyle"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="@string/humidity_indication" />-->
 
             </RadioGroup>
         </LinearLayout>

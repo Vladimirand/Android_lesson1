@@ -54,8 +54,6 @@ public class CityInfoFragment extends Fragment {
 
         Bundle bundle = getArguments();
 
-//        boolean wind = false;
-//        boolean humidity = false;
         boolean pressure = false;
         boolean feelLike = false;
         boolean sunriseSunset = false;
@@ -66,30 +64,12 @@ public class CityInfoFragment extends Fragment {
 //загружаем данные погоды
             updateWeatherData(bundle.getString(CITY_NAME_EXSTRA), getString(R.string.location));
 
-//            wind = bundle.getBoolean(CitiesFragment.CHECK_BOX_WIND);
-//            humidity = bundle.getBoolean(CitiesFragment.CHECK_BOX_HUMIDITY);
             pressure = bundle.getBoolean(CitiesFragment.CHECK_BOX_PRESSURE);
             feelLike = bundle.getBoolean(CitiesFragment.CHECK_BOX_FEEL_LIKE);
             sunriseSunset = bundle.getBoolean(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET);
 
         }
 
-////        Обработка CheckBox Wind
-//        View textWind = (View) layout.findViewById(R.id.viewWind);
-//        if (wind == true) {
-//            textWind.setVisibility(View.VISIBLE);
-//        } else {
-//            textWind.setVisibility(View.GONE);
-//        }
-
-//        //Обработка CheckBox humidity
-//        View textHumidity = (View) layout.findViewById(R.id.viewHumidity);
-//        if (humidity == true) {
-//            textHumidity.setVisibility(View.VISIBLE);
-//        } else {
-//            textHumidity.setVisibility(View.GONE);
-//        }
-//
         //Обработка CheckBox SunriseAndSunset
         TextView textSunrise = (TextView) layout.findViewById(R.id.textSunrise);
         TextView textSunset = (TextView) layout.findViewById(R.id.textSunset);

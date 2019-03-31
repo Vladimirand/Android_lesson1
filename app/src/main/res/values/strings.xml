@@ -64,6 +64,11 @@
         <item>+13</item>
     </string-array>
 
+    <string name="nav_header_title">Enter your name</string>
+    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="place_not_found">Sorry, no weather data found.</string>
 
@@ -93,5 +98,17 @@
     <string name="city_name">City</string>
     <string name="sunrise_sunset">Sunrise and sunset</string>
     <string name="developer_name" translatable="false">by Vladimir Nehvedovich</string>
+    <string name="tools">Tools</string>
+    <string name="additionally">Additionally</string>
+    <string name="about_the_developer">About the developer</string>
+    <string name="feedback_form">Feedback form</string>
+    <string name="message_subject">Application \'Pogoda\'</string>
+    <string name="support_email" translatable="false">recipient@example.com</string>
+    <string name="problem_message">Describe your problem and add screenshot.</string>
+    <string name="more_info_text">Additional data to display:</string>
+    <string name="avatar">Сhange avatar</string>
+    <string name="send_mail_title">Send mail...</string>
+    <string name="application_absent">Application does not exist</string>
+    <string name="nav_change_name">Change name</string>
 
 </resources>

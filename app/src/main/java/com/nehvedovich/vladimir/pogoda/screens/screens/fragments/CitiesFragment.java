@@ -119,6 +119,7 @@ public class CitiesFragment extends Fragment {
 //        return humidity.isChecked();
 //    }
 
+
     public Boolean getCheckBoxPressure() {
         CheckBox pressure = getActivity().findViewById(R.id.checkBoxPressure);
         return pressure.isChecked();
