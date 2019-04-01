@@ -106,37 +106,37 @@ public class MainActivity extends AppCompatActivity
     private void saveCheckBoxPressure(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("check3", isChecked);
+        editor.putBoolean("checkPressure", isChecked);
         editor.commit();
     }
 
     private void saveCheckBoxFeelsLike(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("check4", isChecked);
+        editor.putBoolean("checkFeelsLike", isChecked);
         editor.commit();
     }
 
     private void saveCheckBoxSunriseSunset(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("check5", isChecked);
+        editor.putBoolean("checkSunriseSunset", isChecked);
         editor.commit();
     }
 
     private boolean loadCheckBoxPressure() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("check3", false);
+        return sharedPreferences.getBoolean("checkPressure", false);
     }
 
     private boolean loadCheckBoxFeelsLike() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("check4", false);
+        return sharedPreferences.getBoolean("checkFeelsLike", false);
     }
 
     private boolean loadCheckBoxSunriseSunset() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("check5", false);
+        return sharedPreferences.getBoolean("checkSunriseSunset", false);
     }
 
     //меню
@@ -236,7 +236,7 @@ showNameDialog();
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
         Bitmap bitmap = null;
-        ImageView imageView = (ImageView) findViewById(R.id.avatarView);
+        ImageView imageView = findViewById(R.id.avatarView);
 
         switch (requestCode) {
             case GALLERY_REQUEST:

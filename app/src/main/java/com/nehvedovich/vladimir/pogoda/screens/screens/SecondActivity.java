@@ -96,9 +96,6 @@ public class SecondActivity extends AppCompatActivity {
             saveBitmap(bitmap);
             shareIt();
         }
-
-        //noinspection SimplifiableIfStatement
-        int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
 
