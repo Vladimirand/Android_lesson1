@@ -14,20 +14,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.LinearLayout;
 
 import com.nehvedovich.vladimir.pogoda.R;
 import com.nehvedovich.vladimir.pogoda.screens.screens.SecondActivity;
 
 public class CitiesFragment extends Fragment {
 
-//    public static final String CHECK_BOX_WIND = "checkBoxWind";
-//    public static final String CHECK_BOX_HUMIDITY = "checkBoxHumidity";
     public static final String CHECK_BOX_PRESSURE = "checkBoxPressure";
     public static final String CHECK_BOX_FEEL_LIKE = "checkBoxFeelLike";
     public static final String CHECK_BOX_SUNRISE_AND_SUNSET = "checkBoxSunriseAndSunset";
-
-    LinearLayout btnCities;
 
     //подсветка при нажатии кнопки
     void addClickEffect(View view) {
@@ -54,8 +49,6 @@ public class CitiesFragment extends Fragment {
                 intent.putExtra(CityInfoFragment.CITY_NAME_EXSTRA, cityName);
                 btn.setPressed(true);
             }
-//            intent.putExtra(CHECK_BOX_WIND, getCheckBoxWind());
-//            intent.putExtra(CHECK_BOX_HUMIDITY, getCheckBoxHumidity());
             intent.putExtra(CHECK_BOX_PRESSURE, getCheckBoxPressure());
             intent.putExtra(CHECK_BOX_FEEL_LIKE, getCheckBoxFeelLike());
             intent.putExtra(CHECK_BOX_SUNRISE_AND_SUNSET, getCheckBoxSunriseSunset());
@@ -87,38 +80,7 @@ public class CitiesFragment extends Fragment {
         button2.setOnClickListener(onClickListener);
         button3.setOnClickListener(onClickListener);
         button4.setOnClickListener(onClickListener);
-
-//        String[] cities = getResources().getStringArray(R.array.cities);
-//        btnCities = (LinearLayout) getActivity().findViewById(R.id.cities);
-
-//        for (int i = 0; i < cities.length; i++) {
-//            Button j = new Button(this);
-//        j.setText(cities[i]);
-//        btnCities.addView(j);
-//        break;
-//        }
     }
-// // При повороте экрана сохраняем состояние
-//        @Override
-//    public void onSaveInstanceState(Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        outState.putSerializable("cityLookingFor", CityInfoFragment.CITY_NAME_EXSTRA);
-//        outState.putSerializable("checkBoxWind", CHECK_BOX_WIND);
-//        outState.putSerializable("checkBoxHumidity", CHECK_BOX_HUMIDITY);
-//        outState.putSerializable("checkBoxPressure", CHECK_BOX_PRESSURE);
-//    }
-
-
-//    public Boolean getCheckBoxWind() {
-//        CheckBox wind = getActivity().findViewById(R.id.checkBoxWind);
-//        return wind.isChecked();
-//    }
-//
-//    public Boolean getCheckBoxHumidity() {
-//        CheckBox humidity = getActivity().findViewById(R.id.checkBoxHumidity);
-//        return humidity.isChecked();
-//    }
-
 
     public Boolean getCheckBoxPressure() {
         CheckBox pressure = getActivity().findViewById(R.id.checkBoxPressure);

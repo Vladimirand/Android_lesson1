@@ -37,33 +37,6 @@
         <item>Saint Petersburg</item>
     </string-array>
 
-    <string-array name="Temperatures">
-        <item></item>
-        <item>+7</item>
-        <item>+5</item>
-        <item>+9</item>
-        <item>+8</item>
-        <item>+8</item>
-        <item>+5</item>
-        <item>+4</item>
-        <item>+6</item>
-        <item>+9</item>
-        <item>+8</item>
-        <item>+8</item>
-        <item>+5</item>
-        <item>+4</item>
-        <item>+6</item>
-        <item>+5</item>
-        <item>+8</item>
-        <item>+6</item>
-        <item>+8</item>
-        <item>+10</item>
-        <item>+9</item>
-        <item>+8</item>
-        <item>+12</item>
-        <item>+13</item>
-    </string-array>
-
     <string name="nav_header_title">Enter your name</string>
     <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>

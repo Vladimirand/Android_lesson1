@@ -22,15 +22,6 @@
         android:src="@drawable/front_night"
         android:visibility="gone" />
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_marginTop="550dp"-->
-        <!--android:textColor="@color/color_gray"-->
-        <!--android:text="@string/developer_name" />-->
-
-
     <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"

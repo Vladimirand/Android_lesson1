@@ -40,13 +40,6 @@
             android:layout_height="wrap_content"
             android:text="@string/more_information" />
 
-        <Button
-            android:id="@+id/infoTemperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/moreInformation"
-            android:visibility="gone"
-            android:text="@string/history" />
     </RelativeLayout>
 
 </FrameLayout>

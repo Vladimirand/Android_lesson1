@@ -10,11 +10,6 @@
     <string name="humidity">%</string>
     <string name="pressure_mmHg">мм.рт.ст.</string>
 
-    <!--<string name="city_name_1">Минск</string>-->
-    <!--<string name="city_name_2">Москва</string>-->
-    <!--<string name="city_name_3">Рим</string>-->
-    <!--<string name="city_name_4">Санкт-Петербург</string>-->
-
     <string name="wind_indication">Ветер</string>
     <string name="humidity_indication">Влажность</string>
     <string name="pressure_indication">Давление</string>

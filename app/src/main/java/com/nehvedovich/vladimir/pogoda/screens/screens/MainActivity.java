@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
 
     static final int GALLERY_REQUEST = 1;
 
-    public static boolean NIGHT;
+    public static boolean night;
 
     public CheckBox pressure;
     public CheckBox feelsLike;
@@ -48,12 +48,12 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setupNavigationDrawer(toolbar);
-        pressure = (CheckBox) findViewById(R.id.checkBoxPressure);
-        feelsLike = (CheckBox) findViewById(R.id.checkBoxFeelsLike);
-        sunriseSunset = (CheckBox) findViewById(R.id.checkBoxSunriseAndSunset);
+        pressure = findViewById(R.id.checkBoxPressure);
+        feelsLike = findViewById(R.id.checkBoxFeelsLike);
+        sunriseSunset = findViewById(R.id.checkBoxSunriseAndSunset);
     }
 
     private void setupNavigationDrawer(Toolbar toolbar) {
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -81,60 +81,60 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onPause() {
         super.onPause();
-        save1(pressure.isChecked());
-        save2(feelsLike.isChecked());
-        save3(sunriseSunset.isChecked());
+        saveCheckBoxPressure(pressure.isChecked());
+        saveCheckBoxFeelsLike(feelsLike.isChecked());
+        saveCheckBoxSunriseSunset(sunriseSunset.isChecked());
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        pressure.setChecked(load1());
-        feelsLike.setChecked(load2());
-        sunriseSunset.setChecked(load3());
+        pressure.setChecked(loadCheckBoxPressure());
+        feelsLike.setChecked(loadCheckBoxFeelsLike());
+        sunriseSunset.setChecked(loadCheckBoxSunriseSunset());
 
-        ImageView imageNight = (ImageView) findViewById(R.id.landscapeNight);
+        ImageView imageNight = findViewById(R.id.landscapeNight);
 
-        if (NIGHT == true) {
+        if (night) {
             imageNight.setVisibility(View.VISIBLE);
         } else {
             imageNight.setVisibility(View.GONE);
         }
     }
 
-    private void save1(final boolean isChecked) {
+    private void saveCheckBoxPressure(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("check3", isChecked);
         editor.commit();
     }
 
-    private void save2(final boolean isChecked) {
+    private void saveCheckBoxFeelsLike(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("check4", isChecked);
         editor.commit();
     }
 
-    private void save3(final boolean isChecked) {
+    private void saveCheckBoxSunriseSunset(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("check5", isChecked);
         editor.commit();
     }
 
-    private boolean load1() {
+    private boolean loadCheckBoxPressure() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean("check3", false);
     }
 
-    private boolean load2() {
+    private boolean loadCheckBoxFeelsLike() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean("check4", false);
     }
 
-    private boolean load3() {
+    private boolean loadCheckBoxSunriseSunset() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean("check5", false);
     }
@@ -181,9 +181,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(DialogInterface dialog, int which) {
                 String city = input.getText().toString();
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                if (city != null) {
                     intent.putExtra(CityInfoFragment.CITY_NAME_EXSTRA, city);
-                }
                 intent.putExtra(CitiesFragment.CHECK_BOX_PRESSURE, pressure.isChecked());
                 intent.putExtra(CitiesFragment.CHECK_BOX_FEEL_LIKE, feelsLike.isChecked());
                 intent.putExtra(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET, sunriseSunset.isChecked());
@@ -280,11 +278,10 @@ showNameDialog();
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String name = input.getText().toString();
-                TextView n = (TextView) findViewById(R.id.user_name);
+                TextView n = findViewById(R.id.user_name);
                 n.setText(name);
             }
         });
         name.show();
     }
-
 }

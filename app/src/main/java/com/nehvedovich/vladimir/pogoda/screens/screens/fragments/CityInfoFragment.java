@@ -30,8 +30,6 @@ public class CityInfoFragment extends Fragment {
     private Typeface weatherFont;
     private TextView cityTextView;
     private TextView cityName;
-    //    private TextView updatedTextView;
-//    private TextView detailsTextView;
     private TextView sunriseTextView;
     private TextView sunsetTextView;
     private TextView weatherConditions;
@@ -61,7 +59,7 @@ public class CityInfoFragment extends Fragment {
         if (bundle != null) {
             TextView cityName = layout.findViewById(R.id.cityNameInfo);
             cityName.setText(bundle.getString(CITY_NAME_EXSTRA));
-//загружаем данные погоды
+    //загружаем данные погоды
             updateWeatherData(bundle.getString(CITY_NAME_EXSTRA), getString(R.string.location));
 
             pressure = bundle.getBoolean(CitiesFragment.CHECK_BOX_PRESSURE);
@@ -90,8 +88,8 @@ public class CityInfoFragment extends Fragment {
         }
 
         //Обработка CheckBox FeelLike
-        TextView textFeelLike = (TextView) layout.findViewById(R.id.textFeelsLike);
-        TextView textFeelLikeT = (TextView) layout.findViewById(R.id.textFeelsLikeT);
+        TextView textFeelLike = layout.findViewById(R.id.textFeelsLike);
+        TextView textFeelLikeT = layout.findViewById(R.id.textFeelsLikeT);
         if (feelLike == true) {
             textFeelLike.setVisibility(View.VISIBLE);
             textFeelLikeT.setVisibility(View.VISIBLE);
@@ -126,15 +124,6 @@ public class CityInfoFragment extends Fragment {
         pressureIcon.setTypeface(weatherFont);
         return layout;
     }
-
-//    private void setViews() {
-////        cityTextView = getActivity().findViewById(R.id.cityNameInfo);
-//////            updatedTextView = findViewById(R.id.updated_field);
-////            detailsTextView = findViewById(R.id.details_field);
-//        currentTemperatureTextView = getActivity().findViewById(R.id.textTemperature);
-////            weatherIcon = findViewById(R.id.weather_icon);
-////            weatherIcon.setTypeface(weatherFont);
-//    }
 
     //Обновление/загрузка погодных данных
     private void updateWeatherData(final String city, final String location) {
