@@ -5,7 +5,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -33,9 +39,23 @@ import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CityInfoFragmen
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
 
     static final int GALLERY_REQUEST = 1;
+    private static final String FONT_FILENAME = "fonts/weathericons.ttf";
+
+    private Typeface weatherFont;
+    private TextView humidityIcon;
+    private TextView temperatureIcon;
+
+    private TextView temperaturelabel;
+    private SensorManager mSensorManager;
+    private Sensor mTemperature;
+    private TextView humiditylabel;
+    private SensorManager mSensorManager2;
+    private Sensor mHumidity;
+    private final static String NOT_SUPPORTED_MESSAGE = "";  //Если сенсора не существует, то ничего не выводим
+
 
     public static boolean night;
 
@@ -54,6 +74,29 @@ public class MainActivity extends AppCompatActivity
         pressure = findViewById(R.id.checkBoxPressure);
         feelsLike = findViewById(R.id.checkBoxFeelsLike);
         sunriseSunset = findViewById(R.id.checkBoxSunriseAndSunset);
+
+        weatherFont = Typeface.createFromAsset(getAssets(), FONT_FILENAME);
+        humidityIcon = findViewById(R.id.mIconHumidity);
+        humidityIcon.setTypeface(weatherFont);
+        temperatureIcon = findViewById(R.id.mIconTemperature);
+        temperatureIcon.setTypeface(weatherFont);
+
+        temperaturelabel = findViewById(R.id.temperature_in);
+        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.ICE_CREAM_SANDWICH){
+            mTemperature= mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE); // requires API level 14.
+        }
+        if (mTemperature == null) {
+            temperaturelabel.setText(NOT_SUPPORTED_MESSAGE);
+        }
+        humiditylabel = findViewById(R.id.humidity_in);
+        mSensorManager2 = (SensorManager)getSystemService(SENSOR_SERVICE);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.ICE_CREAM_SANDWICH){
+            mHumidity= mSensorManager2.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
+        }
+        if (mHumidity == null) {
+            humiditylabel.setText(NOT_SUPPORTED_MESSAGE);
+        }
     }
 
     private void setupNavigationDrawer(Toolbar toolbar) {
@@ -81,6 +124,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onPause() {
         super.onPause();
+        mSensorManager.unregisterListener(this);
+        mSensorManager2.unregisterListener(this);
+
         saveCheckBoxPressure(pressure.isChecked());
         saveCheckBoxFeelsLike(feelsLike.isChecked());
         saveCheckBoxSunriseSunset(sunriseSunset.isChecked());
@@ -89,6 +135,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
+
+        mSensorManager.registerListener(this, mTemperature, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager2.registerListener(this, mHumidity, SensorManager.SENSOR_DELAY_NORMAL);
 
         pressure.setChecked(loadCheckBoxPressure());
         feelsLike.setChecked(loadCheckBoxFeelsLike());
@@ -101,6 +150,22 @@ public class MainActivity extends AppCompatActivity
         } else {
             imageNight.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        float ambient_temperature = event.values[0];
+        temperatureIcon.setText(getString(R.string.temperature_icon));
+        temperaturelabel.setText(String.format("%.0f", ambient_temperature) + " ℃");
+
+        float ambient_humidity = event.values[0];
+        humidityIcon.setText(getString(R.string.humidity_icon));
+        humiditylabel.setText(String.format("%.0f", ambient_humidity) + "%");
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Do something here if sensor accuracy changes.
     }
 
     private void saveCheckBoxPressure(final boolean isChecked) {
