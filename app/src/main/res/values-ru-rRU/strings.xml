@@ -10,11 +10,6 @@
     <string name="humidity">%</string>
     <string name="pressure_mmHg">мм.рт.ст.</string>
 
-    <!--<string name="city_name_1">Минск</string>-->
-    <!--<string name="city_name_2">Москва</string>-->
-    <!--<string name="city_name_3">Рим</string>-->
-    <!--<string name="city_name_4">Санкт-Петербург</string>-->
-
     <string name="wind_indication">Ветер</string>
     <string name="humidity_indication">Влажность</string>
     <string name="pressure_indication">Давление</string>
@@ -34,5 +29,21 @@
 
     <string name="place_not_found">
 Извините, данные о погоде не найдены.</string>
+    <string name="tools">Инструменты</string>
+    <string name="additionally">Дополнительно</string>
+    <string name="about_the_developer">О разработчике</string>
+    <string name="feedback_form">Обратная связь</string>
+    <string name="message_subject">Приложение \'Погода\'</string>
+    <string name="problem_message">Опишите вашу проблему и добавьте скриншот.</string>
+
+    <string name="nav_header_desc">Заголовок навигационной панели</string>
+    <string name="navigation_drawer_open">Открыть навигационную панель</string>
+    <string name="navigation_drawer_close">Закрыть навигационную панель</string>
+    <string name="more_info_text">Дополнительные данные для отображения:</string>
+    <string name="avatar">Сменить аватар</string>
+    <string name="send_mail_title">Отправить письмо...</string>
+    <string name="application_absent">Приложение не существует</string>
+    <string name="nav_change_name">Изменить имя</string>
+    <string name="nav_header_title">Введите ваше имя</string>
 
 </resources>

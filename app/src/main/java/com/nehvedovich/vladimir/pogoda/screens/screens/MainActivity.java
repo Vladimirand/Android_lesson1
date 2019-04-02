@@ -4,7 +4,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -15,120 +23,120 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nehvedovich.vladimir.pogoda.R;
 import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CitiesFragment;
 import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CityInfoFragment;
 
-public class MainActivity extends AppCompatActivity {
+import java.io.IOException;
 
-    public static boolean NIGHT;
+public class MainActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-//    public CheckBox wind;
-//    public CheckBox humidity;
+    static final int GALLERY_REQUEST = 1;
+
+    public static boolean night;
+
     public CheckBox pressure;
     public CheckBox feelsLike;
     public CheckBox sunriseSunset;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        setupNavigationDrawer(toolbar);
+        pressure = findViewById(R.id.checkBoxPressure);
+        feelsLike = findViewById(R.id.checkBoxFeelsLike);
+        sunriseSunset = findViewById(R.id.checkBoxSunriseAndSunset);
+    }
 
-//        wind = (CheckBox) findViewById(R.id.checkBoxWind);
-//        humidity = (CheckBox) findViewById(R.id.checkBoxHumidity);
-        pressure = (CheckBox) findViewById(R.id.checkBoxPressure);
-        feelsLike = (CheckBox) findViewById(R.id.checkBoxFeelsLike);
-        sunriseSunset = (CheckBox) findViewById(R.id.checkBoxSunriseAndSunset);
+    private void setupNavigationDrawer(Toolbar toolbar) {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
     public void onPause() {
         super.onPause();
-//        save1(wind.isChecked());
-//        save2(humidity.isChecked());
-        save3(pressure.isChecked());
-        save4(feelsLike.isChecked());
-        save5(sunriseSunset.isChecked());
+        saveCheckBoxPressure(pressure.isChecked());
+        saveCheckBoxFeelsLike(feelsLike.isChecked());
+        saveCheckBoxSunriseSunset(sunriseSunset.isChecked());
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-//        wind.setChecked(load1());
-//        humidity.setChecked(load2());
-        pressure.setChecked(load3());
-        feelsLike.setChecked(load4());
-        sunriseSunset.setChecked(load5());
+        pressure.setChecked(loadCheckBoxPressure());
+        feelsLike.setChecked(loadCheckBoxFeelsLike());
+        sunriseSunset.setChecked(loadCheckBoxSunriseSunset());
 
-        ImageView imageNight = (ImageView) findViewById(R.id.landscapeNight);
+        ImageView imageNight = findViewById(R.id.landscapeNight);
 
-        if (NIGHT == true) {
+        if (night) {
             imageNight.setVisibility(View.VISIBLE);
         } else {
             imageNight.setVisibility(View.GONE);
         }
     }
 
-    private void save1(final boolean isChecked) {
+    private void saveCheckBoxPressure(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("check1", isChecked);
+        editor.putBoolean("checkPressure", isChecked);
         editor.commit();
     }
 
-    private void save2(final boolean isChecked) {
+    private void saveCheckBoxFeelsLike(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("check2", isChecked);
+        editor.putBoolean("checkFeelsLike", isChecked);
         editor.commit();
     }
 
-    private void save3(final boolean isChecked) {
+    private void saveCheckBoxSunriseSunset(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("check3", isChecked);
+        editor.putBoolean("checkSunriseSunset", isChecked);
         editor.commit();
     }
 
-    private void save4(final boolean isChecked) {
+    private boolean loadCheckBoxPressure() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("check4", isChecked);
-        editor.commit();
-    }
-    private void save5(final boolean isChecked) {
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("check5", isChecked);
-        editor.commit();
+        return sharedPreferences.getBoolean("checkPressure", false);
     }
 
-    private boolean load1() {
+    private boolean loadCheckBoxFeelsLike() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("check1", false);
+        return sharedPreferences.getBoolean("checkFeelsLike", false);
     }
 
-    private boolean load2() {
+    private boolean loadCheckBoxSunriseSunset() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("check2", false);
-    }
-
-    private boolean load3() {
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("check3", false);
-    }
-
-    private boolean load4() {
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("check4", false);
-    }
-    private boolean load5() {
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("check5", false);
+        return sharedPreferences.getBoolean("checkSunriseSunset", false);
     }
 
     //меню
@@ -139,8 +147,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-
-        //обработка нажатия пункта меню
+    //обработка нажатия пункта меню
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -174,11 +181,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 String city = input.getText().toString();
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                if (city != null) {
                     intent.putExtra(CityInfoFragment.CITY_NAME_EXSTRA, city);
-                }
-//                intent.putExtra(CitiesFragment.CHECK_BOX_WIND, wind.isChecked());
-//                intent.putExtra(CitiesFragment.CHECK_BOX_HUMIDITY, humidity.isChecked());
                 intent.putExtra(CitiesFragment.CHECK_BOX_PRESSURE, pressure.isChecked());
                 intent.putExtra(CitiesFragment.CHECK_BOX_FEEL_LIKE, feelsLike.isChecked());
                 intent.putExtra(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET, sunriseSunset.isChecked());
@@ -186,5 +189,99 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         chooseCity.show();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        // Handle navigation view item clicks here.
+        int id = menuItem.getItemId();
+
+        if (id == R.id.nav_avatar) {
+            //пользователь может выбрать аватарку из галерии
+            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
+            photoPickerIntent.setType("image/*");
+            startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
+        } else if (id == R.id.nav_name) {
+showNameDialog();
+
+        } else if (id == R.id.nav_manage) {
+            startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            return true;
+
+
+        } else if (id == R.id.about_the_developer) {
+            showDeveloperDialog();
+        } else if (id == R.id.feedback_form) {
+            //пользователь может отправить сообщение в техподдержку по email
+            Intent i = new Intent(Intent.ACTION_SENDTO);
+            i.setData(Uri.parse("mailto:" + getString(R.string.support_email)));
+            i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.message_subject));
+            i.putExtra(Intent.EXTRA_TEXT, getString(R.string.problem_message));
+            try {
+                startActivity(Intent.createChooser(i, getString(R.string.send_mail_title)));
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(MainActivity.this, "\n" +
+                        getString(R.string.application_absent), Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    // метод для загрузки пользовательской аватарки из галерии
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        Bitmap bitmap = null;
+        ImageView imageView = findViewById(R.id.avatarView);
+
+        switch (requestCode) {
+            case GALLERY_REQUEST:
+                if (resultCode == RESULT_OK) {
+                    Uri selectedImage = imageReturnedIntent.getData();
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    imageView.setImageBitmap(bitmap);
+                }
+        }
+    }
+
+    //показываем окно с информацией о разработчике
+    private void showDeveloperDialog() {
+        AlertDialog.Builder byAuthotor = new AlertDialog.Builder(this);
+        byAuthotor.setIcon(R.mipmap.ic_launcher);
+        byAuthotor.setTitle(R.string.developer_name);
+
+        byAuthotor.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        byAuthotor.show();
+    }
+
+
+    private void showNameDialog() {
+        AlertDialog.Builder name = new AlertDialog.Builder(this);
+        name.setTitle(R.string.nav_header_title);
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        name.setView(input);
+
+        name.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String name = input.getText().toString();
+                TextView n = findViewById(R.id.user_name);
+                n.setText(name);
+            }
+        });
+        name.show();
     }
 }

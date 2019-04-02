@@ -15,9 +15,6 @@ import com.nehvedovich.vladimir.pogoda.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    public static final String CHECK_BOX_DARK = "dark";
-//    public static boolean NIGHT;
-
     public CheckBox darkThemeCheckbox;
 
     @Override
@@ -29,8 +26,8 @@ public class SettingsActivity extends AppCompatActivity {
         actionbar.setHomeButtonEnabled(true);
         actionbar.setDisplayHomeAsUpEnabled(true);
 
-        darkThemeCheckbox = (CheckBox) findViewById(R.id.darkThemeCheckBox);
-        final ImageView darkBackground = (ImageView) findViewById(R.id.backgroundSettings);
+        darkThemeCheckbox = findViewById(R.id.darkThemeCheckBox);
+        final ImageView darkBackground = findViewById(R.id.backgroundSettings);
 
         darkThemeCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
@@ -38,18 +35,14 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-
                 if (isChecked) {
-                    MainActivity.NIGHT = true;
-//                    getPreferences(MODE_PRIVATE).edit().putBoolean("night", true).apply();
+                    MainActivity.night = true;
                     darkBackground.setVisibility(View.VISIBLE);
 
                 } else {
                     darkBackground.setVisibility(View.GONE);
-                    MainActivity.NIGHT = false;
+                    MainActivity.night = false;
                 }
-//                Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
-//                intent.putExtra(CHECK_BOX_DARK, darkThemeCheckbox.isChecked());
             }
         });
     }
@@ -57,24 +50,23 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        save(darkThemeCheckbox.isChecked());
+        saveCheckBoxDurkTheme(darkThemeCheckbox.isChecked());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        darkThemeCheckbox.setChecked(load());
+        darkThemeCheckbox.setChecked(loadCheckBoxDurkTheme());
     }
 
-    private void save(final boolean isChecked) {
+    private void saveCheckBoxDurkTheme(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("check", isChecked);
         editor.commit();
     }
 
-    private boolean load() {
+    private boolean loadCheckBoxDurkTheme() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean("check", false);
     }
@@ -87,21 +79,6 @@ public class SettingsActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-//    @Override
-//    public void onBackPressed() {
-//                SharedPreferences sp = getSharedPreferences(CHECK_BOX_DARK, 0);
-//        SharedPreferences.Editor editor = sp.edit();
-//        editor.putString(CHECK_BOX_DARK, "dark");
-//        editor.commit();
-//    }
-
-//    @Overrid
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
-//        intent.putExtra(CHECK_BOX_DARK, darkThemeCheckbox.isChecked());
-//    }
 }
 
 

@@ -97,12 +97,6 @@
                     android:layout_toEndOf="@+id/weather_icon"
                     android:text="@string/sunset" />
 
-                <!--<ImageView-->
-                <!--android:layout_width="150dp"-->
-                <!--android:layout_height="150dp"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--android:adjustViewBounds="true"-->
-                <!--android:src="@drawable/sun_001_icon" />-->
             </RelativeLayout>
 
             <TextView
@@ -113,12 +107,6 @@
                 android:text="@string/pogoda"
                 android:textSize="20dp" />
 
-
-            <!--<TextView-->
-            <!--android:id="@+id/weather_conditions"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/weather_conditions" />-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -247,7 +235,5 @@
                 android:indeterminateTintMode="src_atop" />
 
         </LinearLayout>
-
     </FrameLayout>
-
 </android.support.constraint.ConstraintLayout>

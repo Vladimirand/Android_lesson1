@@ -3,12 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.nehvedovich.vladimir.myapplication.MainActivity">
 
-    <!--<item-->
-        <!--android:id="@+id/action_delete"-->
-        <!--android:orderInCategory="100"-->
-        <!--android:title="@string/delete"-->
-        <!--app:showAsAction="never" />-->
-
     <item
         android:id="@+id/shareButton"
         android:layout_gravity="end"

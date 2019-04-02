@@ -30,11 +30,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeSettings" />
         <activity
-            android:name=".screens.screens.InfoActivity"
-            android:label="@string/activity_name_temperature"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppThemeSettings"></activity>
-        <activity
             android:name=".screens.screens.SettingsActivity"
             android:label="@string/activity_name_settings"
             android:screenOrientation="portrait"

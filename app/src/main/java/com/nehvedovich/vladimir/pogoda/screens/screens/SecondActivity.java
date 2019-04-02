@@ -26,8 +26,6 @@ import java.io.IOException;
 public class SecondActivity extends AppCompatActivity {
     public File imagePath;
 
-//    File imagePath = new File(context.getFilesDir(), "screenshot");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,14 +35,6 @@ public class SecondActivity extends AppCompatActivity {
             details.setArguments(getIntent().getExtras());
             getSupportFragmentManager().beginTransaction().add(android.R.id.content, details).commit();
         }
-
-        Button info = findViewById(R.id.infoTemperature);
-        info.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SecondActivity.this, InfoActivity.class));
-            }
-        });
 
         ActionBar actionbar = getSupportActionBar();
         actionbar.setHomeButtonEnabled(true);
@@ -61,15 +51,13 @@ public class SecondActivity extends AppCompatActivity {
                 if(cityName.contains(" ")){
                     cityName= cityName.substring(0, cityName.indexOf(","));}
 
-
-
                 Uri uri = Uri.parse("http://yandex.ru/pogoda/" + cityName);
                 intent.setData(uri);
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 } else {
                     Toast.makeText(SecondActivity.this, "\n" +
-                            "Application does not exist", Toast.LENGTH_SHORT).show();
+                            getString(R.string.application_absent), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -85,8 +73,6 @@ public class SecondActivity extends AppCompatActivity {
         //отправляем ссылку о состоянии погоды в городе отображенном на экране
         if (item.getItemId() == R.id.share_link){
             Intent intent = new Intent(Intent.ACTION_SEND);
-//            TextView city = findViewById(R.id.cityNameInfo);
-//            String cityName = (String) city.getText();
 
             TextView city = findViewById(R.id.cityName);
             String cityName = (String) city.getText();
@@ -101,7 +87,7 @@ public class SecondActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 Toast.makeText(SecondActivity.this, "\n" +
-                        "Application does not exist", Toast.LENGTH_SHORT).show();
+                        getString(R.string.application_absent), Toast.LENGTH_SHORT).show();
             }
         }
         //Делаем скриншот экрана и отправляем его другу
@@ -109,11 +95,7 @@ public class SecondActivity extends AppCompatActivity {
             Bitmap bitmap = takeScreenshot();
             saveBitmap(bitmap);
             shareIt();
-
         }
-
-        //noinspection SimplifiableIfStatement
-        int id = item.getItemId();
         return super.onOptionsItemSelected(item);
     }
 
@@ -157,5 +139,4 @@ public class SecondActivity extends AppCompatActivity {
 
         startActivity(Intent.createChooser(sharingIntent, "Share via"));
     }
-
 }
