@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity
     private SensorManager mSensorManager;
     private Sensor mTemperature;
     private TextView humiditylabel;
-    private SensorManager mSensorManager2;
     private Sensor mHumidity;
     private final static String NOT_SUPPORTED_MESSAGE = "";  //Если сенсора не существует, то ничего не выводим
 
@@ -82,17 +81,16 @@ public class MainActivity extends AppCompatActivity
         temperatureIcon.setTypeface(weatherFont);
 
         temperaturelabel = findViewById(R.id.temperature_in);
-        mSensorManager = (SensorManager)getSystemService(SENSOR_SERVICE);
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.ICE_CREAM_SANDWICH){
-            mTemperature= mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE); // requires API level 14.
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            mTemperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE); // requires API level 14.
         }
         if (mTemperature == null) {
             temperaturelabel.setText(NOT_SUPPORTED_MESSAGE);
         }
         humiditylabel = findViewById(R.id.humidity_in);
-        mSensorManager2 = (SensorManager)getSystemService(SENSOR_SERVICE);
-        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.ICE_CREAM_SANDWICH){
-            mHumidity= mSensorManager2.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            mHumidity = mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
         }
         if (mHumidity == null) {
             humiditylabel.setText(NOT_SUPPORTED_MESSAGE);
@@ -125,7 +123,6 @@ public class MainActivity extends AppCompatActivity
     public void onPause() {
         super.onPause();
         mSensorManager.unregisterListener(this);
-        mSensorManager2.unregisterListener(this);
 
         saveCheckBoxPressure(pressure.isChecked());
         saveCheckBoxFeelsLike(feelsLike.isChecked());
@@ -137,7 +134,7 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
 
         mSensorManager.registerListener(this, mTemperature, SensorManager.SENSOR_DELAY_NORMAL);
-        mSensorManager2.registerListener(this, mHumidity, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mHumidity, SensorManager.SENSOR_DELAY_NORMAL);
 
         pressure.setChecked(loadCheckBoxPressure());
         feelsLike.setChecked(loadCheckBoxFeelsLike());
@@ -246,7 +243,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(DialogInterface dialog, int which) {
                 String city = input.getText().toString();
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                    intent.putExtra(CityInfoFragment.CITY_NAME_EXSTRA, city);
+                intent.putExtra(CityInfoFragment.CITY_NAME_EXSTRA, city);
                 intent.putExtra(CitiesFragment.CHECK_BOX_PRESSURE, pressure.isChecked());
                 intent.putExtra(CitiesFragment.CHECK_BOX_FEEL_LIKE, feelsLike.isChecked());
                 intent.putExtra(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET, sunriseSunset.isChecked());
@@ -267,7 +264,7 @@ public class MainActivity extends AppCompatActivity
             photoPickerIntent.setType("image/*");
             startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
         } else if (id == R.id.nav_name) {
-showNameDialog();
+            showNameDialog();
 
         } else if (id == R.id.nav_manage) {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
