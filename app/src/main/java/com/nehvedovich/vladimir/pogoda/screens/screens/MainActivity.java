@@ -11,7 +11,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -70,28 +69,34 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setupNavigationDrawer(toolbar);
+        initViews();
+        startSensors();
+
+        weatherFont = Typeface.createFromAsset(getAssets(), FONT_FILENAME);
+        humidityIcon.setTypeface(weatherFont);
+        temperatureIcon.setTypeface(weatherFont);
+
+
+    }
+    private void initViews() {
         pressure = findViewById(R.id.checkBoxPressure);
         feelsLike = findViewById(R.id.checkBoxFeelsLike);
         sunriseSunset = findViewById(R.id.checkBoxSunriseAndSunset);
 
-        weatherFont = Typeface.createFromAsset(getAssets(), FONT_FILENAME);
         humidityIcon = findViewById(R.id.mIconHumidity);
-        humidityIcon.setTypeface(weatherFont);
         temperatureIcon = findViewById(R.id.mIconTemperature);
-        temperatureIcon.setTypeface(weatherFont);
 
         temperaturelabel = findViewById(R.id.temperature_in);
+        humiditylabel = findViewById(R.id.humidity_in);
+    }
+
+    private void startSensors() {
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            mTemperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE); // requires API level 14.
-        }
+        mTemperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE); // requires API level 14.
         if (mTemperature == null) {
             temperaturelabel.setText(NOT_SUPPORTED_MESSAGE);
         }
-        humiditylabel = findViewById(R.id.humidity_in);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            mHumidity = mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
-        }
+        mHumidity = mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
         if (mHumidity == null) {
             humiditylabel.setText(NOT_SUPPORTED_MESSAGE);
         }
@@ -120,13 +125,10 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        mSensorManager.unregisterListener(this);
-
-        saveCheckBoxPressure(pressure.isChecked());
-        saveCheckBoxFeelsLike(feelsLike.isChecked());
-        saveCheckBoxSunriseSunset(sunriseSunset.isChecked());
+    protected void onStart() {
+        super.onStart();
+        mSensorManager.registerListener(this, mTemperature, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mHumidity, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
@@ -147,6 +149,16 @@ public class MainActivity extends AppCompatActivity
         } else {
             imageNight.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+
+        saveCheckBoxPressure(pressure.isChecked());
+        saveCheckBoxFeelsLike(feelsLike.isChecked());
+        saveCheckBoxSunriseSunset(sunriseSunset.isChecked());
     }
 
     @Override
