@@ -18,6 +18,8 @@ import android.widget.CheckBox;
 import com.nehvedovich.vladimir.pogoda.R;
 import com.nehvedovich.vladimir.pogoda.screens.screens.SecondActivity;
 
+import java.util.Objects;
+
 public class CitiesFragment extends Fragment {
 
     public static final String CHECK_BOX_PRESSURE = "checkBoxPressure";
@@ -27,7 +29,7 @@ public class CitiesFragment extends Fragment {
     //подсветка при нажатии кнопки
     void addClickEffect(View view) {
         Drawable drawableNormal = view.getBackground();
-        Drawable drawablePressed = view.getBackground().getConstantState().newDrawable();
+        Drawable drawablePressed = Objects.requireNonNull(view.getBackground().getConstantState()).newDrawable();
         drawablePressed.mutate();
         drawablePressed.setColorFilter(Color.argb(255, 255, 255, 255), PorterDuff.Mode.SRC_ATOP);
 

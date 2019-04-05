@@ -5,6 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -33,9 +38,22 @@ import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CityInfoFragmen
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
 
     static final int GALLERY_REQUEST = 1;
+    private static final String FONT_FILENAME = "fonts/weathericons.ttf";
+
+    private Typeface weatherFont;
+    private TextView humidityIcon;
+    private TextView temperatureIcon;
+
+    private TextView temperaturelabel;
+    private SensorManager mSensorManager;
+    private Sensor mTemperature;
+    private TextView humiditylabel;
+    private Sensor mHumidity;
+    private final static String NOT_SUPPORTED_MESSAGE = "";  //Если сенсора не существует, то ничего не выводим
+
 
     public static boolean night;
 
@@ -51,9 +69,37 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setupNavigationDrawer(toolbar);
+        initViews();
+        startSensors();
+
+        weatherFont = Typeface.createFromAsset(getAssets(), FONT_FILENAME);
+        humidityIcon.setTypeface(weatherFont);
+        temperatureIcon.setTypeface(weatherFont);
+
+
+    }
+    private void initViews() {
         pressure = findViewById(R.id.checkBoxPressure);
         feelsLike = findViewById(R.id.checkBoxFeelsLike);
         sunriseSunset = findViewById(R.id.checkBoxSunriseAndSunset);
+
+        humidityIcon = findViewById(R.id.mIconHumidity);
+        temperatureIcon = findViewById(R.id.mIconTemperature);
+
+        temperaturelabel = findViewById(R.id.temperature_in);
+        humiditylabel = findViewById(R.id.humidity_in);
+    }
+
+    private void startSensors() {
+        mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+        mTemperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE); // requires API level 14.
+        if (mTemperature == null) {
+            temperaturelabel.setText(NOT_SUPPORTED_MESSAGE);
+        }
+        mHumidity = mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
+        if (mHumidity == null) {
+            humiditylabel.setText(NOT_SUPPORTED_MESSAGE);
+        }
     }
 
     private void setupNavigationDrawer(Toolbar toolbar) {
@@ -79,16 +125,18 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        saveCheckBoxPressure(pressure.isChecked());
-        saveCheckBoxFeelsLike(feelsLike.isChecked());
-        saveCheckBoxSunriseSunset(sunriseSunset.isChecked());
+    protected void onStart() {
+        super.onStart();
+        mSensorManager.registerListener(this, mTemperature, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mHumidity, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+
+        mSensorManager.registerListener(this, mTemperature, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mHumidity, SensorManager.SENSOR_DELAY_NORMAL);
 
         pressure.setChecked(loadCheckBoxPressure());
         feelsLike.setChecked(loadCheckBoxFeelsLike());
@@ -101,6 +149,32 @@ public class MainActivity extends AppCompatActivity
         } else {
             imageNight.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+
+        saveCheckBoxPressure(pressure.isChecked());
+        saveCheckBoxFeelsLike(feelsLike.isChecked());
+        saveCheckBoxSunriseSunset(sunriseSunset.isChecked());
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        float ambient_temperature = event.values[0];
+        temperatureIcon.setText(getString(R.string.temperature_icon));
+        temperaturelabel.setText(String.format("%.0f", ambient_temperature) + " ℃");
+
+        float ambient_humidity = event.values[0];
+        humidityIcon.setText(getString(R.string.humidity_icon));
+        humiditylabel.setText(String.format("%.0f", ambient_humidity) + "%");
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Do something here if sensor accuracy changes.
     }
 
     private void saveCheckBoxPressure(final boolean isChecked) {
@@ -181,7 +255,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(DialogInterface dialog, int which) {
                 String city = input.getText().toString();
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                    intent.putExtra(CityInfoFragment.CITY_NAME_EXSTRA, city);
+                intent.putExtra(CityInfoFragment.CITY_NAME_EXSTRA, city);
                 intent.putExtra(CitiesFragment.CHECK_BOX_PRESSURE, pressure.isChecked());
                 intent.putExtra(CitiesFragment.CHECK_BOX_FEEL_LIKE, feelsLike.isChecked());
                 intent.putExtra(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET, sunriseSunset.isChecked());
@@ -202,7 +276,7 @@ public class MainActivity extends AppCompatActivity
             photoPickerIntent.setType("image/*");
             startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
         } else if (id == R.id.nav_name) {
-showNameDialog();
+            showNameDialog();
 
         } else if (id == R.id.nav_manage) {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));

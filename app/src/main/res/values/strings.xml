@@ -53,6 +53,7 @@
     <string name="weather_snowy" translatable="false">&#xf01b;</string>
     <string name="weather_thunder" translatable="false">&#xf01e;</string>
     <string name="weather_drizzle" translatable="false">&#xf01c;</string>
+    <string name="temperature_icon" translatable="false">&#xf055;</string>
     <string name="humidity_icon" translatable="false">&#xf07a;</string>
     <string name="pressure_icon" translatable="false">&#xf079;</string>
     <string name="wind_icon" translatable="false">&#xf050;</string>
