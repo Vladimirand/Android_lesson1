@@ -37,8 +37,10 @@ public class SecondActivity extends AppCompatActivity {
         }
 
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setHomeButtonEnabled(true);
-        actionbar.setDisplayHomeAsUpEnabled(true);
+        if (actionbar != null) {
+            actionbar.setHomeButtonEnabled(true);
+            actionbar.setDisplayHomeAsUpEnabled(true);
+        }
 
         Button details = findViewById(R.id.moreInformation);
         details.setOnClickListener(new View.OnClickListener() {
