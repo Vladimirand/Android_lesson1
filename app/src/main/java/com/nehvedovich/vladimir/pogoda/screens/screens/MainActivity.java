@@ -34,6 +34,7 @@ import android.widget.Toast;
 import com.nehvedovich.vladimir.pogoda.R;
 import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CitiesFragment;
 import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CityInfoFragment;
+import com.nehvedovich.vladimir.pogoda.screens.utils.BackgroundService;
 
 import java.io.IOException;
 
@@ -129,6 +130,12 @@ public class MainActivity extends AppCompatActivity
         super.onStart();
         mSensorManager.registerListener(this, mTemperature, SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(this, mHumidity, SensorManager.SENSOR_DELAY_NORMAL);
+        serviceInfoStart();
+    }
+
+    private void serviceInfoStart() {
+        Intent intent = new Intent(MainActivity.this, BackgroundService.class);
+        startService(intent);
     }
 
     @Override
@@ -304,7 +311,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    // метод для загрузки пользовательской аватарки из галерии
+    // метод для загрузки пользовательской аватарки из галереи
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);

@@ -71,7 +71,7 @@ public class CityInfoFragment extends Fragment {
         //Обработка CheckBox SunriseAndSunset
         TextView textSunrise = layout.findViewById(R.id.textSunrise);
         TextView textSunset = layout.findViewById(R.id.textSunset);
-        if (sunriseSunset == true) {
+        if (sunriseSunset) {
             textSunrise.setVisibility(View.VISIBLE);
             textSunset.setVisibility(View.VISIBLE);
         } else {
@@ -81,7 +81,7 @@ public class CityInfoFragment extends Fragment {
 
         //Обработка CheckBox Pressure
         View textPressure = layout.findViewById(R.id.viewPressure);
-        if (pressure == true) {
+        if (pressure) {
             textPressure.setVisibility(View.VISIBLE);
         } else {
             textPressure.setVisibility(View.GONE);
@@ -90,7 +90,7 @@ public class CityInfoFragment extends Fragment {
         //Обработка CheckBox FeelLike
         TextView textFeelLike = layout.findViewById(R.id.textFeelsLike);
         TextView textFeelLikeT = layout.findViewById(R.id.textFeelsLikeT);
-        if (feelLike == true) {
+        if (feelLike) {
             textFeelLike.setVisibility(View.VISIBLE);
             textFeelLikeT.setVisibility(View.VISIBLE);
         } else {
