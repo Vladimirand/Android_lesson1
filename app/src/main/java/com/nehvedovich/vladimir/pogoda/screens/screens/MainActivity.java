@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity
 
     private TextView temperaturelabel;
     private SensorManager mSensorManager;
+
     private Sensor mTemperature;
     private TextView humiditylabel;
     private Sensor mHumidity;
@@ -77,8 +78,9 @@ public class MainActivity extends AppCompatActivity
         humidityIcon.setTypeface(weatherFont);
         temperatureIcon.setTypeface(weatherFont);
 
-
+        serviceInfoStart();
     }
+
     private void initViews() {
         pressure = findViewById(R.id.checkBoxPressure);
         feelsLike = findViewById(R.id.checkBoxFeelsLike);
@@ -94,10 +96,12 @@ public class MainActivity extends AppCompatActivity
     private void startSensors() {
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mTemperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE); // requires API level 14.
+
         if (mTemperature == null) {
             temperaturelabel.setText(NOT_SUPPORTED_MESSAGE);
         }
         mHumidity = mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
+
         if (mHumidity == null) {
             humiditylabel.setText(NOT_SUPPORTED_MESSAGE);
         }
@@ -130,7 +134,7 @@ public class MainActivity extends AppCompatActivity
         super.onStart();
         mSensorManager.registerListener(this, mTemperature, SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(this, mHumidity, SensorManager.SENSOR_DELAY_NORMAL);
-        serviceInfoStart();
+
     }
 
     private void serviceInfoStart() {
@@ -141,9 +145,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
-
-        mSensorManager.registerListener(this, mTemperature, SensorManager.SENSOR_DELAY_NORMAL);
-        mSensorManager.registerListener(this, mHumidity, SensorManager.SENSOR_DELAY_NORMAL);
 
         pressure.setChecked(loadCheckBoxPressure());
         feelsLike.setChecked(loadCheckBoxFeelsLike());
@@ -170,13 +171,18 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        float ambient_temperature = event.values[0];
-        temperatureIcon.setText(getString(R.string.temperature_icon));
-        temperaturelabel.setText(String.format("%.0f", ambient_temperature) + " ℃");
+        final int type = event.sensor.getType();
 
-        float ambient_humidity = event.values[0];
-        humidityIcon.setText(getString(R.string.humidity_icon));
-        humiditylabel.setText(String.format("%.0f", ambient_humidity) + "%");
+        if (type == Sensor.TYPE_LIGHT) {
+            float ambient_temperature = event.values[0];
+            temperatureIcon.setText(getString(R.string.temperature_icon));
+            temperaturelabel.setText(String.format("%.0f", ambient_temperature) + " ℃");
+        }
+        if (type == Sensor.TYPE_AMBIENT_TEMPERATURE) {
+            float ambient_humidity = event.values[0];
+            humidityIcon.setText(getString(R.string.humidity_icon));
+            humiditylabel.setText(String.format("%.0f", ambient_humidity) + "%");
+        }
     }
 
     @Override

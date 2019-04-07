@@ -33,7 +33,6 @@ public class BackgroundService extends IntentService implements SensorEventListe
         //Здесь уже идет фоновая работа, не требующая
         // создания своего потока
         startSensor();
-
     }
 
     @Override
@@ -56,7 +55,7 @@ public class BackgroundService extends IntentService implements SensorEventListe
     }
 
     // Вывод уведомления в строке состояния
-    private void makeNote(String message){
+    private void makeNote(String message) {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_launcher);
