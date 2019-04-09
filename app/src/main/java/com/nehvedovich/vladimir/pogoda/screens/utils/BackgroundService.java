@@ -15,6 +15,7 @@ import android.support.annotation.Nullable;
 
 import com.nehvedovich.vladimir.pogoda.R;
 
+import static java.lang.Thread.sleep;
 
 public class BackgroundService extends IntentService implements SensorEventListener {
 
@@ -23,6 +24,8 @@ public class BackgroundService extends IntentService implements SensorEventListe
     int messageId = 0;
     private SensorManager mSensorManager;
     private Sensor mTemperature;
+    private boolean running = true;
+    private float currentTemperature, previousTemperature;
 
     public BackgroundService() {
         super("BackgroundService");
@@ -33,13 +36,24 @@ public class BackgroundService extends IntentService implements SensorEventListe
         //Здесь уже идет фоновая работа, не требующая
         // создания своего потока
         startSensor();
+        //для вывода уведомленя в случае изменения температуры с задержкой 3с.
+        while (running) {
+            if (currentTemperature != previousTemperature) {
+                makeNote(infoTemperature);
+                previousTemperature = currentTemperature;
+            }
+            try {
+                sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        float ambient_temperature = event.values[0];
-        infoTemperature = String.format("%.0f", ambient_temperature) + " ℃";
-        makeNote(getString(R.string.current_temperature));
+        currentTemperature = event.values[0];
+        infoTemperature = String.format("%.0f", currentTemperature) + " ℃";
     }
 
     @Override
@@ -59,8 +73,8 @@ public class BackgroundService extends IntentService implements SensorEventListe
 
         Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_launcher);
-        builder.setContentTitle(infoTemperature);
-        builder.setContentText(message);
+        builder.setContentTitle(message);
+        builder.setContentText(getString(R.string.current_temperature));
         Intent resultIntent = new Intent(this, BackgroundService.class);
         //Для облегчения восприятия лучше воспользоваться методом
 //        PendingIntent.getActivity(this,0, resultIntent,
@@ -74,12 +88,13 @@ public class BackgroundService extends IntentService implements SensorEventListe
         builder.setContentIntent(resultPendingIntent);
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(messageId++, builder.build());
+        notificationManager.notify(messageId, builder.build());
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         mSensorManager.unregisterListener(this);
+        makeNote("onDestroy");
     }
 }
