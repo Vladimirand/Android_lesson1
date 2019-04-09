@@ -37,6 +37,8 @@
             android:label="@string/activity_name_settings"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeSettings"></activity>
+
+        <service android:name=".screens.utils.BackgroundService" />
     </application>
 
 </manifest>

@@ -45,5 +45,6 @@
     <string name="application_absent">Приложение не существует</string>
     <string name="nav_change_name">Изменить имя</string>
     <string name="nav_header_title">Введите ваше имя</string>
+    <string name="current_temperature">Актуальная температура</string>
 
 </resources>
