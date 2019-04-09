@@ -1,6 +1,7 @@
 package com.nehvedovich.vladimir.pogoda.screens.utils;
 
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
@@ -11,7 +12,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 
 import com.nehvedovich.vladimir.pogoda.R;
 
@@ -57,7 +57,7 @@ public class BackgroundService extends IntentService implements SensorEventListe
     // Вывод уведомления в строке состояния
     private void makeNote(String message) {
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        Notification.Builder builder = new Notification.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentTitle(infoTemperature);
         builder.setContentText(message);
@@ -70,8 +70,7 @@ public class BackgroundService extends IntentService implements SensorEventListe
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(
                 0,
-                PendingIntent.FLAG_UPDATE_CURRENT
-        );
+                PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(resultPendingIntent);
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

@@ -173,12 +173,12 @@ public class MainActivity extends AppCompatActivity
     public void onSensorChanged(SensorEvent event) {
         final int type = event.sensor.getType();
 
-        if (type == Sensor.TYPE_LIGHT) {
+        if (type == Sensor.TYPE_AMBIENT_TEMPERATURE) {
             float ambient_temperature = event.values[0];
             temperatureIcon.setText(getString(R.string.temperature_icon));
             temperaturelabel.setText(String.format("%.0f", ambient_temperature) + " ℃");
         }
-        if (type == Sensor.TYPE_AMBIENT_TEMPERATURE) {
+        if (type == Sensor.TYPE_RELATIVE_HUMIDITY) {
             float ambient_humidity = event.values[0];
             humidityIcon.setText(getString(R.string.humidity_icon));
             humiditylabel.setText(String.format("%.0f", ambient_humidity) + "%");
