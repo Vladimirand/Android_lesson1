@@ -135,17 +135,6 @@ public class MainActivity extends AppCompatActivity
         mSensorManager.registerListener(this, mTemperature, SensorManager.SENSOR_DELAY_NORMAL);
         mSensorManager.registerListener(this, mHumidity, SensorManager.SENSOR_DELAY_NORMAL);
 
-    }
-
-    private void serviceInfoStart() {
-        Intent intent = new Intent(MainActivity.this, BackgroundService.class);
-        startService(intent);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
         pressure.setChecked(loadCheckBoxPressure());
         feelsLike.setChecked(loadCheckBoxFeelsLike());
         sunriseSunset.setChecked(loadCheckBoxSunriseSunset());
@@ -159,11 +148,25 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    private void serviceInfoStart() {
+        Intent intent = new Intent(MainActivity.this, BackgroundService.class);
+        startService(intent);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     @Override
     public void onPause() {
         super.onPause();
         mSensorManager.unregisterListener(this);
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
         saveCheckBoxPressure(pressure.isChecked());
         saveCheckBoxFeelsLike(feelsLike.isChecked());
         saveCheckBoxSunriseSunset(sunriseSunset.isChecked());
@@ -189,26 +192,37 @@ public class MainActivity extends AppCompatActivity
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Do something here if sensor accuracy changes.
     }
+    private void saveNight(boolean isTrueOreFalse) {
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("saveNight", isTrueOreFalse);
+        editor.apply();
+    }
 
     private void saveCheckBoxPressure(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("checkPressure", isChecked);
-        editor.commit();
+        editor.apply();
     }
 
     private void saveCheckBoxFeelsLike(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("checkFeelsLike", isChecked);
-        editor.commit();
+        editor.apply();
     }
 
     private void saveCheckBoxSunriseSunset(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("checkSunriseSunset", isChecked);
-        editor.commit();
+        editor.putBoolean("saveNight", isChecked);
+        editor.apply();
+    }
+
+    private boolean loadNight() {
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean("checkPressure", false);
     }
 
     private boolean loadCheckBoxPressure() {

@@ -23,15 +23,17 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         ActionBar actionbar = getSupportActionBar();
-        actionbar.setHomeButtonEnabled(true);
-        actionbar.setDisplayHomeAsUpEnabled(true);
+        if (actionbar != null) {
+            actionbar.setHomeButtonEnabled(true);
+        }
+        if (actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+        }
 
         darkThemeCheckbox = findViewById(R.id.darkThemeCheckBox);
         final ImageView darkBackground = findViewById(R.id.backgroundSettings);
 
         darkThemeCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
@@ -47,23 +49,34 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        darkThemeCheckbox.setChecked(loadCheckBoxDurkTheme());
+    }
+
     @Override
     public void onPause() {
         super.onPause();
-        saveCheckBoxDurkTheme(darkThemeCheckbox.isChecked());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        darkThemeCheckbox.setChecked(loadCheckBoxDurkTheme());
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveCheckBoxDurkTheme(darkThemeCheckbox.isChecked());
     }
 
     private void saveCheckBoxDurkTheme(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean("check", isChecked);
-        editor.commit();
+        editor.apply();
     }
 
     private boolean loadCheckBoxDurkTheme() {
