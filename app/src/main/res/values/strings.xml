@@ -85,5 +85,6 @@
     <string name="application_absent">Application does not exist</string>
     <string name="nav_change_name">Change name</string>
     <string name="current_temperature">Current temperature</string>
+    <string name="last_update">Last update:</string>
 
 </resources>

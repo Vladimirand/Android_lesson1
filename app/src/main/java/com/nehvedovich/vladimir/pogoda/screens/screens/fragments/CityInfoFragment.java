@@ -4,6 +4,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,12 +20,15 @@ import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-public class CityInfoFragment extends Fragment {
+public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     public static final String CITY_NAME_EXSTRA = "cityLookingFor";
     private static final String FONT_FILENAME = "fonts/weathericons.ttf";
+
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private final Handler handler = new Handler();
     private Typeface weatherFont;
@@ -42,8 +46,10 @@ public class CityInfoFragment extends Fragment {
     private TextView pressureTextView;
     private TextView pressureIcon;
     private TextView weatherIcon;
+    private TextView updatedTextView;
     private ProgressBar progressBar;
 
+    String carentCityName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -59,14 +65,17 @@ public class CityInfoFragment extends Fragment {
         if (bundle != null) {
             TextView cityName = layout.findViewById(R.id.cityNameInfo);
             cityName.setText(bundle.getString(CITY_NAME_EXSTRA));
+            carentCityName = (bundle.getString(CITY_NAME_EXSTRA));
     //загружаем данные погоды
             updateWeatherData(bundle.getString(CITY_NAME_EXSTRA), getString(R.string.location));
 
             pressure = bundle.getBoolean(CitiesFragment.CHECK_BOX_PRESSURE);
             feelLike = bundle.getBoolean(CitiesFragment.CHECK_BOX_FEEL_LIKE);
             sunriseSunset = bundle.getBoolean(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET);
-
         }
+
+        swipeRefreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         //Обработка CheckBox SunriseAndSunset
         TextView textSunrise = layout.findViewById(R.id.textSunrise);
@@ -104,6 +113,7 @@ public class CityInfoFragment extends Fragment {
         weatherIcon = layout.findViewById(R.id.weather_icon);
         weatherFont = Typeface.createFromAsset(getActivity().getAssets(), FONT_FILENAME);
         weatherIcon.setTypeface(weatherFont);
+        updatedTextView = layout.findViewById(R.id.data);
 
         weatherConditions = layout.findViewById(R.id.weather_conditions);
         progressBar = layout.findViewById(R.id.progressBar);
@@ -123,6 +133,16 @@ public class CityInfoFragment extends Fragment {
         pressureIcon = layout.findViewById(R.id.iconPressure);
         pressureIcon.setTypeface(weatherFont);
         return layout;
+    }
+
+    @Override
+    public void onRefresh(){
+        swipeRefreshLayout.setRefreshing(true);
+        refreshList();
+    }
+    private void refreshList(){
+        updateWeatherData(carentCityName, getString(R.string.location));
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     //Обновление/загрузка погодных данных
@@ -188,20 +208,20 @@ public class CityInfoFragment extends Fragment {
 
             //отображаем время рассвета
 //            DateFormat sunrise = DateFormat.getDateTimeInstance();  //отображение даты полностью
-            DateFormat sunrise = new SimpleDateFormat("HH:mm"); //отображение только времени часы/минуты
-            String sunriseTime = sunrise.format(new Date(json.getJSONObject("sys").getLong("sunrise") * 1000));
+            DateFormat df = new SimpleDateFormat("HH:mm"); //отображение только времени часы/минуты
+            String sunriseTime = df.format(new Date(json.getJSONObject("sys").getLong("sunrise") * 1000));
 
             sunriseTextView.setText(getString(R.string.sunrise) + ":  " + sunriseTime);
 
             //отображаем время заката
-            DateFormat sunset = new SimpleDateFormat("HH:mm");
-            String sunsetTime = sunset.format(new Date(json.getJSONObject("sys").getLong("sunset") * 1000));
+            String sunsetTime = df.format(new Date(json.getJSONObject("sys").getLong("sunset") * 1000));
             sunsetTextView.setText(getString(R.string.sunset) + ":  " + sunsetTime);
 
-
-//            DateFormat df = DateFormat.getDateTimeInstance();
-//            String updatedOn = df.format(new Date(json.getLong("dt") * 1000));
-//            updatedTextView.setText("Last update: " + updatedOn);
+            Date currentTime = Calendar.getInstance().getTime();
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+//            String updatedOn = dateFormat.format(new Date(json.getLong("dt") * 1000)); //время последнего обновления полученных данных
+            String updatedOn = dateFormat.format(new Date(currentTime.getTime())); //время последнего запроса данных (отображаем время устройства на момент запроса)
+            updatedTextView.setText(getString(R.string.last_update) + " " + updatedOn);
 
             setWeatherIcon(details.getInt("id"), json.getJSONObject("sys").getLong("sunrise") * 1000,
                     json.getJSONObject("sys").getLong("sunset") * 1000);
