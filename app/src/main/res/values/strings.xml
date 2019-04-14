@@ -5,7 +5,7 @@
     <string name="pogoda">Weather</string>
     <string name="temperature" translatable="false">°C</string>
     <string name="weather_conditions">Sunny</string>
-    <string name="wind_speed_m_s"> m/s,</string>
+    <string name="wind_speed_m_s"> m/s</string>
     <string name="direction_wind">N/A</string>
     <string name="humidity">%</string>
     <string name="pressure_mmHg">mmHg.</string>

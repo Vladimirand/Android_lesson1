@@ -1,10 +1,14 @@
 package com.nehvedovich.vladimir.pogoda.screens.screens;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,6 +29,9 @@ import java.io.IOException;
 
 public class SecondActivity extends AppCompatActivity {
     public File imagePath;
+    public static final int REQUEST_CODE_PERMISSION_WRITE_EXTERNAL_STORAGE = 0;
+    private final String yandexHttp = "http://yandex.ru/pogoda/";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +55,13 @@ public class SecondActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
 
-                TextView city = findViewById(R.id.cityName);
+                TextView city = findViewById(R.id.cityNameInfo);
                 String cityName = (String) city.getText();
-                if(cityName.contains(" ")){
-                    cityName= cityName.substring(0, cityName.indexOf(","));}
+                if (cityName.contains(" ")) {
+                    cityName = cityName.substring(0, cityName.indexOf(","));
+                }
 
-                Uri uri = Uri.parse("http://yandex.ru/pogoda/" + cityName);
+                Uri uri = Uri.parse(yandexHttp + cityName);
                 intent.setData(uri);
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
@@ -71,17 +79,17 @@ public class SecondActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         }
-
         //отправляем ссылку о состоянии погоды в городе отображенном на экране
-        if (item.getItemId() == R.id.share_link){
+        if (item.getItemId() == R.id.share_link) {
             Intent intent = new Intent(Intent.ACTION_SEND);
 
             TextView city = findViewById(R.id.cityName);
             String cityName = (String) city.getText();
-            if(cityName.contains(" ")){
-                cityName= cityName.substring(0, cityName.indexOf(","));}
+            if (cityName.contains(" ")) {
+                cityName = cityName.substring(0, cityName.indexOf(","));
+            }
 
-            String t = ("http://yandex.ru/pogoda/" + cityName);
+            String t = (yandexHttp + cityName);
             intent.putExtra(Intent.EXTRA_TEXT, t);
             intent.setType("text/plain");
 
@@ -92,11 +100,20 @@ public class SecondActivity extends AppCompatActivity {
                         getString(R.string.application_absent), Toast.LENGTH_SHORT).show();
             }
         }
+
+
         //Делаем скриншот экрана и отправляем его другу
-        if (item.getItemId() == R.id.share_screenshot){
-            Bitmap bitmap = takeScreenshot();
-            saveBitmap(bitmap);
-            shareIt();
+        if (item.getItemId() == R.id.share_screenshot) {
+            //прверяем разрешение на доступ к памяти устройства
+            int permissionStatus = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if (permissionStatus == PackageManager.PERMISSION_GRANTED) {
+                Bitmap bitmap = takeScreenshot();
+                saveBitmap(bitmap);
+                shareIt();
+            }
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    REQUEST_CODE_PERMISSION_WRITE_EXTERNAL_STORAGE);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -108,6 +125,7 @@ public class SecondActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_for_second_activity, menu);
         return true;
     }
+
 
     public Bitmap takeScreenshot() {
         View rootView = findViewById(android.R.id.content).getRootView();

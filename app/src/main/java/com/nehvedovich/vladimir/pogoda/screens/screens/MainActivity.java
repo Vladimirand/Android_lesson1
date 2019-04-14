@@ -44,6 +44,11 @@ public class MainActivity extends AppCompatActivity
     static final int GALLERY_REQUEST = 1;
     private static final String FONT_FILENAME = "fonts/weathericons.ttf";
 
+    private final String pressureChBKey = "checkPressure";
+    private final String feelsLikeChBKey = "checkFeelsLike";
+    private final String sunriseSunsetChBKey = "checkSunriseSunset";
+    private final String darkThemeKey = "saveNight";
+
     private Typeface weatherFont;
     private TextView humidityIcon;
     private TextView temperatureIcon;
@@ -73,12 +78,17 @@ public class MainActivity extends AppCompatActivity
         setupNavigationDrawer(toolbar);
         initViews();
         startSensors();
+        initWeatherFont();
+        serviceInfoStart();
 
+        final SharedPreferences activityPrefs = getPreferences(Context.MODE_PRIVATE);
+        readNightBackground(activityPrefs);
+    }
+
+    private void initWeatherFont() {
         weatherFont = Typeface.createFromAsset(getAssets(), FONT_FILENAME);
         humidityIcon.setTypeface(weatherFont);
         temperatureIcon.setTypeface(weatherFont);
-
-        serviceInfoStart();
     }
 
     private void initViews() {
@@ -141,6 +151,7 @@ public class MainActivity extends AppCompatActivity
 
         ImageView imageNight = findViewById(R.id.landscapeNight);
 
+
         if (night) {
             imageNight.setVisibility(View.VISIBLE);
         } else {
@@ -162,6 +173,7 @@ public class MainActivity extends AppCompatActivity
     public void onPause() {
         super.onPause();
         mSensorManager.unregisterListener(this);
+
     }
 
     @Override
@@ -170,6 +182,9 @@ public class MainActivity extends AppCompatActivity
         saveCheckBoxPressure(pressure.isChecked());
         saveCheckBoxFeelsLike(feelsLike.isChecked());
         saveCheckBoxSunriseSunset(sunriseSunset.isChecked());
+
+        final SharedPreferences activityPrefs = getPreferences(Context.MODE_PRIVATE);
+        saveNightBackground(activityPrefs);
     }
 
     @Override
@@ -192,52 +207,51 @@ public class MainActivity extends AppCompatActivity
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Do something here if sensor accuracy changes.
     }
-    private void saveNight(boolean isTrueOreFalse) {
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("saveNight", isTrueOreFalse);
+
+    private void saveNightBackground(SharedPreferences preferences) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(darkThemeKey, night);
         editor.apply();
+    }
+
+    private void readNightBackground(SharedPreferences preferences) {
+      night = preferences.getBoolean(darkThemeKey, false);
     }
 
     private void saveCheckBoxPressure(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("checkPressure", isChecked);
+        editor.putBoolean(pressureChBKey, isChecked);
         editor.apply();
     }
 
     private void saveCheckBoxFeelsLike(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("checkFeelsLike", isChecked);
+        editor.putBoolean(feelsLikeChBKey, isChecked);
         editor.apply();
     }
 
     private void saveCheckBoxSunriseSunset(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("saveNight", isChecked);
+        editor.putBoolean(sunriseSunsetChBKey, isChecked);
         editor.apply();
-    }
-
-    private boolean loadNight() {
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("checkPressure", false);
     }
 
     private boolean loadCheckBoxPressure() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("checkPressure", false);
+        return sharedPreferences.getBoolean(pressureChBKey, false);
     }
 
     private boolean loadCheckBoxFeelsLike() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("checkFeelsLike", false);
+        return sharedPreferences.getBoolean(feelsLikeChBKey, false);
     }
 
     private boolean loadCheckBoxSunriseSunset() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("checkSunriseSunset", false);
+        return sharedPreferences.getBoolean(sunriseSunsetChBKey, false);
     }
 
     //меню
