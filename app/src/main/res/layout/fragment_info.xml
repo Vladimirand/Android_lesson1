@@ -196,19 +196,10 @@
                 </RelativeLayout>
             </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:baselineAligned="false">
-
                 <RelativeLayout
                     android:id="@+id/viewPressure"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:layout_weight="1"
                     android:background="@color/translucent"
                     android:gravity="center">
 
@@ -231,14 +222,6 @@
                         android:layout_toEndOf="@+id/iconPressure"
                         android:text="@string/pressure_mmHg" />
                 </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/translucent"
-                    android:gravity="center"></RelativeLayout>
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/data"

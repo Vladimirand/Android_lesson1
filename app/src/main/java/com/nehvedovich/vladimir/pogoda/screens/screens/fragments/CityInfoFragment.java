@@ -3,6 +3,7 @@ package com.nehvedovich.vladimir.pogoda.screens.screens.fragments;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -56,7 +57,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_info, container, false);
 
@@ -111,6 +112,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
             textFeelLike.setVisibility(View.GONE);
             textFeelLikeT.setVisibility(View.GONE);
         }
+
         cityTextView = layout.findViewById(R.id.cityName);
 
         currentTemperatureTextView = layout.findViewById(R.id.textTemperature);
@@ -122,8 +124,10 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         weatherConditions = layout.findViewById(R.id.weather_conditions);
         weatherExpected = layout.findViewById(R.id.weather_expected);
         progressBar = layout.findViewById(R.id.progressBar);
+
         sunriseTextView = textSunrise;
         sunsetTextView = textSunset;
+
         humidityTextView = layout.findViewById(R.id.textHumidity);
         humidityIcon = layout.findViewById(R.id.iconHumidity);
         humidityIcon.setTypeface(weatherFont);
