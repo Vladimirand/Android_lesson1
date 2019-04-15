@@ -3,7 +3,9 @@ package com.nehvedovich.vladimir.pogoda.screens.screens.fragments;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,20 +21,26 @@ import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
-public class CityInfoFragment extends Fragment {
+public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     public static final String CITY_NAME_EXSTRA = "cityLookingFor";
     private static final String FONT_FILENAME = "fonts/weathericons.ttf";
 
+    private final String msgException = "One or more fields not found in the JSON data";
+
+    private SwipeRefreshLayout swipeRefreshLayout;
+
     private final Handler handler = new Handler();
     private Typeface weatherFont;
     private TextView cityTextView;
-    private TextView cityName;
     private TextView sunriseTextView;
     private TextView sunsetTextView;
     private TextView weatherConditions;
+    private TextView weatherExpected;
     private TextView currentTemperatureTextView;
     private TextView humidityTextView;
     private TextView humidityIcon;
@@ -42,31 +50,36 @@ public class CityInfoFragment extends Fragment {
     private TextView pressureTextView;
     private TextView pressureIcon;
     private TextView weatherIcon;
+    private TextView updatedTextView;
     private ProgressBar progressBar;
+
+    String currentCityName;
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_info, container, false);
 
         Bundle bundle = getArguments();
 
         boolean pressure = false;
-        boolean feelLike = false;
         boolean sunriseSunset = false;
 
         if (bundle != null) {
             TextView cityName = layout.findViewById(R.id.cityNameInfo);
             cityName.setText(bundle.getString(CITY_NAME_EXSTRA));
-    //загружаем данные погоды
-            updateWeatherData(bundle.getString(CITY_NAME_EXSTRA), getString(R.string.location));
+            currentCityName = (bundle.getString(CITY_NAME_EXSTRA));
 
             pressure = bundle.getBoolean(CitiesFragment.CHECK_BOX_PRESSURE);
-            feelLike = bundle.getBoolean(CitiesFragment.CHECK_BOX_FEEL_LIKE);
             sunriseSunset = bundle.getBoolean(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET);
-
         }
+
+        //загружаем данные погоды
+        updateWeatherData(currentCityName, getString(R.string.location));
+
+        swipeRefreshLayout = layout.findViewById(R.id.refresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
 
         //Обработка CheckBox SunriseAndSunset
         TextView textSunrise = layout.findViewById(R.id.textSunrise);
@@ -87,28 +100,21 @@ public class CityInfoFragment extends Fragment {
             textPressure.setVisibility(View.GONE);
         }
 
-        //Обработка CheckBox FeelLike
-        TextView textFeelLike = layout.findViewById(R.id.textFeelsLike);
-        TextView textFeelLikeT = layout.findViewById(R.id.textFeelsLikeT);
-        if (feelLike) {
-            textFeelLike.setVisibility(View.VISIBLE);
-            textFeelLikeT.setVisibility(View.VISIBLE);
-        } else {
-            textFeelLike.setVisibility(View.GONE);
-            textFeelLikeT.setVisibility(View.GONE);
-        }
         cityTextView = layout.findViewById(R.id.cityName);
-        cityName = layout.findViewById(R.id.cityNameInfo);
 
         currentTemperatureTextView = layout.findViewById(R.id.textTemperature);
         weatherIcon = layout.findViewById(R.id.weather_icon);
-        weatherFont = Typeface.createFromAsset(getActivity().getAssets(), FONT_FILENAME);
+        weatherFont = Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(), FONT_FILENAME);
         weatherIcon.setTypeface(weatherFont);
+        updatedTextView = layout.findViewById(R.id.data);
 
         weatherConditions = layout.findViewById(R.id.weather_conditions);
+        weatherExpected = layout.findViewById(R.id.weather_expected);
         progressBar = layout.findViewById(R.id.progressBar);
-        sunriseTextView = layout.findViewById(R.id.textSunrise);
-        sunsetTextView = layout.findViewById(R.id.textSunset);
+
+        sunriseTextView = textSunrise;
+        sunsetTextView = textSunset;
+
         humidityTextView = layout.findViewById(R.id.textHumidity);
         humidityIcon = layout.findViewById(R.id.iconHumidity);
         humidityIcon.setTypeface(weatherFont);
@@ -123,6 +129,17 @@ public class CityInfoFragment extends Fragment {
         pressureIcon = layout.findViewById(R.id.iconPressure);
         pressureIcon.setTypeface(weatherFont);
         return layout;
+    }
+
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(true);
+        refreshList();
+    }
+
+    private void refreshList() {
+        updateWeatherData(currentCityName, getString(R.string.location));
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     //Обновление/загрузка погодных данных
@@ -154,24 +171,37 @@ public class CityInfoFragment extends Fragment {
         Log.d("Log", "json " + json.toString());
 
         try {
-            cityTextView.setText(json.getString("name") +
-                    ", " +
-                    json.getJSONObject("sys").getString("country"));
+            cityTextView.setText(String.format("%s, %s", json.getString("name"), json.getJSONObject("sys").getString("country")));
 
+            JSONObject main = json.getJSONObject("main");
 
             JSONObject details = json.getJSONArray("weather").getJSONObject(0);
-            JSONObject main = json.getJSONObject("main");
-            JSONObject wind = json.getJSONObject("wind");
             weatherConditions.setText(details.getString("description").toUpperCase());
+            setWeatherIcon(details.getInt("id"), json.getJSONObject("sys").getLong("sunrise") * 1000,
+                    json.getJSONObject("sys").getLong("sunset") * 1000);
 
-            windIcon.setText(getString(R.string.wind_icon));
-            windTextView.setText(wind.getString("speed") + " " + getString(R.string.wind_speed_m_s));
+            try {
+                JSONObject detailsExpected = json.getJSONArray("weather").getJSONObject(1);
+                weatherExpected.setText(String.format("(%s)", detailsExpected.getString("description")));
+                weatherExpected.setVisibility(View.VISIBLE);
 
-            //получаем направление ветра
-            setWindDirecrionIcon(wind.getInt("deg"));
+            } catch (Exception e) {
+                Log.d("Log", msgException + "(in 'description')");//FIXME Обработка ошибки
+            }
 
+            try {
+                JSONObject wind = json.getJSONObject("wind");
+                windIcon.setText(getString(R.string.wind_icon));
+                windTextView.setText(String.format("%s %s", wind.getString("speed"), getString(R.string.wind_speed_m_s)));
+
+                //получаем направление ветра
+
+                setWindDirecrionIcon(wind.getInt("deg"));
+            } catch (Exception e) {
+                Log.d("Log", msgException + "(in 'wind')");//FIXME Обработка ошибки
+            }
             humidityIcon.setText(getString(R.string.humidity_icon));
-            humidityTextView.setText(main.getString("humidity") + "%");
+            humidityTextView.setText(String.format("%s%%", main.getString("humidity")));
 
             pressureIcon.setText(getString(R.string.pressure_icon));
 
@@ -181,33 +211,32 @@ public class CityInfoFragment extends Fragment {
             String s = (main.getString("pressure"));
             double i = Double.valueOf(s) * 0.750062;
             String si = String.format("%.0f", i); //отображаем только значение до запятой
-            pressureTextView.setText(si + " " + getString(R.string.pressure_mmHg));
+            pressureTextView.setText(String.format("%s %s", si, getString(R.string.pressure_mmHg)));
 
 
             currentTemperatureTextView.setText(String.format("%.0f", main.getDouble("temp")) + " ℃");
 
             //отображаем время рассвета
 //            DateFormat sunrise = DateFormat.getDateTimeInstance();  //отображение даты полностью
-            DateFormat sunrise = new SimpleDateFormat("HH:mm"); //отображение только времени часы/минуты
-            String sunriseTime = sunrise.format(new Date(json.getJSONObject("sys").getLong("sunrise") * 1000));
+            DateFormat df; //отображение только времени часы/минуты
+            df = new SimpleDateFormat("HH:mm");
+            String sunriseTime = df.format(new Date(json.getJSONObject("sys").getLong("sunrise") * 1000));
 
-            sunriseTextView.setText(getString(R.string.sunrise) + ":  " + sunriseTime);
+            sunriseTextView.setText(String.format("%s:  %s", getString(R.string.sunrise), sunriseTime));
 
             //отображаем время заката
-            DateFormat sunset = new SimpleDateFormat("HH:mm");
-            String sunsetTime = sunset.format(new Date(json.getJSONObject("sys").getLong("sunset") * 1000));
-            sunsetTextView.setText(getString(R.string.sunset) + ":  " + sunsetTime);
+            String sunsetTime = df.format(new Date(json.getJSONObject("sys").getLong("sunset") * 1000));
+            sunsetTextView.setText(String.format("%s:  %s", getString(R.string.sunset), sunsetTime));
 
+            Date currentTime = Calendar.getInstance().getTime();
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+//            String updatedOn = dateFormat.format(new Date(json.getLong("dt") * 1000)); //время последнего обновления полученных данных
+            String updatedOn = dateFormat.format(new Date(currentTime.getTime())); //время последнего запроса данных (отображаем время устройства на момент запроса)
+            updatedTextView.setText(String.format("%s %s", getString(R.string.last_update), updatedOn));
 
-//            DateFormat df = DateFormat.getDateTimeInstance();
-//            String updatedOn = df.format(new Date(json.getLong("dt") * 1000));
-//            updatedTextView.setText("Last update: " + updatedOn);
-
-            setWeatherIcon(details.getInt("id"), json.getJSONObject("sys").getLong("sunrise") * 1000,
-                    json.getJSONObject("sys").getLong("sunset") * 1000);
 
         } catch (Exception e) {
-            Log.d("Log", "One or more fields not found in the JSON data");//FIXME Обработка ошибки
+            Log.d("Log", msgException);//FIXME Обработка ошибки
         }
         progressBar.setVisibility(View.GONE);
     }
@@ -272,6 +301,6 @@ public class CityInfoFragment extends Fragment {
         } else {
             icon = getString(R.string.north_wind_icon);
         }
-        directionWindIcon.setText(icon);
+        directionWindIcon.setText(String.format(", %s", icon));
     }
 }

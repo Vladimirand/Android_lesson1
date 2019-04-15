@@ -37,15 +37,17 @@ public class BackgroundService extends IntentService implements SensorEventListe
         // создания своего потока
         startSensor();
         //для вывода уведомленя в случае изменения температуры с задержкой 3с.
-        while (running) {
-            if (currentTemperature != previousTemperature) {
-                makeNote(infoTemperature);
-                previousTemperature = currentTemperature;
-            }
-            try {
-                sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        if (mTemperature != null) {
+            while (running) {
+                if (currentTemperature != previousTemperature) {
+                    makeNote(infoTemperature);
+                    previousTemperature = currentTemperature;
+                }
+                try {
+                    sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -65,6 +67,7 @@ public class BackgroundService extends IntentService implements SensorEventListe
     private void startSensor() {
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mTemperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+
         mSensorManager.registerListener(this, mTemperature, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
@@ -76,10 +79,6 @@ public class BackgroundService extends IntentService implements SensorEventListe
         builder.setContentTitle(message);
         builder.setContentText(getString(R.string.current_temperature));
         Intent resultIntent = new Intent(this, BackgroundService.class);
-        //Для облегчения восприятия лучше воспользоваться методом
-//        PendingIntent.getActivity(this,0, resultIntent,
-//                PendingIntent.FLAG_UPDATE_CURRENT);
-
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(
@@ -95,6 +94,5 @@ public class BackgroundService extends IntentService implements SensorEventListe
     public void onDestroy() {
         super.onDestroy();
         mSensorManager.unregisterListener(this);
-        makeNote("onDestroy");
     }
 }

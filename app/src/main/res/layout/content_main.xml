@@ -28,7 +28,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context=".ScrollingActivity">
+        tools:context=".ScrollingActivity"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -57,20 +59,20 @@
                             style="@style/TextStandardStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="7dp"
                             android:layout_marginStart="2dp"
-                            android:text=" "
-                            android:textSize="20dp" />
+                            android:layout_marginEnd="7dp"
+                            android:text=""
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/temperature_in"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignBottom="@+id/mIconTemperature"
-                            android:layout_toEndOf="@+id/mIconTemperature"
                             android:layout_marginBottom="3dp"
-                            android:textSize="18dp"
-                            android:text="@string/temperature" />
+                            android:layout_toEndOf="@+id/mIconTemperature"
+                            android:text="@string/temperature"
+                            android:textSize="18sp" />
 
                         <TextView
                             android:id="@+id/mIconHumidity"
@@ -79,19 +81,19 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/mIconTemperature"
                             android:layout_marginEnd="7dp"
-                            android:text=" "
-                            android:textSize="20dp" />
+                            android:text=""
+                            android:textSize="20sp" />
 
                         <TextView
                             android:id="@+id/humidity_in"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/mIconHumidity"
-                            android:layout_toEndOf="@+id/mIconHumidity"
                             android:layout_alignStart="@+id/temperature_in"
+                            android:layout_alignBottom="@+id/mIconHumidity"
                             android:layout_marginBottom="2dp"
-                            android:textSize="18dp"
-                            android:text="@string/humidity" />
+                            android:layout_toEndOf="@+id/mIconHumidity"
+                            android:text="@string/humidity"
+                            android:textSize="18sp" />
                     </RelativeLayout>
                 </LinearLayout>
 

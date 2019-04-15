@@ -10,7 +10,6 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
         android:scaleType="centerCrop"
         android:src="@drawable/fon" />
 
@@ -24,7 +23,7 @@
             android:id="@+id/infoFragment"
             android:name="com.nehvedovich.vladimir.pogoda.screens.screens.CityInfoFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 

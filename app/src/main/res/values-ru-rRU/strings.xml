@@ -5,7 +5,7 @@
     <string name="activity_name_settings">Настройки</string>
     <string name="pogoda">Погода</string>
     <string name="weather_conditions">Солнечно</string>
-    <string name="wind_speed_m_s"> м/с,</string>
+    <string name="wind_speed_m_s"> м/с</string>
     <string name="direction_wind">N/A</string>
     <string name="humidity">%</string>
     <string name="pressure_mmHg">мм.рт.ст.</string>
@@ -46,5 +46,6 @@
     <string name="nav_change_name">Изменить имя</string>
     <string name="nav_header_title">Введите ваше имя</string>
     <string name="current_temperature">Актуальная температура</string>
+    <string name="last_update">Последнее обновление:</string>
 
 </resources>

@@ -17,21 +17,19 @@ public class SettingsActivity extends AppCompatActivity {
 
     public CheckBox darkThemeCheckbox;
 
+    private final String darkCBKey = "check";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setHomeButtonEnabled(true);
-        actionbar.setDisplayHomeAsUpEnabled(true);
+        initActionBar();
 
         darkThemeCheckbox = findViewById(R.id.darkThemeCheckBox);
         final ImageView darkBackground = findViewById(R.id.backgroundSettings);
 
         darkThemeCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
@@ -47,28 +45,48 @@ public class SettingsActivity extends AppCompatActivity {
         });
     }
 
+    private void initActionBar() {
+        ActionBar actionbar = getSupportActionBar();
+        if (actionbar != null) {
+            actionbar.setHomeButtonEnabled(true);
+        }
+        if (actionbar != null) {
+            actionbar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        darkThemeCheckbox.setChecked(loadCheckBoxDarkTheme());
+    }
+
     @Override
     public void onPause() {
         super.onPause();
-        saveCheckBoxDurkTheme(darkThemeCheckbox.isChecked());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        darkThemeCheckbox.setChecked(loadCheckBoxDurkTheme());
     }
 
-    private void saveCheckBoxDurkTheme(final boolean isChecked) {
+    @Override
+    protected void onStop() {
+        super.onStop();
+        saveCheckBoxDarkTheme(darkThemeCheckbox.isChecked());
+    }
+
+    private void saveCheckBoxDarkTheme(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("check", isChecked);
-        editor.commit();
+        editor.putBoolean(darkCBKey, isChecked);
+        editor.apply();
     }
 
-    private boolean loadCheckBoxDurkTheme() {
+    private boolean loadCheckBoxDarkTheme() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean("check", false);
+        return sharedPreferences.getBoolean(darkCBKey, false);
     }
 
     @Override
