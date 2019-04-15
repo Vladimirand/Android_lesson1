@@ -48,29 +48,7 @@ public class SecondActivity extends AppCompatActivity {
             actionbar.setHomeButtonEnabled(true);
             actionbar.setDisplayHomeAsUpEnabled(true);
         }
-
-        Button details = findViewById(R.id.moreInformation);
-        details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-
-                TextView city = findViewById(R.id.cityNameInfo);
-                String cityName = (String) city.getText();
-                if (cityName.contains(" ")) {
-                    cityName = cityName.substring(0, cityName.indexOf(","));
-                }
-
-                Uri uri = Uri.parse(yandexHttp + cityName);
-                intent.setData(uri);
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(SecondActivity.this, "\n" +
-                            getString(R.string.application_absent), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        detailsButton();
     }
 
     @Override
@@ -126,6 +104,30 @@ public class SecondActivity extends AppCompatActivity {
         return true;
     }
 
+    private void detailsButton() {
+        Button details = findViewById(R.id.moreInformation);
+        details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+
+                TextView city = findViewById(R.id.cityNameInfo);
+                String cityName = (String) city.getText();
+                if (cityName.contains(" ")) {
+                    cityName = cityName.substring(0, cityName.indexOf(","));
+                }
+
+                Uri uri = Uri.parse(yandexHttp + cityName);
+                intent.setData(uri);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(SecondActivity.this, "\n" +
+                            getString(R.string.application_absent), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
 
     public Bitmap takeScreenshot() {
         View rootView = findViewById(android.R.id.content).getRootView();
