@@ -64,7 +64,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         Bundle bundle = getArguments();
 
         boolean pressure = false;
-        boolean feelLike = false;
         boolean sunriseSunset = false;
 
         if (bundle != null) {
@@ -73,7 +72,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
             currentCityName = (bundle.getString(CITY_NAME_EXSTRA));
 
             pressure = bundle.getBoolean(CitiesFragment.CHECK_BOX_PRESSURE);
-            feelLike = bundle.getBoolean(CitiesFragment.CHECK_BOX_FEEL_LIKE);
             sunriseSunset = bundle.getBoolean(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET);
         }
 
@@ -100,17 +98,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
             textPressure.setVisibility(View.VISIBLE);
         } else {
             textPressure.setVisibility(View.GONE);
-        }
-
-        //Обработка CheckBox FeelLike
-        TextView textFeelLike = layout.findViewById(R.id.textFeelsLike);
-        TextView textFeelLikeT = layout.findViewById(R.id.textFeelsLikeT);
-        if (feelLike) {
-            textFeelLike.setVisibility(View.VISIBLE);
-            textFeelLikeT.setVisibility(View.VISIBLE);
-        } else {
-            textFeelLike.setVisibility(View.GONE);
-            textFeelLikeT.setVisibility(View.GONE);
         }
 
         cityTextView = layout.findViewById(R.id.cityName);

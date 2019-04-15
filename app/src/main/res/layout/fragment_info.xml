@@ -21,25 +21,6 @@
             android:text="@string/temperature"
             android:textSize="48sp" />
 
-        <TextView
-            android:id="@+id/textFeelsLike"
-            style="@style/TextStandardStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textTemperature"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="5dp"
-            android:text="@string/feels_like_text" />
-
-        <TextView
-            android:id="@+id/textFeelsLikeT"
-            style="@style/TextStandardStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/textFeelsLike"
-            android:layout_toEndOf="@+id/textFeelsLike"
-            android:text="@string/feel_like_data"
-            android:textSize="16sp" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout

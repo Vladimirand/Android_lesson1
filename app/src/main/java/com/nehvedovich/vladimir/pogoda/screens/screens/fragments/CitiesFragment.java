@@ -23,7 +23,6 @@ import java.util.Objects;
 public class CitiesFragment extends Fragment {
 
     public static final String CHECK_BOX_PRESSURE = "checkBoxPressure";
-    public static final String CHECK_BOX_FEEL_LIKE = "checkBoxFeelLike";
     public static final String CHECK_BOX_SUNRISE_AND_SUNSET = "checkBoxSunriseAndSunset";
 
     @Override
@@ -77,7 +76,6 @@ public class CitiesFragment extends Fragment {
                 btn.setPressed(true);
             }
             intent.putExtra(CHECK_BOX_PRESSURE, getCheckBoxPressure());
-            intent.putExtra(CHECK_BOX_FEEL_LIKE, getCheckBoxFeelLike());
             intent.putExtra(CHECK_BOX_SUNRISE_AND_SUNSET, getCheckBoxSunriseSunset());
             startActivity(intent);
         }
@@ -86,11 +84,6 @@ public class CitiesFragment extends Fragment {
     public Boolean getCheckBoxPressure() {
         CheckBox pressure = Objects.requireNonNull(getActivity()).findViewById(R.id.checkBoxPressure);
         return pressure.isChecked();
-    }
-
-    public Boolean getCheckBoxFeelLike() {
-        CheckBox feelLike = Objects.requireNonNull(getActivity()).findViewById(R.id.checkBoxFeelsLike);
-        return feelLike.isChecked();
     }
 
     public Boolean getCheckBoxSunriseSunset() {

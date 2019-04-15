@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity
     private static final String FONT_FILENAME = "fonts/weathericons.ttf";
 
     private final String pressureChBKey = "checkPressure";
-    private final String feelsLikeChBKey = "checkFeelsLike";
     private final String sunriseSunsetChBKey = "checkSunriseSunset";
     private final String darkThemeKey = "saveNight";
 
@@ -53,11 +52,12 @@ public class MainActivity extends AppCompatActivity
     private TextView humidityIcon;
     private TextView temperatureIcon;
 
-    private TextView temperaturelabel;
+    private TextView temperatureLabel;
     private SensorManager mSensorManager;
 
+
     private Sensor mTemperature;
-    private TextView humiditylabel;
+    private TextView humidityLabel;
     private Sensor mHumidity;
     private final static String NOT_SUPPORTED_MESSAGE = "";  //Если сенсора не существует, то ничего не выводим
 
@@ -65,7 +65,6 @@ public class MainActivity extends AppCompatActivity
     public static boolean night;
 
     public CheckBox pressure;
-    public CheckBox feelsLike;
     public CheckBox sunriseSunset;
 
     @Override
@@ -93,14 +92,13 @@ public class MainActivity extends AppCompatActivity
 
     private void initViews() {
         pressure = findViewById(R.id.checkBoxPressure);
-        feelsLike = findViewById(R.id.checkBoxFeelsLike);
         sunriseSunset = findViewById(R.id.checkBoxSunriseAndSunset);
 
         humidityIcon = findViewById(R.id.mIconHumidity);
         temperatureIcon = findViewById(R.id.mIconTemperature);
 
-        temperaturelabel = findViewById(R.id.temperature_in);
-        humiditylabel = findViewById(R.id.humidity_in);
+        temperatureLabel = findViewById(R.id.temperature_in);
+        humidityLabel = findViewById(R.id.humidity_in);
     }
 
     private void startSensors() {
@@ -108,12 +106,12 @@ public class MainActivity extends AppCompatActivity
         mTemperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE); // requires API level 14.
 
         if (mTemperature == null) {
-            temperaturelabel.setText(NOT_SUPPORTED_MESSAGE);
+            temperatureLabel.setText(NOT_SUPPORTED_MESSAGE);
         }
         mHumidity = mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
 
         if (mHumidity == null) {
-            humiditylabel.setText(NOT_SUPPORTED_MESSAGE);
+            humidityLabel.setText(NOT_SUPPORTED_MESSAGE);
         }
     }
 
@@ -146,7 +144,6 @@ public class MainActivity extends AppCompatActivity
         mSensorManager.registerListener(this, mHumidity, SensorManager.SENSOR_DELAY_NORMAL);
 
         pressure.setChecked(loadCheckBoxPressure());
-        feelsLike.setChecked(loadCheckBoxFeelsLike());
         sunriseSunset.setChecked(loadCheckBoxSunriseSunset());
 
         ImageView imageNight = findViewById(R.id.landscapeNight);
@@ -180,7 +177,6 @@ public class MainActivity extends AppCompatActivity
     public void onStop() {
         super.onStop();
         saveCheckBoxPressure(pressure.isChecked());
-        saveCheckBoxFeelsLike(feelsLike.isChecked());
         saveCheckBoxSunriseSunset(sunriseSunset.isChecked());
 
         final SharedPreferences activityPrefs = getPreferences(Context.MODE_PRIVATE);
@@ -194,12 +190,12 @@ public class MainActivity extends AppCompatActivity
         if (type == Sensor.TYPE_AMBIENT_TEMPERATURE) {
             float ambient_temperature = event.values[0];
             temperatureIcon.setText(getString(R.string.temperature_icon));
-            temperaturelabel.setText(String.format("%.0f", ambient_temperature) + " ℃");
+            temperatureLabel.setText(String.format("%.0f", ambient_temperature) + " ℃");
         }
         if (type == Sensor.TYPE_RELATIVE_HUMIDITY) {
             float ambient_humidity = event.values[0];
             humidityIcon.setText(getString(R.string.humidity_icon));
-            humiditylabel.setText(String.format("%.0f", ambient_humidity) + "%");
+            humidityLabel.setText(String.format("%.0f", ambient_humidity) + "%");
         }
     }
 
@@ -225,13 +221,6 @@ public class MainActivity extends AppCompatActivity
         editor.apply();
     }
 
-    private void saveCheckBoxFeelsLike(final boolean isChecked) {
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(feelsLikeChBKey, isChecked);
-        editor.apply();
-    }
-
     private void saveCheckBoxSunriseSunset(final boolean isChecked) {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -242,11 +231,6 @@ public class MainActivity extends AppCompatActivity
     private boolean loadCheckBoxPressure() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(pressureChBKey, false);
-    }
-
-    private boolean loadCheckBoxFeelsLike() {
-        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
-        return sharedPreferences.getBoolean(feelsLikeChBKey, false);
     }
 
     private boolean loadCheckBoxSunriseSunset() {
@@ -298,7 +282,6 @@ public class MainActivity extends AppCompatActivity
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 intent.putExtra(CityInfoFragment.CITY_NAME_EXSTRA, city);
                 intent.putExtra(CitiesFragment.CHECK_BOX_PRESSURE, pressure.isChecked());
-                intent.putExtra(CitiesFragment.CHECK_BOX_FEEL_LIKE, feelsLike.isChecked());
                 intent.putExtra(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET, sunriseSunset.isChecked());
                 startActivity(intent);
             }
