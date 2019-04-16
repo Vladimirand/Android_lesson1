@@ -154,9 +154,6 @@ public class SecondActivity extends AppCompatActivity {
         Uri uri = Uri.fromFile(imagePath);
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("image/*");
-//        String shareBody = "In Tweecher, My highest score with screen shot";
-        sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "My Tweecher score");
-//        sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
         sharingIntent.putExtra(Intent.EXTRA_STREAM, uri);
 
         startActivity(Intent.createChooser(sharingIntent, "Share via"));

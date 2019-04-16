@@ -30,12 +30,9 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     public static final String CITY_NAME_EXSTRA = "cityLookingFor";
     private static final String FONT_FILENAME = "fonts/weathericons.ttf";
 
-    private final String msgException = "One or more fields not found in the JSON data";
-
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private final Handler handler = new Handler();
-    private Typeface weatherFont;
     private TextView cityTextView;
     private TextView sunriseTextView;
     private TextView sunsetTextView;
@@ -54,7 +51,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     private ProgressBar progressBar;
 
     String currentCityName;
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -104,7 +100,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         currentTemperatureTextView = layout.findViewById(R.id.textTemperature);
         weatherIcon = layout.findViewById(R.id.weather_icon);
-        weatherFont = Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(), FONT_FILENAME);
+        Typeface weatherFont = Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(), FONT_FILENAME);
         weatherIcon.setTypeface(weatherFont);
         updatedTextView = layout.findViewById(R.id.data);
 
@@ -170,6 +166,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     private void renderWeather(JSONObject json) {
         Log.d("Log", "json " + json.toString());
 
+        String msgException = "One or more fields not found in the JSON data";
         try {
             cityTextView.setText(String.format("%s, %s", json.getString("name"), json.getJSONObject("sys").getString("country")));
 
@@ -196,7 +193,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                 //получаем направление ветра
 
-                setWindDirecrionIcon(wind.getInt("deg"));
+                setWindDirectionIcon(wind.getInt("deg"));
             } catch (Exception e) {
                 Log.d("Log", msgException + "(in 'wind')");//FIXME Обработка ошибки
             }
@@ -204,8 +201,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
             humidityTextView.setText(String.format("%s%%", main.getString("humidity")));
 
             pressureIcon.setText(getString(R.string.pressure_icon));
-
-//          pressureTextView.setText(main.getString("pressure") + "hPa");
 
             //переводим значение hPa в мм.рт.ст
             String s = (main.getString("pressure"));
@@ -217,7 +212,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
             currentTemperatureTextView.setText(String.format("%.0f", main.getDouble("temp")) + " ℃");
 
             //отображаем время рассвета
-//            DateFormat sunrise = DateFormat.getDateTimeInstance();  //отображение даты полностью
             DateFormat df; //отображение только времени часы/минуты
             df = new SimpleDateFormat("HH:mm");
             String sunriseTime = df.format(new Date(json.getJSONObject("sys").getLong("sunrise") * 1000));
@@ -230,7 +224,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
             Date currentTime = Calendar.getInstance().getTime();
             DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-//            String updatedOn = dateFormat.format(new Date(json.getLong("dt") * 1000)); //время последнего обновления полученных данных
             String updatedOn = dateFormat.format(new Date(currentTime.getTime())); //время последнего запроса данных (отображаем время устройства на момент запроса)
             updatedTextView.setText(String.format("%s %s", getString(R.string.last_update), updatedOn));
 
@@ -282,7 +275,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     //обработка данных для получения направления ветра
-    private void setWindDirecrionIcon(int deg) {
+    private void setWindDirectionIcon(int deg) {
         String icon = "";
         if (deg >= 23 & deg <= 67) {
             icon = getString(R.string.north_east_wind_icon);

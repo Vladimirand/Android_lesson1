@@ -15,8 +15,6 @@
     <string name="pressure_indication">Давление</string>
     <string name="dark_theme">Темная тема</string>
     <string name="more_information">Подробнее</string>
-    <string name="history">История</string>
-    <string name="feels_like_text">Ощущается как</string>
     <string name="choose_city">Введите город</string>
     <string name="delete">Удалить</string>
     <string name="link">Ссылка</string>
@@ -41,7 +39,7 @@
     <string name="navigation_drawer_close">Закрыть навигационную панель</string>
     <string name="more_info_text">Дополнительные данные для отображения:</string>
     <string name="avatar">Сменить аватар</string>
-    <string name="send_mail_title">Отправить письмо...</string>
+    <string name="send_mail_title">Отправить письмо…</string>
     <string name="application_absent">Приложение не существует</string>
     <string name="nav_change_name">Изменить имя</string>
     <string name="nav_header_title">Введите ваше имя</string>

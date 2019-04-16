@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity
     private final String sunriseSunsetChBKey = "checkSunriseSunset";
     private final String darkThemeKey = "saveNight";
 
-    private Typeface weatherFont;
     private TextView humidityIcon;
     private TextView temperatureIcon;
 
@@ -85,7 +84,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void initWeatherFont() {
-        weatherFont = Typeface.createFromAsset(getAssets(), FONT_FILENAME);
+        Typeface weatherFont = Typeface.createFromAsset(getAssets(), FONT_FILENAME);
         humidityIcon.setTypeface(weatherFont);
         temperatureIcon.setTypeface(weatherFont);
     }
