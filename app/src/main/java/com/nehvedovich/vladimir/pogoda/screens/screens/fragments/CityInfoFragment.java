@@ -23,6 +23,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
@@ -205,15 +206,14 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
             //переводим значение hPa в мм.рт.ст
             String s = (main.getString("pressure"));
             double i = Double.valueOf(s) * 0.750062;
-            String si = String.format("%.0f", i); //отображаем только значение до запятой
+            String si = String.format(Locale.US, "%.0f", i); //отображаем только значение до запятой
             pressureTextView.setText(String.format("%s %s", si, getString(R.string.pressure_mmHg)));
 
-
-            currentTemperatureTextView.setText(String.format("%.0f", main.getDouble("temp")) + " ℃");
+            currentTemperatureTextView.setText(String.format("%s ℃", String.format(Locale.US, "%.0f", main.getDouble("temp"))));
 
             //отображаем время рассвета
             DateFormat df; //отображение только времени часы/минуты
-            df = new SimpleDateFormat("HH:mm");
+            df = new SimpleDateFormat("HH:mm", Locale.US);
             String sunriseTime = df.format(new Date(json.getJSONObject("sys").getLong("sunrise") * 1000));
 
             sunriseTextView.setText(String.format("%s:  %s", getString(R.string.sunrise), sunriseTime));
@@ -223,7 +223,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
             sunsetTextView.setText(String.format("%s:  %s", getString(R.string.sunset), sunsetTime));
 
             Date currentTime = Calendar.getInstance().getTime();
-            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+            DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
             String updatedOn = dateFormat.format(new Date(currentTime.getTime())); //время последнего запроса данных (отображаем время устройства на момент запроса)
             updatedTextView.setText(String.format("%s %s", getString(R.string.last_update), updatedOn));
 
@@ -276,7 +276,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     //обработка данных для получения направления ветра
     private void setWindDirectionIcon(int deg) {
-        String icon = "";
+        String icon;
         if (deg >= 23 & deg <= 67) {
             icon = getString(R.string.north_east_wind_icon);
         } else if (deg >= 68 & deg <= 112) {
