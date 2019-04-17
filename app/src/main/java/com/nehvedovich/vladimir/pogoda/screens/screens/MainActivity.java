@@ -44,9 +44,9 @@ public class MainActivity extends AppCompatActivity
     static final int GALLERY_REQUEST = 1;
     private static final String FONT_FILENAME = "fonts/weathericons.ttf";
 
-    private final String pressureChBKey = "checkPressure";
-    private final String sunriseSunsetChBKey = "checkSunriseSunset";
-    private final String darkThemeKey = "saveNight";
+    private final String pressureChBKey = "check_pressure";
+    private final String sunriseSunsetChBKey = "check_sunrise_sunset";
+    private final String darkThemeKey = "save_night";
 
     private TextView humidityIcon;
     private TextView temperatureIcon;

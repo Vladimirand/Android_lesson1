@@ -15,6 +15,8 @@ import android.support.annotation.Nullable;
 
 import com.nehvedovich.vladimir.pogoda.R;
 
+import java.util.Locale;
+
 import static java.lang.Thread.sleep;
 
 public class BackgroundService extends IntentService implements SensorEventListener {
@@ -55,7 +57,7 @@ public class BackgroundService extends IntentService implements SensorEventListe
     @Override
     public void onSensorChanged(SensorEvent event) {
         currentTemperature = event.values[0];
-        infoTemperature = String.format("%.0f", currentTemperature) + " ℃";
+        infoTemperature = String.format(Locale.US, "%.0f", currentTemperature) + " ℃";
     }
 
     @Override
@@ -67,8 +69,12 @@ public class BackgroundService extends IntentService implements SensorEventListe
     private void startSensor() {
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         mTemperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE);
+        if (mTemperature == null) {
+            running = false;
+        } else {
+            mSensorManager.registerListener(this, mTemperature, SensorManager.SENSOR_DELAY_NORMAL);
+        }
 
-        mSensorManager.registerListener(this, mTemperature, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     // Вывод уведомления в строке состояния

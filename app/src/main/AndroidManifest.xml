@@ -13,7 +13,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppThemeNoTitle">
+        android:theme="@style/AppThemeNoTitle"
+        android:fullBackupContent="">
 
         <activity
             android:name=".screens.screens.MainActivity"
@@ -36,7 +37,7 @@
             android:name=".screens.screens.SettingsActivity"
             android:label="@string/activity_name_settings"
             android:screenOrientation="portrait"
-            android:theme="@style/AppThemeSettings"></activity>
+            android:theme="@style/AppThemeSettings" />
 
         <service android:name=".screens.utils.BackgroundService" />
     </application>
