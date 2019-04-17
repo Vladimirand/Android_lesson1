@@ -29,8 +29,8 @@ import retrofit2.Response;
 
 public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    public static final String CITY_NAME_EXSTRA = "cityLookingFor";
-    private static final String FONT_FILENAME = "fonts/weathericons.ttf";
+    public static final String CITY_NAME_EXTRA = "cityLookingFor";
+    private static final String FONT_FILENAME = "fonts/weather_icons.ttf";
 
     private SwipeRefreshLayout swipeRefreshLayout;
 
@@ -61,7 +61,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.fragment_info, container, false);
-
         Bundle bundle = getArguments();
 
         boolean pressure = false;
@@ -69,20 +68,24 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         if (bundle != null) {
             TextView cityName = layout.findViewById(R.id.cityNameInfo);
-            cityName.setText(bundle.getString(CITY_NAME_EXSTRA));
-            currentCityName = (bundle.getString(CITY_NAME_EXSTRA));
-
+            cityName.setText(bundle.getString(CITY_NAME_EXTRA));
+            currentCityName = (bundle.getString(CITY_NAME_EXTRA));
             pressure = bundle.getBoolean(CitiesFragment.CHECK_BOX_PRESSURE);
             sunriseSunset = bundle.getBoolean(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET);
         }
+        requestRetrofit();  //загружаем данные погоды
+        getCheckBox(layout, sunriseSunset, pressure);
 
-        //загружаем данные погоды
-        requestRetrofit();
+        return layout;
+    }
 
+    @Override
+    public void onRefresh() {
+        swipeRefreshLayout.setRefreshing(true);
+        refreshList();
+    }
 
-        swipeRefreshLayout = layout.findViewById(R.id.refresh);
-        swipeRefreshLayout.setOnRefreshListener(this);
-
+    public void getCheckBox(View layout, boolean sunriseSunset, boolean pressure) {
         //Обработка CheckBox SunriseAndSunset
         TextView textSunrise = layout.findViewById(R.id.textSunrise);
         TextView textSunset = layout.findViewById(R.id.textSunset);
@@ -101,21 +104,24 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         } else {
             textPressure.setVisibility(View.GONE);
         }
-
-        cityTextView = layout.findViewById(R.id.cityName);
-
-        currentTemperatureTextView = layout.findViewById(R.id.textTemperature);
-        weatherIcon = layout.findViewById(R.id.weather_icon);
-        Typeface weatherFont = Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(), FONT_FILENAME);
-        weatherIcon.setTypeface(weatherFont);
-        updatedTextView = layout.findViewById(R.id.data);
-
-        weatherConditions = layout.findViewById(R.id.weather_conditions);
-        weatherExpected = layout.findViewById(R.id.weather_expected);
-        progressBar = layout.findViewById(R.id.progressBar);
+        initVew(layout);
 
         sunriseTextView = textSunrise;
         sunsetTextView = textSunset;
+
+    }
+    public void initVew(View layout){
+        Typeface weatherFont = Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(), FONT_FILENAME);
+
+        cityTextView = layout.findViewById(R.id.cityName);
+        currentTemperatureTextView = layout.findViewById(R.id.textTemperature);
+
+        weatherIcon = layout.findViewById(R.id.weather_icon);
+        weatherIcon.setTypeface(weatherFont);
+        updatedTextView = layout.findViewById(R.id.data);
+        weatherConditions = layout.findViewById(R.id.weather_conditions);
+        weatherExpected = layout.findViewById(R.id.weather_expected);
+        progressBar = layout.findViewById(R.id.progressBar);
 
         humidityTextView = layout.findViewById(R.id.textHumidity);
         humidityIcon = layout.findViewById(R.id.iconHumidity);
@@ -130,13 +136,9 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         pressureTextView = layout.findViewById(R.id.textPressure);
         pressureIcon = layout.findViewById(R.id.iconPressure);
         pressureIcon.setTypeface(weatherFont);
-        return layout;
-    }
 
-    @Override
-    public void onRefresh() {
-        swipeRefreshLayout.setRefreshing(true);
-        refreshList();
+        swipeRefreshLayout = layout.findViewById(R.id.refresh);
+        swipeRefreshLayout.setOnRefreshListener(this);
     }
 
     private void refreshList() {
@@ -176,7 +178,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private void setWind() {
         try {
-
             windIcon.setText(getString(R.string.wind_icon));
             windTextView.setText(String.format("%s %s", model.wind.speed, getString(R.string.wind_speed_m_s)));
 
