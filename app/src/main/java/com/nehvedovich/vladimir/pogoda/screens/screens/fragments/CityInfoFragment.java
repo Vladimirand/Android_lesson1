@@ -9,12 +9,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nehvedovich.vladimir.pogoda.R;
 import com.nehvedovich.vladimir.pogoda.screens.rest.OpenWeatherRepo;
 import com.nehvedovich.vladimir.pogoda.screens.rest.entites.WeatherRequestRestModel;
+import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -50,6 +52,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     private TextView weatherIcon;
     private TextView updatedTextView;
     private ProgressBar progressBar;
+    private ImageView imageView;
 
     WeatherRequestRestModel model = new WeatherRequestRestModel();
     String currentCityName;
@@ -108,9 +111,9 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         sunriseTextView = textSunrise;
         sunsetTextView = textSunset;
-
     }
-    public void initVew(View layout){
+
+    public void initVew(View layout) {
         Typeface weatherFont = Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(), FONT_FILENAME);
 
         cityTextView = layout.findViewById(R.id.cityName);
@@ -139,6 +142,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         swipeRefreshLayout = layout.findViewById(R.id.refresh);
         swipeRefreshLayout.setOnRefreshListener(this);
+
+        imageView = layout.findViewById(R.id.imageView);
     }
 
     private void refreshList() {
@@ -168,7 +173,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                             setUpdatedOn();
                         }
                     }
-
                     @Override
                     public void onFailure(@NonNull Call<WeatherRequestRestModel> call, @NonNull Throwable t) {
                         currentTemperatureTextView.setText(R.string.error);
@@ -255,38 +259,49 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     private void setWeatherIcon(int actualId, long sunrise, long sunset) {
         int id = actualId / 100; // Упрощение кодов (int оставляет только целочисленное значение)
         String icon = "";
+        String url = "";
+
         if (actualId == 800) {
             long currentTime = new Date().getTime();
             if (currentTime >= sunrise && currentTime < sunset) {
                 icon = getString(R.string.weather_sunny);
+                url = "http://clipart-library.com/img/1816931.png";
             } else {
                 icon = getString(R.string.weather_clear_night);
+                url = "http://clipart-library.com/img/1817023.png";
             }
         } else {
             switch (id) {
                 case 2:
                     icon = getString(R.string.weather_thunder);
+                    url = "http://clipart-library.com/img/1816972.png";
                     break;
                 case 3:
                     icon = getString(R.string.weather_drizzle);
+                    url = "https://banner2.kisspng.com/20180713/osr/kisspng-rain-weather-drizzle-cloud-snow-light-rain-5b4955002c4da3.8910760415315325441815.jpg";
                     break;
                 case 5:
                     icon = getString(R.string.weather_rainy);
+                    url = "http://clipart-library.com/img/1816918.png";
                     break;
                 case 6:
                     icon = getString(R.string.weather_snowy);
+                    url = "http://clipart-library.com/img/1816994.png";
                     break;
                 case 7:
                     icon = getString(R.string.weather_foggy);
+                    url = "https://banner2.kisspng.com/20171210/a3a/foggy-weather-5a2da8d3c6fd37.6787012715129417798151.jpg";
                     break;
                 case 8:
                     icon = getString(R.string.weather_cloudy);
+                    url = "http://clipart-library.com/img/1817004.png";
                     break;
                 // Можете доработать приложение, найдя все иконки и распарсив все значения
                 default:
                     break;
             }
         }
+        loadImage(url);
         weatherIcon.setText(icon);
     }
 
@@ -318,5 +333,12 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
         String updatedOn = dateFormat.format(new Date(currentTime.getTime())); //время последнего запроса данных (отображаем время устройства на момент запроса)
         updatedTextView.setText(String.format("%s %s", getString(R.string.last_update), updatedOn));
+    }
+
+    private void loadImage(String url) {
+        Picasso.get()
+                .load(url)
+                .error(R.drawable.error)
+                .into(imageView);
     }
 }

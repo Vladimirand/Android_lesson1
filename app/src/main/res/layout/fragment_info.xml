@@ -55,11 +55,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp" />
+
                 <TextView
                     android:id="@+id/weather_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=""
+                    android:visibility="gone"
                     android:textSize="@dimen/icon_font_size" />
 
 
@@ -77,10 +83,10 @@
                     style="@style/TextStandardStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/weather_icon"
+                    android:layout_alignBottom="@+id/imageView"
                     android:layout_marginStart="25dp"
                     android:layout_marginBottom="15dp"
-                    android:layout_toEndOf="@+id/weather_icon"
+                    android:layout_toEndOf="@+id/imageView"
                     android:text="@string/sunset" />
 
             </RelativeLayout>
