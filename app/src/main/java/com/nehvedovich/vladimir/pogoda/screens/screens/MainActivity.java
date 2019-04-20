@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
 
     static final int GALLERY_REQUEST = 1;
-    private static final String FONT_FILENAME = "fonts/weathericons.ttf";
+    private static final String FONT_FILENAME = "fonts/weather_icons.ttf";
 
     private final String pressureChBKey = "check_pressure";
     private final String sunriseSunsetChBKey = "check_sunrise_sunset";
@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(DialogInterface dialog, int which) {
                 String city = input.getText().toString();
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                intent.putExtra(CityInfoFragment.CITY_NAME_EXSTRA, city);
+                intent.putExtra(CityInfoFragment.CITY_NAME_EXTRA, city);
                 intent.putExtra(CitiesFragment.CHECK_BOX_PRESSURE, pressure.isChecked());
                 intent.putExtra(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET, sunriseSunset.isChecked());
                 startActivity(intent);

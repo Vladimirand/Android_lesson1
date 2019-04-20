@@ -45,5 +45,6 @@
     <string name="nav_header_title">Введите ваше имя</string>
     <string name="current_temperature">Актуальная температура</string>
     <string name="last_update">Последнее обновление:</string>
+    <string name="error">Ошибка</string>
 
 </resources>

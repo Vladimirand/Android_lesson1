@@ -72,7 +72,7 @@ public class CitiesFragment extends Fragment {
             Button btn = getActivity().findViewById(v.getId());
             String cityName = (String) btn.getText();
             if (cityName != null) {
-                intent.putExtra(CityInfoFragment.CITY_NAME_EXSTRA, cityName);
+                intent.putExtra(CityInfoFragment.CITY_NAME_EXTRA, cityName);
                 btn.setPressed(true);
             }
             intent.putExtra(CHECK_BOX_PRESSURE, getCheckBoxPressure());

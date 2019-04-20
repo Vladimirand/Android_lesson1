@@ -85,5 +85,6 @@
     <string name="current_temperature">Current temperature</string>
     <string name="last_update">Last update:</string>
     <string name="todo" translatable="false"> </string>
+    <string name="error">Error</string>
 
 </resources>
