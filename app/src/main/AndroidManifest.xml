@@ -38,6 +38,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeSettings" />
 
+        <activity
+        android:name=".screens.screens.HistoryActivity"
+        android:label="@string/activity_name_temperature"
+        android:screenOrientation="portrait"
+        android:theme="@style/AppThemeSettings"/>
+
         <service android:name=".screens.utils.BackgroundService" />
     </application>
 

@@ -14,6 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nehvedovich.vladimir.pogoda.R;
+import com.nehvedovich.vladimir.pogoda.screens.database.NoteDataSource;
 import com.nehvedovich.vladimir.pogoda.screens.rest.OpenWeatherRepo;
 import com.nehvedovich.vladimir.pogoda.screens.rest.entites.WeatherRequestRestModel;
 import com.squareup.picasso.Picasso;
@@ -60,6 +61,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     String apiKey = "bb0856d6336d3c2ca1a809b325fecefa";
     String units = "metric";
 
+    private NoteDataSource notesDataSource;     // Источник данных
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,6 +71,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         boolean pressure = false;
         boolean sunriseSunset = false;
+
+        initDataSource();
 
         if (bundle != null) {
             TextView cityName = layout.findViewById(R.id.cityNameInfo);
@@ -111,6 +116,11 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         sunriseTextView = textSunrise;
         sunsetTextView = textSunset;
+    }
+
+    private void initDataSource() {
+        notesDataSource = new NoteDataSource(getContext());
+        notesDataSource.open();
     }
 
     public void initVew(View layout) {
@@ -171,13 +181,25 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                             setWind();
                             progressBar.setVisibility(View.GONE);
                             setUpdatedOn();
+                            getDataForHistory();
                         }
                     }
+
                     @Override
                     public void onFailure(@NonNull Call<WeatherRequestRestModel> call, @NonNull Throwable t) {
                         currentTemperatureTextView.setText(R.string.error);
                     }
                 });
+    }
+
+    private void getDataForHistory() {
+        Date currentTime = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.US);
+        String time = dateFormat.format(new Date(currentTime.getTime()));
+
+        String weatherDescription = String.valueOf(model.weather[0].description);
+        Double temp = (double) model.main.temp;
+        notesDataSource.addNote(currentCityName, String.format("%s ℃", String.format(Locale.US, "%.0f", temp)), weatherDescription, time);
     }
 
     private void setWind() {
@@ -237,8 +259,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void setTemperature() {
-        Double text = (double) model.main.temp;
-        currentTemperatureTextView.setText(String.format("%s ℃", String.format(Locale.US, "%.0f", text)));
+        Double temp = (double) model.main.temp;
+        currentTemperatureTextView.setText(String.format("%s ℃", String.format(Locale.US, "%.0f", temp)));
     }
 
     private void setWeather() {
@@ -341,4 +363,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                 .error(R.drawable.error)
                 .into(imageView);
     }
+
+
 }

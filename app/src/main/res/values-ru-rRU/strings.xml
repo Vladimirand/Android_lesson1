@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Погода</string>
-    <string name="activity_name_temperature">История изменения температуры</string>
+    <string name="activity_name_temperature">История</string>
     <string name="activity_name_settings">Настройки</string>
     <string name="pogoda">Погода</string>
     <string name="weather_conditions">Солнечно</string>
@@ -46,5 +46,8 @@
     <string name="current_temperature">Актуальная температура</string>
     <string name="last_update">Последнее обновление:</string>
     <string name="error">Ошибка</string>
+    <string name="history">История</string>
+    <string name="no_items">Пусто</string>
+    <string name="clear_the_history">Очистить историю</string>
 
 </resources>
