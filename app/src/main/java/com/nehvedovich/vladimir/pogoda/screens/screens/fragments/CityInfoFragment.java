@@ -14,7 +14,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.nehvedovich.vladimir.pogoda.R;
-import com.nehvedovich.vladimir.pogoda.screens.database.NoteDataSource;
+import com.nehvedovich.vladimir.pogoda.screens.database.WeatherDataSource;
 import com.nehvedovich.vladimir.pogoda.screens.rest.OpenWeatherRepo;
 import com.nehvedovich.vladimir.pogoda.screens.rest.entites.WeatherRequestRestModel;
 import com.squareup.picasso.Picasso;
@@ -61,7 +61,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     String apiKey = "bb0856d6336d3c2ca1a809b325fecefa";
     String units = "metric";
 
-    private NoteDataSource notesDataSource;     // Источник данных
+    private WeatherDataSource notesDataSource;     // Источник данных
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -119,7 +119,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void initDataSource() {
-        notesDataSource = new NoteDataSource(getContext());
+        notesDataSource = new WeatherDataSource(getContext());
         notesDataSource.open();
     }
 

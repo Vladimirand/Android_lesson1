@@ -6,8 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import java.io.Closeable;
 
 // Читатель источника данных на основе курсора
-// Этот класс был вынесен из NoteDataSource, чтобы разгрузить его ответственности
-public class NoteDataReader implements Closeable {
+// Этот класс был вынесен из WeatherDataSource, чтобы разгрузить его ответственности
+public class WeatherDataReader implements Closeable {
 
     private Cursor cursor;              // Курсор (фактически, подготовленный запрос),
     // но сами данные подсчитываются только по необходимости
@@ -15,13 +15,13 @@ public class NoteDataReader implements Closeable {
 
     private String[] notesAllColumn = {
             DatabaseHelper.COLUMN_ID,
-            DatabaseHelper.COLUMN_NOTE,
-            DatabaseHelper.COLUMN_NOTE_TITLE,
-            DatabaseHelper.COLUMN_NOTE_WEATHER,
-            DatabaseHelper.COLUMN_NOTE_TIME,
+            DatabaseHelper.COLUMN_WEATHER,
+            DatabaseHelper.COLUMN_WEATHER_TITLE,
+            DatabaseHelper.COLUMN_WEATHER_WEATHER,
+            DatabaseHelper.COLUMN_WEATHER_TIME,
     };
 
-    NoteDataReader(SQLiteDatabase database){
+    WeatherDataReader(SQLiteDatabase database){
         this.database = database;
     }
 
@@ -44,12 +44,12 @@ public class NoteDataReader implements Closeable {
 
     // Создание запроса на курсор
     private void query(){
-        cursor = database.query(DatabaseHelper.TABLE_NOTES,
+        cursor = database.query(DatabaseHelper.TABLE_WEATHER,
                 notesAllColumn, "_id", null, null, null, null);
     }
 
     // Прочитать данные по определенной позиции
-    Note getPosition(int position){
+    Weather getPosition(int position){
         cursor.moveToPosition(position);
         return cursorToNote();
     }
@@ -60,13 +60,13 @@ public class NoteDataReader implements Closeable {
     }
 
     // Преобразователь данных курсора в объект
-    private Note cursorToNote() {
-        Note note = new Note();
-        note.id = cursor.getLong(0);
-        note.description = cursor.getString(1);
-        note.title = cursor.getString(2);
-        note.weatherCondition = cursor.getString(3);
-        note.time = cursor.getString(4);
-        return note;
+    private Weather cursorToNote() {
+        Weather weather = new Weather();
+        weather.id = cursor.getLong(0);
+        weather.description = cursor.getString(1);
+        weather.title = cursor.getString(2);
+        weather.weatherCondition = cursor.getString(3);
+        weather.time = cursor.getString(4);
+        return weather;
     }
 }

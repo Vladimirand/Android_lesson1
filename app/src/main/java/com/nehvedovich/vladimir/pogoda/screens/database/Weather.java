@@ -1,6 +1,6 @@
 package com.nehvedovich.vladimir.pogoda.screens.database;
 
-public class Note {
+public class Weather {
     long id;
     String description;
     String weatherCondition;

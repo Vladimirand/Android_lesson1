@@ -13,38 +13,38 @@ import android.widget.TextView;
 import com.nehvedovich.vladimir.pogoda.R;
 
 // Адаптер для RecycleView
-public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
+public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
 
     // Здесь нам нужен только читатель данных
-    private NoteDataReader noteDataReader;
+    private WeatherDataReader weatherDataReader;
     // Слушатель, который будет устанавливаться извне
     private OnMenuItemClickListener itemMenuClickListener;
 
-    public NoteAdapter(NoteDataReader noteDataReader) {
-        this.noteDataReader = noteDataReader;
+    public WeatherAdapter(WeatherDataReader weatherDataReader) {
+        this.weatherDataReader = weatherDataReader;
     }
 
     // Вызывается при создании новой карточки списка
     @NonNull
     @Override
-    public NoteAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-// Создаем новый элемент пользовательского интерфейса
-// Через Inflater
+    public WeatherAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    // Создаем новый элемент пользовательского интерфейса
+    // Через Inflater
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_recycler, parent, false);
-// Здесь можно установить всякие параметры
+    // Здесь можно установить всякие параметры
         return new ViewHolder(v);
     }
 
     // Привязываем данные к карточке
     @Override
-    public void onBindViewHolder(@NonNull NoteAdapter.ViewHolder holder, int position) {
-        holder.bind(noteDataReader.getPosition(position));
+    public void onBindViewHolder(@NonNull WeatherAdapter.ViewHolder holder, int position) {
+        holder.bind(weatherDataReader.getPosition(position));
     }
 
     @Override
     public int getItemCount() {
-        return noteDataReader.getCount();
+        return weatherDataReader.getCount();
     }
 
     // Установка слушателя
@@ -54,18 +54,18 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     // Интерфейс для обработки меню
     public interface OnMenuItemClickListener {
-        void onItemDeleteClick(Note note);
+        void onItemDeleteClick(Weather weather);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView textNote;
-        private Note note;
+        private Weather weather;
 
         ViewHolder(View itemView) {
             super(itemView);
             textNote = itemView.findViewById(R.id.textTitle);
-// При тапе на элементе – вытащим  меню
+            // При тапе на элементе – вытащим  меню
             textNote.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -76,13 +76,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
             });
         }
 
-        void bind(Note note) {
-            this.note = note;
-            textNote.setText(String.format("%s %s %s  (%s)", note.time, note.title, note.description, note.weatherCondition));
+        void bind(Weather weather) {
+            this.weather = weather;
+            textNote.setText(String.format("%s %s %s  (%s)", weather.time, weather.title, weather.description, weather.weatherCondition));
         }
 
         private void showPopupMenu(View view) {
-// Покажем меню на элементе
+            // Покажем меню на элементе
             PopupMenu popup = new PopupMenu(view.getContext(), view);
             MenuInflater inflater = popup.getMenuInflater();
             inflater.inflate(R.menu.context_menu, popup.getMenu());
@@ -91,9 +91,9 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
                 // Обработка выбора пункта меню
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
-// Делегируем обработку слушателю
+                    // Делегируем обработку слушателю
                     if (item.getItemId() == R.id.menu_delete) {
-                        itemMenuClickListener.onItemDeleteClick(note);
+                        itemMenuClickListener.onItemDeleteClick(weather);
                         return true;
                     }
                     return false;

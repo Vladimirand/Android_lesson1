@@ -11,16 +11,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.nehvedovich.vladimir.pogoda.R;
-import com.nehvedovich.vladimir.pogoda.screens.database.Note;
-import com.nehvedovich.vladimir.pogoda.screens.database.NoteAdapter;
-import com.nehvedovich.vladimir.pogoda.screens.database.NoteDataReader;
-import com.nehvedovich.vladimir.pogoda.screens.database.NoteDataSource;
+import com.nehvedovich.vladimir.pogoda.screens.database.Weather;
+import com.nehvedovich.vladimir.pogoda.screens.database.WeatherAdapter;
+import com.nehvedovich.vladimir.pogoda.screens.database.WeatherDataReader;
+import com.nehvedovich.vladimir.pogoda.screens.database.WeatherDataSource;
 
 public class HistoryActivity extends AppCompatActivity {
 
-    private NoteDataSource notesDataSource;     // Источник данных
-    private NoteDataReader noteDataReader;      // Читатель данных
-    private NoteAdapter adapter;                // Адаптер для RecyclerView
+    private WeatherDataSource notesDataSource;     // Источник данных
+    private WeatherDataReader weatherDataReader;   // Читатель данных
+    private WeatherAdapter adapter;                // Адаптер для RecyclerView
     TextView noItems;
 
     @Override
@@ -40,11 +40,11 @@ public class HistoryActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new NoteAdapter(noteDataReader);
-        adapter.setOnMenuItemClickListener(new NoteAdapter.OnMenuItemClickListener() {
+        adapter = new WeatherAdapter(weatherDataReader);
+        adapter.setOnMenuItemClickListener(new WeatherAdapter.OnMenuItemClickListener() {
             @Override
-            public void onItemDeleteClick(Note note) {
-                deleteElement(note);
+            public void onItemDeleteClick(Weather weather) {
+                deleteElement(weather);
             }
         });
 
@@ -58,9 +58,9 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void initDataSource() {
-        notesDataSource = new NoteDataSource(getApplicationContext());
+        notesDataSource = new WeatherDataSource(getApplicationContext());
         notesDataSource.open();
-        noteDataReader = notesDataSource.getNoteDataReader();
+        weatherDataReader = notesDataSource.getWeatherDataReader();
     }
 
     private void clearList() {
@@ -69,13 +69,13 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
 
-    private void deleteElement(Note note) {
-        notesDataSource.deleteNote(note);
+    private void deleteElement(Weather weather) {
+        notesDataSource.deleteNote(weather);
         dataUpdated();
     }
 
     private void dataUpdated() {
-        noteDataReader.Refresh();
+        weatherDataReader.Refresh();
         adapter.notifyDataSetChanged();
 
     }
