@@ -89,5 +89,7 @@
     <string name="history">History</string>
     <string name="no_items">No items</string>
     <string name="clear_the_history">Clear the history</string>
+    <string name="null_data" translatable="false">-</string>
+    <string name="error_internet_connection">No internet connection!</string>
 
 </resources>

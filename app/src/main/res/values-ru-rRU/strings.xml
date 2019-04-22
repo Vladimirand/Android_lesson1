@@ -49,5 +49,6 @@
     <string name="history">История</string>
     <string name="no_items">Пусто</string>
     <string name="clear_the_history">Очистить историю</string>
+    <string name="error_internet_connection">Нет соединения с интернетом!</string>
 
 </resources>

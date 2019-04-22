@@ -1,6 +1,9 @@
 package com.nehvedovich.vladimir.pogoda.screens.screens.fragments;
 
+import android.content.Context;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,9 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nehvedovich.vladimir.pogoda.R;
 import com.nehvedovich.vladimir.pogoda.screens.database.WeatherDataSource;
@@ -91,6 +96,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
         refreshList();
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     public void getCheckBox(View layout, boolean sunriseSunset, boolean pressure) {
@@ -163,6 +169,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void requestRetrofit() {
+        isOnline(Objects.requireNonNull(getContext())); //Проверяем подключение к интернету
+        final Button detailsBtn = Objects.requireNonNull(getActivity()).findViewById(R.id.moreInformation);
         OpenWeatherRepo.getSingleton().getAPI().loadWeather(currentCityName,
                 apiKey, units, getString(R.string.location))
                 .enqueue(new Callback<WeatherRequestRestModel>() {
@@ -179,15 +187,19 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                             setHumidity();
                             setSunriseAndSunset();
                             setWind();
-                            progressBar.setVisibility(View.GONE);
+
+                            detailsBtn.setVisibility(View.VISIBLE);
                             setUpdatedOn();
                             getDataForHistory();
+                        } else {
+                            loadImage("error");
                         }
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<WeatherRequestRestModel> call, @NonNull Throwable t) {
-                        currentTemperatureTextView.setText(R.string.error);
+                        loadImage("error");
+
                     }
                 });
     }
@@ -362,7 +374,17 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                 .load(url)
                 .error(R.drawable.error)
                 .into(imageView);
+        progressBar.setVisibility(View.GONE);
     }
 
-
+    //метод длчя проверки наличия подключения к интернету (если подключения нету - выводим сообщение)
+    public void isOnline(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo == null || !netInfo.isConnectedOrConnecting()) {
+            Toast.makeText(getContext(),
+                    getString(R.string.error_internet_connection), Toast.LENGTH_LONG).show();
+        }
+    }
 }
