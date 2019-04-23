@@ -1,8 +1,10 @@
 package com.nehvedovich.vladimir.pogoda.screens.screens;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -37,6 +39,10 @@ import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CityInfoFragmen
 import com.nehvedovich.vladimir.pogoda.screens.utils.BackgroundService;
 
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Calendar;
+import java.util.Locale;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
@@ -50,21 +56,18 @@ public class MainActivity extends AppCompatActivity
 
     private TextView humidityIcon;
     private TextView temperatureIcon;
-
     private TextView temperatureLabel;
     private SensorManager mSensorManager;
-
 
     private Sensor mTemperature;
     private TextView humidityLabel;
     private Sensor mHumidity;
     private final static String NOT_SUPPORTED_MESSAGE = "";  //Если сенсора не существует, то ничего не выводим
-
-
     public static boolean night;
-
     public CheckBox pressure;
     public CheckBox sunriseSunset;
+    private static BroadcastReceiver tickReceiver;
+    private TextView textClock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,12 +166,35 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
+        initClockWithBroadcast();
+    }
+
+    private void initClockWithBroadcast() {
+        textClock = findViewById(R.id.clock);
+        textClock.setText(MessageFormat.format("{0}:{1}", Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE)));
+
+        //Create a broadcast receiver to handle change in time
+        tickReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                if (Objects.requireNonNull(intent.getAction()).compareTo(Intent.ACTION_TIME_TICK) == 0) {
+                    textClock.setText(MessageFormat.format("{0}:{1}", Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE)));
+                }
+
+            }
+        };
+        //Register the broadcast receiver to receive TIME_TICK (unregister broadcast receiver in method onPause()).
+        registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mSensorManager.unregisterListener(this);
+
+        //unregister broadcast receiver.
+        if (tickReceiver != null)
+            unregisterReceiver(tickReceiver);
 
     }
 
@@ -177,7 +203,6 @@ public class MainActivity extends AppCompatActivity
         super.onStop();
         saveCheckBoxPressure(pressure.isChecked());
         saveCheckBoxSunriseSunset(sunriseSunset.isChecked());
-
         final SharedPreferences activityPrefs = getPreferences(Context.MODE_PRIVATE);
         saveNightBackground(activityPrefs);
     }
@@ -189,12 +214,12 @@ public class MainActivity extends AppCompatActivity
         if (type == Sensor.TYPE_AMBIENT_TEMPERATURE) {
             float ambient_temperature = event.values[0];
             temperatureIcon.setText(getString(R.string.temperature_icon));
-            temperatureLabel.setText(String.format("%.0f", ambient_temperature) + " ℃");
+            temperatureLabel.setText(String.format("%s ℃", String.format(Locale.US, "%.0f", ambient_temperature)));
         }
         if (type == Sensor.TYPE_RELATIVE_HUMIDITY) {
             float ambient_humidity = event.values[0];
             humidityIcon.setText(getString(R.string.humidity_icon));
-            humidityLabel.setText(String.format("%.0f", ambient_humidity) + "%");
+            humidityLabel.setText(String.format("%s%%", String.format(Locale.US, "%.0f", ambient_humidity)));
         }
     }
 
@@ -210,7 +235,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void readNightBackground(SharedPreferences preferences) {
-      night = preferences.getBoolean(darkThemeKey, false);
+        night = preferences.getBoolean(darkThemeKey, false);
     }
 
     private void saveCheckBoxPressure(final boolean isChecked) {
@@ -369,7 +394,6 @@ public class MainActivity extends AppCompatActivity
         });
         byAuthor.show();
     }
-
 
     private void showNameDialog() {
         AlertDialog.Builder name = new AlertDialog.Builder(this);
