@@ -1,6 +1,9 @@
 package com.nehvedovich.vladimir.pogoda.screens.screens.fragments;
 
+import android.content.Context;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -9,11 +12,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.nehvedovich.vladimir.pogoda.R;
+import com.nehvedovich.vladimir.pogoda.screens.database.WeatherDataSource;
 import com.nehvedovich.vladimir.pogoda.screens.rest.OpenWeatherRepo;
 import com.nehvedovich.vladimir.pogoda.screens.rest.entites.WeatherRequestRestModel;
 import com.squareup.picasso.Picasso;
@@ -60,6 +66,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     String apiKey = "bb0856d6336d3c2ca1a809b325fecefa";
     String units = "metric";
 
+    private WeatherDataSource notesDataSource;     // Источник данных
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -68,6 +76,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         boolean pressure = false;
         boolean sunriseSunset = false;
+
+        initDataSource();
 
         if (bundle != null) {
             TextView cityName = layout.findViewById(R.id.cityNameInfo);
@@ -86,6 +96,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(true);
         refreshList();
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     public void getCheckBox(View layout, boolean sunriseSunset, boolean pressure) {
@@ -111,6 +122,11 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         sunriseTextView = textSunrise;
         sunsetTextView = textSunset;
+    }
+
+    private void initDataSource() {
+        notesDataSource = new WeatherDataSource(getContext());
+        notesDataSource.open();
     }
 
     public void initVew(View layout) {
@@ -153,6 +169,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void requestRetrofit() {
+        isOnline(Objects.requireNonNull(getContext())); //Проверяем подключение к интернету
+        final Button detailsBtn = Objects.requireNonNull(getActivity()).findViewById(R.id.moreInformation);
         OpenWeatherRepo.getSingleton().getAPI().loadWeather(currentCityName,
                 apiKey, units, getString(R.string.location))
                 .enqueue(new Callback<WeatherRequestRestModel>() {
@@ -169,15 +187,31 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                             setHumidity();
                             setSunriseAndSunset();
                             setWind();
-                            progressBar.setVisibility(View.GONE);
+
+                            detailsBtn.setVisibility(View.VISIBLE);
                             setUpdatedOn();
+                            getDataForHistory();
+                        } else {
+                            loadImage("error");
                         }
                     }
+
                     @Override
                     public void onFailure(@NonNull Call<WeatherRequestRestModel> call, @NonNull Throwable t) {
-                        currentTemperatureTextView.setText(R.string.error);
+                        loadImage("error");
+
                     }
                 });
+    }
+
+    private void getDataForHistory() {
+        Date currentTime = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.US);
+        String time = dateFormat.format(new Date(currentTime.getTime()));
+
+        String weatherDescription = String.valueOf(model.weather[0].description);
+        Double temp = (double) model.main.temp;
+        notesDataSource.addNote(currentCityName, String.format("%s ℃", String.format(Locale.US, "%.0f", temp)), weatherDescription, time);
     }
 
     private void setWind() {
@@ -237,8 +271,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void setTemperature() {
-        Double text = (double) model.main.temp;
-        currentTemperatureTextView.setText(String.format("%s ℃", String.format(Locale.US, "%.0f", text)));
+        Double temp = (double) model.main.temp;
+        currentTemperatureTextView.setText(String.format("%s ℃", String.format(Locale.US, "%.0f", temp)));
     }
 
     private void setWeather() {
@@ -340,5 +374,17 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                 .load(url)
                 .error(R.drawable.error)
                 .into(imageView);
+        progressBar.setVisibility(View.GONE);
+    }
+
+    //метод длчя проверки наличия подключения к интернету (если подключения нету - выводим сообщение)
+    public void isOnline(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo == null || !netInfo.isConnectedOrConnecting()) {
+            Toast.makeText(getContext(),
+                    getString(R.string.error_internet_connection), Toast.LENGTH_LONG).show();
+        }
     }
 }

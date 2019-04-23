@@ -261,6 +261,11 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             return true;
         }
+        if (id == R.id.action_history) {
+            startActivity(new Intent(MainActivity.this, HistoryActivity.class));
+            return true;
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -301,6 +306,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_name) {
             showNameDialog();
 
+        } else if (id == R.id.nav_history) {
+            startActivity(new Intent(MainActivity.this, HistoryActivity.class));
+
         } else if (id == R.id.nav_manage) {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             return true;
@@ -335,32 +343,31 @@ public class MainActivity extends AppCompatActivity
         Bitmap bitmap = null;
         ImageView imageView = findViewById(R.id.avatarView);
 
-        switch (requestCode) {
-            case GALLERY_REQUEST:
-                if (resultCode == RESULT_OK) {
-                    Uri selectedImage = imageReturnedIntent.getData();
-                    try {
-                        bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    imageView.setImageBitmap(bitmap);
+        if (requestCode == GALLERY_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Uri selectedImage = imageReturnedIntent.getData();
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+                imageView.setImageBitmap(bitmap);
+            }
         }
     }
 
     //показываем окно с информацией о разработчике
     private void showDeveloperDialog() {
-        AlertDialog.Builder byAuthotor = new AlertDialog.Builder(this);
-        byAuthotor.setIcon(R.mipmap.ic_launcher);
-        byAuthotor.setTitle(R.string.developer_name);
+        AlertDialog.Builder byAuthor = new AlertDialog.Builder(this);
+        byAuthor.setIcon(R.mipmap.ic_launcher);
+        byAuthor.setTitle(R.string.developer_name);
 
-        byAuthotor.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+        byAuthor.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             }
         });
-        byAuthotor.show();
+        byAuthor.show();
     }
 
 
