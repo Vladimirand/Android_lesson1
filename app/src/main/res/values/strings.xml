@@ -46,7 +46,10 @@
     <string name="weather_sunny" translatable="false">&#xf00d;</string>
     <string name="weather_clear_night" translatable="false">&#xf02e;</string>
     <string name="weather_foggy" translatable="false">&#xf014;</string>
+    <string name="weather_cloud" translatable="false">&#xf041;</string>
     <string name="weather_cloudy" translatable="false">&#xf013;</string>
+    <string name="weather_day_cloudy" translatable="false">&#xf002;</string>
+    <string name="weather_night_cloudy" translatable="false">&#xf086;</string>
     <string name="weather_rainy" translatable="false">&#xf019;</string>
     <string name="weather_snowy" translatable="false">&#xf01b;</string>
     <string name="weather_thunder" translatable="false">&#xf01e;</string>
@@ -90,5 +93,7 @@
     <string name="clear_the_history">Clear the history</string>
     <string name="null_data" translatable="false">-</string>
     <string name="error_internet_connection">No internet connection!</string>
+    <string name="error_city_not_found">Sorry, city not found</string>
+    <string name="error_internet_text">Check your internet connection and try again.</string>
 
 </resources>

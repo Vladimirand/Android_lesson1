@@ -53,7 +53,7 @@
                         android:id="@+id/clock"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="32sp" />
+                        android:textSize="36sp" />
 
                     <RelativeLayout
                         android:layout_width="wrap_content"

@@ -1,6 +1,7 @@
 package com.nehvedovich.vladimir.pogoda.screens.screens.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -170,6 +172,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private void requestRetrofit() {
         isOnline(Objects.requireNonNull(getContext())); //Проверяем подключение к интернету
+
         final Button detailsBtn = Objects.requireNonNull(getActivity()).findViewById(R.id.moreInformation);
         OpenWeatherRepo.getSingleton().getAPI().loadWeather(currentCityName,
                 apiKey, units, getString(R.string.location))
@@ -187,19 +190,19 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                             setHumidity();
                             setSunriseAndSunset();
                             setWind();
-
                             detailsBtn.setVisibility(View.VISIBLE);
                             setUpdatedOn();
                             getDataForHistory();
                         } else {
-                            loadImage("error");
+                            loadImage("https://i.pinimg.com/originals/32/81/56/328156fb3ce91b68e080b37eecd66fd6.png");
+                            Toast.makeText(getContext(),
+                                    getString(R.string.error_city_not_found), Toast.LENGTH_LONG).show();
                         }
                     }
 
                     @Override
                     public void onFailure(@NonNull Call<WeatherRequestRestModel> call, @NonNull Throwable t) {
                         loadImage("error");
-
                     }
                 });
     }
@@ -294,9 +297,9 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         int id = actualId / 100; // Упрощение кодов (int оставляет только целочисленное значение)
         String icon = "";
         String url = "";
+        long currentTime = new Date().getTime();
 
         if (actualId == 800) {
-            long currentTime = new Date().getTime();
             if (currentTime >= sunrise && currentTime < sunset) {
                 icon = getString(R.string.weather_sunny);
                 url = "http://clipart-library.com/img/1816931.png";
@@ -304,6 +307,20 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                 icon = getString(R.string.weather_clear_night);
                 url = "http://clipart-library.com/img/1817023.png";
             }
+        } else if (actualId == 801) {
+            if (currentTime >= sunrise && currentTime < sunset) {
+                icon = getString(R.string.weather_day_cloudy);
+                url = "http://clipart-library.com/img/1816960.png";
+            } else {
+                icon = getString(R.string.weather_night_cloudy);
+                url = "http://clipart-library.com/image_gallery/583348.png";
+            }
+        } else if (actualId == 802) {
+            icon = getString(R.string.weather_cloud);
+            url = "https://upload.wikimedia.org/wikipedia/commons/4/40/Draw_cloudy.png";
+        } else if ((actualId == 803) | (actualId == 804)) {
+            icon = getString(R.string.weather_cloudy);
+            url = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Weather-heavy-overcast.svg/480px-Weather-heavy-overcast.svg.png";
         } else {
             switch (id) {
                 case 2:
@@ -324,11 +341,11 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                     break;
                 case 7:
                     icon = getString(R.string.weather_foggy);
-                    url = "https://banner2.kisspng.com/20171210/a3a/foggy-weather-5a2da8d3c6fd37.6787012715129417798151.jpg";
+                    url = "https://cdn3.iconfinder.com/data/icons/flat-main-weather-conditions-2/842/fog-512.png";
                     break;
                 case 8:
                     icon = getString(R.string.weather_cloudy);
-                    url = "http://clipart-library.com/img/1817004.png";
+                    url = "https://upload.wikimedia.org/wikipedia/commons/4/40/Draw_cloudy.png";
                     break;
                 // Можете доработать приложение, найдя все иконки и распарсив все значения
                 default:
@@ -385,6 +402,21 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         if (netInfo == null || !netInfo.isConnectedOrConnecting()) {
             Toast.makeText(getContext(),
                     getString(R.string.error_internet_connection), Toast.LENGTH_LONG).show();
+            showErrorDialog();
         }
+    }
+
+    //показываем окно с информацией о разработчике
+    private void showErrorDialog() {
+        AlertDialog.Builder errorConnection = new AlertDialog.Builder(Objects.requireNonNull(getContext()));
+        errorConnection.setIcon(R.drawable.error_icon);
+        errorConnection.setTitle(R.string.error);
+        errorConnection.setMessage(R.string.error_internet_text);
+        errorConnection.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        errorConnection.show();
     }
 }

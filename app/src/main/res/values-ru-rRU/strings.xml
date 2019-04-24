@@ -50,5 +50,7 @@
     <string name="no_items">Пусто</string>
     <string name="clear_the_history">Очистить историю</string>
     <string name="error_internet_connection">Нет соединения с интернетом!</string>
+    <string name="error_city_not_found">Извините, город не найден</string>
+    <string name="error_internet_text">Проверте подключение к интернету и повторите попытку.</string>
 
 </resources>
