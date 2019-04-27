@@ -4,12 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".screens.screens.MainActivity">
-
 
         <LinearLayout
             android:id="@+id/cities"
@@ -34,7 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/city_name_2" />
-
 
             <Button
                 android:id="@+id/to_city_4"
