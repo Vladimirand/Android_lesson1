@@ -329,7 +329,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                     break;
                 case 3:
                     icon = getString(R.string.weather_drizzle);
-                    url = "https://banner2.kisspng.com/20180713/osr/kisspng-rain-weather-drizzle-cloud-snow-light-rain-5b4955002c4da3.8910760415315325441815.jpg";
+                    url = "https://www.longy.com.au/sites/default/files/kisspng-weather-rain-computer-icons-cloud-clip-art-clouds-5ab45ec3d2c9d0.9747451715217701798634.png";
                     break;
                 case 5:
                     icon = getString(R.string.weather_rainy);

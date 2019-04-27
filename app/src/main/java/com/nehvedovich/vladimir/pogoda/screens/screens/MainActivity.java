@@ -1,10 +1,8 @@
 package com.nehvedovich.vladimir.pogoda.screens.screens;
 
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
@@ -39,10 +37,7 @@ import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CityInfoFragmen
 import com.nehvedovich.vladimir.pogoda.screens.utils.BackgroundService;
 
 import java.io.IOException;
-import java.text.MessageFormat;
-import java.util.Calendar;
 import java.util.Locale;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
@@ -66,8 +61,6 @@ public class MainActivity extends AppCompatActivity
     public static boolean night;
     public CheckBox pressure;
     public CheckBox sunriseSunset;
-    private static BroadcastReceiver tickReceiver;
-    private TextView textClock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -166,36 +159,12 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onResume() {
         super.onResume();
-        initClockWithBroadcast();
-    }
-
-    private void initClockWithBroadcast() {
-        textClock = findViewById(R.id.clock);
-        textClock.setText(MessageFormat.format("{0}:{1}", Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE)));
-
-        //Create a broadcast receiver to handle change in time
-        tickReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                if (Objects.requireNonNull(intent.getAction()).compareTo(Intent.ACTION_TIME_TICK) == 0) {
-                    textClock.setText(MessageFormat.format("{0}:{1}", Calendar.getInstance().get(Calendar.HOUR_OF_DAY), Calendar.getInstance().get(Calendar.MINUTE)));
-                }
-
-            }
-        };
-        //Register the broadcast receiver to receive TIME_TICK (unregister broadcast receiver in method onPause()).
-        registerReceiver(tickReceiver, new IntentFilter(Intent.ACTION_TIME_TICK));
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mSensorManager.unregisterListener(this);
-
-        //unregister broadcast receiver.
-        if (tickReceiver != null)
-            unregisterReceiver(tickReceiver);
-
     }
 
     @Override
