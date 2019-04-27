@@ -1,20 +1,28 @@
 package com.nehvedovich.vladimir.pogoda.screens.screens;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -28,6 +36,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +51,7 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
 
+    private static final int PERMISSION_REQUEST_CODE = 10;
     static final int GALLERY_REQUEST = 1;
     private static final String FONT_FILENAME = "fonts/weather_icons.ttf";
 
@@ -62,10 +72,29 @@ public class MainActivity extends AppCompatActivity
     public CheckBox pressure;
     public CheckBox sunriseSunset;
 
+    private TextView textLatitude;
+    private TextView textLongitude;
+    String latitude;
+    String longitude;
+
+    public static boolean coordPut = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Проверим на пермиссии, и если их нет, запросим у пользователя
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            // Запросим координаты
+            requestLocation();
+        } else {
+            // Пермиссии нет, будем запрашивать у пользователя
+            requestLocationPermissions();
+        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -75,9 +104,18 @@ public class MainActivity extends AppCompatActivity
         initWeatherFont();
         serviceInfoStart();
 
+        FloatingActionButton fab = findViewById(R.id.locationButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                putCoord();
+            }
+        });
+
         final SharedPreferences activityPrefs = getPreferences(Context.MODE_PRIVATE);
         readNightBackground(activityPrefs);
     }
+
 
     private void initWeatherFont() {
         Typeface weatherFont = Typeface.createFromAsset(getAssets(), FONT_FILENAME);
@@ -94,6 +132,9 @@ public class MainActivity extends AppCompatActivity
 
         temperatureLabel = findViewById(R.id.temperature_in);
         humidityLabel = findViewById(R.id.humidity_in);
+
+        textLatitude = findViewById(R.id.textLatitude);
+        textLongitude = findViewById(R.id.textLongitude);
     }
 
     private void startSensors() {
@@ -107,6 +148,94 @@ public class MainActivity extends AppCompatActivity
 
         if (mHumidity == null) {
             humidityLabel.setText(NOT_SUPPORTED_MESSAGE);
+        }
+    }
+
+    private void requestLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED)
+            return;
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        Criteria criteria = new Criteria();
+        criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+
+        // Получим наиболее подходящий провайдер геолокации по критериям
+        // Но можно и самому назначать, какой провайдер использовать
+        // В основном это LocationManager.GPS_PROVIDER или LocationManager.NETWORK_PROVIDER
+        // Но может быть и LocationManager.PASSIVE_PROVIDER (когда координаты уже кто-то недавно получил)
+        String provider = locationManager.getBestProvider(criteria, true);
+        if (provider != null) {
+            // Будем получать геоположение через каждые 3 секунд или каждые 2000 метров
+            locationManager.requestLocationUpdates(provider, 3000, 2000, new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    // Широта
+                    latitude = Double.toString(location.getLatitude());
+
+                    // Долгота
+                    longitude = Double.toString(location.getLongitude());
+                    textLatitude.setText(latitude);
+                    textLongitude.setText(longitude);
+
+                    TextView coordination = findViewById(R.id.textCoordination);
+                    ProgressBar progressBar = findViewById(R.id.progressBarCoord);
+                    progressBar.setVisibility(View.GONE);
+                    coordination.setVisibility(View.GONE);
+
+                    if (coordPut) {
+                        putCoord();
+                        coordPut = false;
+                    }
+                }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
+
+                @Override
+                public void onProviderEnabled(String provider) {
+                }
+
+                @Override
+                public void onProviderDisabled(String provider) {
+                }
+            });
+
+        }
+    }
+
+    private void putCoord() {
+        Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+        intent.putExtra(CityInfoFragment.COORD_LATITUDE, textLatitude.getText());
+        intent.putExtra(CityInfoFragment.COORD_LONGITUDE, textLongitude.getText());
+
+        intent.putExtra(CitiesFragment.CHECK_BOX_PRESSURE, pressure.isChecked());
+        intent.putExtra(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET, sunriseSunset.isChecked());
+        startActivity(intent);
+    }
+
+    // Запрос пермиссии для геолокации
+    private void requestLocationPermissions() {
+        ActivityCompat.requestPermissions(this,
+                new String[]{
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                },
+                PERMISSION_REQUEST_CODE);
+    }
+
+    // Это результат запроса у пользователя пермиссии
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        // Это та самая пермиссия, что мы запрашивали?
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length == 2 &&
+                    (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
+                // Пермиссия дана
+                requestLocation();
+            }
         }
     }
 
@@ -246,7 +375,7 @@ public class MainActivity extends AppCompatActivity
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-
+        coordPut = false;
         if (item.getItemId() == R.id.searchButton) showInputDialog();
 
         //noinspection SimplifiableIfStatement
@@ -259,7 +388,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, HistoryActivity.class));
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -291,7 +419,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         // Handle navigation view item clicks here.
         int id = menuItem.getItemId();
-
+        coordPut = false;
         if (id == R.id.nav_avatar) {
             //пользователь может выбрать аватарку из галерии
             Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);

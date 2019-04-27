@@ -222,7 +222,6 @@
                 android:indeterminateTintMode="src_atop"
                 tools:targetApi="lollipop" />
 
-
         </LinearLayout>
     </android.support.v4.widget.SwipeRefreshLayout>
 </FrameLayout>

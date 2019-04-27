@@ -95,5 +95,7 @@
     <string name="error_internet_connection">No internet connection!</string>
     <string name="error_city_not_found">Sorry, city not found</string>
     <string name="error_internet_text">Check your internet connection and try again.</string>
+    <string name="your_location">(Your location)</string>
+    <string name="my_location">Мое местоположение…</string>
 
 </resources>

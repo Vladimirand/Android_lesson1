@@ -52,5 +52,7 @@
     <string name="error_internet_connection">Нет соединения с интернетом!</string>
     <string name="error_city_not_found">Извините, город не найден</string>
     <string name="error_internet_text">Проверте подключение к интернету и повторите попытку.</string>
+    <string name="your_location">(Ваше местоположение)</string>
+    <string name="my_location">My location…</string>
 
 </resources>
