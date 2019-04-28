@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity
     private Sensor mHumidity;
     public CheckBox pressure;
     public CheckBox sunriseSunset;
+    public TextView coordination;
+    public ProgressBar progressBar;
     String latitude;
     String longitude;
 
@@ -127,6 +129,9 @@ public class MainActivity extends AppCompatActivity
 
         temperatureLabel = findViewById(R.id.temperature_in);
         humidityLabel = findViewById(R.id.humidity_in);
+
+        coordination = findViewById(R.id.textCoordination);
+        progressBar = findViewById(R.id.progressBarCoord);
     }
 
     private void startSensors() {
@@ -163,12 +168,8 @@ public class MainActivity extends AppCompatActivity
                     latitude = Double.toString(location.getLatitude());
                     // Долгота
                     longitude = Double.toString(location.getLongitude());
-
-                    TextView coordination = findViewById(R.id.textCoordination);
-                    ProgressBar progressBar = findViewById(R.id.progressBarCoord);
                     progressBar.setVisibility(View.GONE);
                     coordination.setVisibility(View.GONE);
-
                     if (coordPut) {
                         putCoord();
                         coordPut = false;
@@ -220,6 +221,9 @@ public class MainActivity extends AppCompatActivity
                     (grantResults[0] == PackageManager.PERMISSION_GRANTED || grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
                 // Пермиссия дана
                 requestLocation();
+            } else {
+                progressBar.setVisibility(View.INVISIBLE);
+                coordination.setVisibility(View.INVISIBLE);
             }
         }
     }
