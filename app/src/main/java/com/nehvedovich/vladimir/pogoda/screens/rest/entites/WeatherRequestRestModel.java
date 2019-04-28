@@ -9,6 +9,7 @@ public class WeatherRequestRestModel {
     @SerializedName("main") public MainRestModel main;
     @SerializedName("visibility") public int visibility;
     @SerializedName("wind") public WindRestModel wind;
+    @SerializedName("rain") public  RainRestModel rain;
     @SerializedName("clouds") public  CloudsRestModel clouds;
     @SerializedName("dt") public long dt;
     @SerializedName("sys") public  SysRestModel sys;

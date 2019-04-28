@@ -58,26 +58,21 @@ public class MainActivity extends AppCompatActivity
     private final String pressureChBKey = "check_pressure";
     private final String sunriseSunsetChBKey = "check_sunrise_sunset";
     private final String darkThemeKey = "save_night";
+    private final static String NOT_SUPPORTED_MESSAGE = "";  //Если сенсора не существует, то ничего не выводим
+    public static boolean night;
+    public static boolean coordPut = true;
 
     private TextView humidityIcon;
     private TextView temperatureIcon;
     private TextView temperatureLabel;
     private SensorManager mSensorManager;
-
     private Sensor mTemperature;
     private TextView humidityLabel;
     private Sensor mHumidity;
-    private final static String NOT_SUPPORTED_MESSAGE = "";  //Если сенсора не существует, то ничего не выводим
-    public static boolean night;
     public CheckBox pressure;
     public CheckBox sunriseSunset;
-
-    private TextView textLatitude;
-    private TextView textLongitude;
     String latitude;
     String longitude;
-
-    public static boolean coordPut = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,9 +127,6 @@ public class MainActivity extends AppCompatActivity
 
         temperatureLabel = findViewById(R.id.temperature_in);
         humidityLabel = findViewById(R.id.humidity_in);
-
-        textLatitude = findViewById(R.id.textLatitude);
-        textLongitude = findViewById(R.id.textLongitude);
     }
 
     private void startSensors() {
@@ -161,10 +153,6 @@ public class MainActivity extends AppCompatActivity
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);
 
-        // Получим наиболее подходящий провайдер геолокации по критериям
-        // Но можно и самому назначать, какой провайдер использовать
-        // В основном это LocationManager.GPS_PROVIDER или LocationManager.NETWORK_PROVIDER
-        // Но может быть и LocationManager.PASSIVE_PROVIDER (когда координаты уже кто-то недавно получил)
         String provider = locationManager.getBestProvider(criteria, true);
         if (provider != null) {
             // Будем получать геоположение через каждые 3 секунд или каждые 2000 метров
@@ -173,11 +161,8 @@ public class MainActivity extends AppCompatActivity
                 public void onLocationChanged(Location location) {
                     // Широта
                     latitude = Double.toString(location.getLatitude());
-
                     // Долгота
                     longitude = Double.toString(location.getLongitude());
-                    textLatitude.setText(latitude);
-                    textLongitude.setText(longitude);
 
                     TextView coordination = findViewById(R.id.textCoordination);
                     ProgressBar progressBar = findViewById(R.id.progressBarCoord);
@@ -208,8 +193,8 @@ public class MainActivity extends AppCompatActivity
 
     private void putCoord() {
         Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-        intent.putExtra(CityInfoFragment.COORD_LATITUDE, textLatitude.getText());
-        intent.putExtra(CityInfoFragment.COORD_LONGITUDE, textLongitude.getText());
+        intent.putExtra(CityInfoFragment.COORD_LATITUDE, latitude);
+        intent.putExtra(CityInfoFragment.COORD_LONGITUDE, longitude);
 
         intent.putExtra(CitiesFragment.CHECK_BOX_PRESSURE, pressure.isChecked());
         intent.putExtra(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET, sunriseSunset.isChecked());

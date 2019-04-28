@@ -83,7 +83,6 @@ public class SecondActivity extends AppCompatActivity {
             }
         }
 
-
         //Делаем скриншот экрана и отправляем его другу
         if (item.getItemId() == R.id.share_screenshot) {
             //прверяем разрешение на доступ к памяти устройства

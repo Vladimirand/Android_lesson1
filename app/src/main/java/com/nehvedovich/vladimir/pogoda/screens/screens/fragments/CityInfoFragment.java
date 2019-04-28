@@ -105,11 +105,12 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void retrofitStart() {
+        isOnline(Objects.requireNonNull(getContext())); //Проверяем подключение к интернету
         if (currentCityName != null) {
             requestRetrofit();  //загружаем данные погоды выбранного города
         }
         if (latitude != null & longitude != null) {
-            requestRetrofit2();  //загружаем данные погоды, если получили местоположение
+            requestRetrofitByCoord();  //загружаем данные погоды, если получили местоположение
         }
     }
 
@@ -190,10 +191,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void requestRetrofit() {
-        isOnline(Objects.requireNonNull(getContext())); //Проверяем подключение к интернету
-
-        final Button detailsBtn = Objects.requireNonNull(getActivity()).findViewById(R.id.moreInformation);
-
         OpenWeatherRepo.getSingleton().getAPI().loadWeather(currentCityName,
                 apiKey, units, getString(R.string.location))
                 .enqueue(new Callback<WeatherRequestRestModel>() {
@@ -203,23 +200,11 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                         if (response.body() != null && response.isSuccessful()) {
                             model = response.body();
                             setCityFullName();
-                            setWeatherIcon();
-                            setTemperature();
-                            setWeather();
-                            setPressure();
-                            setHumidity();
-                            setSunriseAndSunset();
-                            setWind();
-                            detailsBtn.setVisibility(View.VISIBLE);
-                            setUpdatedOn();
-                            getDataForHistory();
+                            setInformation();
                         } else {
-                            loadImage("https://i.pinimg.com/originals/32/81/56/328156fb3ce91b68e080b37eecd66fd6.png");
-                            Toast.makeText(getContext(),
-                                    getString(R.string.error_city_not_found), Toast.LENGTH_LONG).show();
+                            setInfoError();
                         }
                     }
-
                     @Override
                     public void onFailure(@NonNull Call<WeatherRequestRestModel> call, @NonNull Throwable t) {
                         loadImage("error");
@@ -227,11 +212,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                 });
     }
 
-    private void requestRetrofit2() {
-        isOnline(Objects.requireNonNull(getContext())); //Проверяем подключение к интернету
-
-        final Button detailsBtn = Objects.requireNonNull(getActivity()).findViewById(R.id.moreInformation);
-
+    private void requestRetrofitByCoord() {
         OpenWeatherRepo.getSingleton().getAPI().loadWeatherByCoord(latitude, longitude,
                 apiKey, units, getString(R.string.location))
                 .enqueue(new Callback<WeatherRequestRestModel>() {
@@ -241,28 +222,36 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                         if (response.body() != null && response.isSuccessful()) {
                             model = response.body();
                             setCityFullNameByCoord();
-                            setWeatherIcon();
-                            setTemperature();
-                            setWeather();
-                            setPressure();
-                            setHumidity();
-                            setSunriseAndSunset();
-                            setWind();
-                            detailsBtn.setVisibility(View.VISIBLE);
-                            setUpdatedOn();
-                            getDataForHistory();
+                            setInformation();
                         } else {
-                            loadImage("https://i.pinimg.com/originals/32/81/56/328156fb3ce91b68e080b37eecd66fd6.png");
-                            Toast.makeText(getContext(),
-                                    getString(R.string.error_city_not_found), Toast.LENGTH_LONG).show();
+                            setInfoError();
                         }
                     }
-
                     @Override
                     public void onFailure(@NonNull Call<WeatherRequestRestModel> call, @NonNull Throwable t) {
                         loadImage("error");
                     }
                 });
+    }
+
+    private void setInformation() {
+        final Button detailsBtn = Objects.requireNonNull(getActivity()).findViewById(R.id.moreInformation);
+        setWeatherIcon();
+        setTemperature();
+        setWeather();
+        setPressure();
+        setHumidity();
+        setSunriseAndSunset();
+        setWind();
+        detailsBtn.setVisibility(View.VISIBLE);
+        setUpdatedOn();
+        getDataForHistory();
+    }
+
+    private void setInfoError() {
+        loadImage("https://i.pinimg.com/originals/32/81/56/328156fb3ce91b68e080b37eecd66fd6.png");
+        Toast.makeText(getContext(),
+                getString(R.string.error_city_not_found), Toast.LENGTH_LONG).show();
     }
 
     private void getDataForHistory() {
@@ -278,7 +267,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     private void setWind() {
         try {
             windIcon.setText(getString(R.string.wind_icon));
-            windTextView.setText(String.format("%s %s", model.wind.speed, getString(R.string.wind_speed_m_s)));
+            Double speed = (double) model.wind.speed;
+            windTextView.setText(String.format("%s %s", String.format(Locale.US, "%.0f", speed), getString(R.string.wind_speed_m_s)));
 
             //получаем направление ветра
             int deg = (int) model.wind.deg;
@@ -304,13 +294,13 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private void setHumidity() {
         humidityIcon.setText(getString(R.string.humidity_icon));
-        int humidity = model.main.humidity;
-        humidityTextView.setText(String.format("%s%%", humidity));
+        float humidity = model.main.humidity;
+        humidityTextView.setText(String.format("%s%%", String.format(Locale.US, "%.0f", humidity)));
     }
 
     private void setPressure() {
         pressureIcon.setText(getString(R.string.pressure_icon));
-        int pressure = model.main.pressure;
+        float pressure = model.main.pressure;
         //переводим значение hPa в мм.рт.ст
         double i = (double) pressure * 0.750062;
         String si = String.format(Locale.US, "%.0f", i); //отображаем только значение до запятой
@@ -319,10 +309,12 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private void setCityFullNameByCoord() {
         String city = model.name;
-        String country = model.sys.country;
-        cityName.setText(String.format("%s, %s", city, country));
-        cityTextView.setText(R.string.your_location);
-        currentCityName = city;
+        if (model.sys.country != null) {
+            String country = model.sys.country;
+            cityName.setText(String.format("%s, %s", city, country));
+            cityTextView.setText(R.string.your_location);
+            currentCityName = city;
+        }
     }
 
     private void setCityFullName() {
@@ -453,7 +445,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void loadImage(String url) {
-
         Picasso.get()
                 .load(url)
                 .error(R.drawable.error)

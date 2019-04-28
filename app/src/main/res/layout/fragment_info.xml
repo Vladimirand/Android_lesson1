@@ -38,9 +38,8 @@
 
             <TextView
                 android:id="@+id/cityNameInfo"
-                android:layout_width="200dp"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
-                android:text="@string/city_name"
                 android:textSize="32sp" />
 
             <TextView
@@ -57,7 +56,7 @@
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="200dp"
-                    android:layout_height="250dp"
+                    android:layout_height="230dp"
                     android:contentDescription="@+id/weather_conditions" />
 
                 <TextView
