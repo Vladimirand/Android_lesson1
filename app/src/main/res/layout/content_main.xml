@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".screens.screens.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/front"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/landscapeNight"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/front_night"
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ScrollingActivity"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="15dp"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="5dp"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp">
+
+                        <TextView
+                            android:id="@+id/textCoordination"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/my_location"/>
+
+                        <android.support.design.widget.FloatingActionButton
+                            android:id="@+id/locationButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toStartOf="@+id/textCoordination"
+                            app:maxImageSize="40dp"
+                            app:fabCustomSize="70dp"
+                            android:backgroundTint="@color/translucent"
+                            android:outlineAmbientShadowColor="@color/translucent"
+                            app:srcCompat="@android:drawable/ic_menu_myplaces"
+                            tools:targetApi="p"
+                            tools:ignore="RelativeOverlap" />
+
+                        <ProgressBar
+                            android:id="@+id/progressBarCoord"
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_toEndOf="@+id/textCoordination"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
+                            android:indeterminateTint="@color/color_gray"
+                            android:indeterminateTintMode="src_atop"
+                            tools:targetApi="lollipop" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        tools:ignore="UselessParent">
+
+                        <TextView
+                            android:id="@+id/mIconTemperature"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="7dp"
+                            android:text=""
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/temperature_in"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/mIconTemperature"
+                            android:layout_marginBottom="3dp"
+                            android:layout_toEndOf="@+id/mIconTemperature"
+                            android:text="@string/temperature"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:id="@+id/mIconHumidity"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/mIconTemperature"
+                            android:layout_marginEnd="7dp"
+                            android:text=""
+                            android:textSize="20sp" />
+
+                        <TextView
+                            android:id="@+id/humidity_in"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignStart="@+id/temperature_in"
+                            android:layout_alignBottom="@+id/mIconHumidity"
+                            android:layout_marginBottom="2dp"
+                            android:layout_toEndOf="@+id/mIconHumidity"
+                            android:text="@string/humidity"
+                            android:textSize="18sp" />
+                    </RelativeLayout>
+                </FrameLayout>
+
+                <fragment
+                    android:id="@+id/mainFragment"
+                    android:name="com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CitiesFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.constraint.ConstraintLayout>
