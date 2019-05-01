@@ -75,6 +75,10 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     String apiKey = "bb0856d6336d3c2ca1a809b325fecefa";
     String units = "metric";
 
+    public static float lon;
+    public static float lat;
+
+
     private WeatherDataSource notesDataSource;     // Источник данных
 
     @Override
@@ -205,6 +209,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                             setInfoError();
                         }
                     }
+
                     @Override
                     public void onFailure(@NonNull Call<WeatherRequestRestModel> call, @NonNull Throwable t) {
                         loadImage("error");
@@ -227,6 +232,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                             setInfoError();
                         }
                     }
+
                     @Override
                     public void onFailure(@NonNull Call<WeatherRequestRestModel> call, @NonNull Throwable t) {
                         loadImage("error");
@@ -246,6 +252,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         detailsBtn.setVisibility(View.VISIBLE);
         setUpdatedOn();
         getDataForHistory();
+        lon = model.coordinates.lon;
+        lat = model.coordinates.lat;
     }
 
     private void setInfoError() {

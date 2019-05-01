@@ -30,7 +30,7 @@ import java.io.IOException;
 public class SecondActivity extends AppCompatActivity {
     public File imagePath;
     public static final int REQUEST_CODE_PERMISSION_WRITE_EXTERNAL_STORAGE = 0;
-    private final String yandexHttp = "http://yandex.ru/pogoda/";
+    private final String yandexHttp = "https://yandex.by/pogoda/maps/nowcast?from=main_maps_widget_bottom&from=home&ll=";
 
 
     @Override
@@ -113,14 +113,7 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-
-                TextView city = findViewById(R.id.cityNameInfo);
-                String cityName = (String) city.getText();
-                if (cityName.contains(" ")) {
-                    cityName = cityName.substring(0, cityName.indexOf(","));
-                }
-
-                Uri uri = Uri.parse(yandexHttp + cityName);
+                Uri uri = Uri.parse(yandexHttp + CityInfoFragment.lon + "_" + CityInfoFragment.lat + "&z=9");
                 intent.setData(uri);
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);

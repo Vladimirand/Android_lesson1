@@ -14,7 +14,7 @@
     <string name="humidity_indication">Влажность</string>
     <string name="pressure_indication">Давление</string>
     <string name="dark_theme">Темная тема</string>
-    <string name="more_information">Подробнее</string>
+    <string name="on_the_map">На карте</string>
     <string name="choose_city">Введите город</string>
     <string name="delete">Удалить</string>
     <string name="link">Ссылка</string>
@@ -53,6 +53,7 @@
     <string name="error_city_not_found">Извините, город не найден</string>
     <string name="error_internet_text">Проверте подключение к интернету и повторите попытку.</string>
     <string name="your_location">(Ваше местоположение)</string>
-    <string name="my_location">My location…</string>
+    <string name="my_location">Мое местоположение…</string>
+    <string name="no_view_app">Приложение не найдено!</string>
 
 </resources>

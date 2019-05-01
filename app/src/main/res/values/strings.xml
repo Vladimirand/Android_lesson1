@@ -19,7 +19,7 @@
     <string name="humidity_indication">Humidity</string>
     <string name="pressure_indication">Pressure</string>
     <string name="dark_theme">Dark Theme</string>
-    <string name="more_information">Detailed</string>
+    <string name="on_the_map">On the map</string>
     <string name="feel_like_data" translatable="false"> N/A</string>
     <string name="choose_city">Enter city</string>
     <string name="ok" translatable="false">OK</string>
@@ -97,5 +97,6 @@
     <string name="error_internet_text">Check your internet connection and try again.</string>
     <string name="your_location">(Your location)</string>
     <string name="my_location">Мое местоположение…</string>
+    <string name="no_view_app">There are no application!</string>
 
 </resources>
