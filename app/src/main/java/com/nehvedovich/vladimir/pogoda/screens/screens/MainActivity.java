@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -19,7 +18,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -51,7 +49,6 @@ import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CitiesFragment;
 import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CityInfoFragment;
 import com.nehvedovich.vladimir.pogoda.screens.utils.BackgroundService;
 
-import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -59,7 +56,6 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
 
     private static final int PERMISSION_REQUEST_CODE = 10;
-    static final int GALLERY_REQUEST = 1;
     private static final String FONT_FILENAME = "fonts/weather_icons.ttf";
 
     private final String pressureChBKey = "check_pressure";
@@ -416,15 +412,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = menuItem.getItemId();
         coordPut = false;
-        if (id == R.id.nav_avatar) {
-            //пользователь может выбрать аватарку из галерии
-            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-            photoPickerIntent.setType("image/*");
-            startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
-        } else if (id == R.id.nav_name) {
-            showNameDialog();
-
-        } else if (id == R.id.nav_add_city) {
+        if (id == R.id.nav_add_city) {
             showAddCity();
 
         } else if (id == R.id.nav_history) {
@@ -435,8 +423,8 @@ public class MainActivity extends AppCompatActivity
             return true;
 
 
-        } else if (id == R.id.about_the_developer) {
-            showDeveloperDialog();
+        } else if (id == R.id.about_the_app) {
+            showAppDialog();
         } else if (id == R.id.feedback_form) {
             //пользователь может отправить сообщение в техподдержку по email
             Intent i = new Intent(Intent.ACTION_SENDTO);
@@ -480,56 +468,12 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    // метод для загрузки пользовательской аватарки из галереи
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-
-        Bitmap bitmap = null;
-        ImageView imageView = findViewById(R.id.avatarView);
-
-        if (requestCode == GALLERY_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                Uri selectedImage = imageReturnedIntent.getData();
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                imageView.setImageBitmap(bitmap);
-            }
-        }
-    }
-
     //показываем окно с информацией о разработчике
-    private void showDeveloperDialog() {
+    private void showAppDialog() {
         AlertDialog.Builder byAuthor = new AlertDialog.Builder(this);
         byAuthor.setIcon(R.mipmap.ic_launcher);
-        byAuthor.setTitle(R.string.developer_name);
-
-        byAuthor.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
+        byAuthor.setTitle(R.string.app_name);
+        byAuthor.setMessage(R.string.app_version);
         byAuthor.show();
-    }
-
-    private void showNameDialog() {
-        AlertDialog.Builder name = new AlertDialog.Builder(this);
-        name.setTitle(R.string.nav_header_title);
-        final TextInputEditText input = new TextInputEditText(this);
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        name.setView(input);
-
-        name.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String name = Objects.requireNonNull(input.getText()).toString();
-                TextView n = findViewById(R.id.user_name);
-                n.setText(name);
-            }
-        });
-        name.show();
     }
 }

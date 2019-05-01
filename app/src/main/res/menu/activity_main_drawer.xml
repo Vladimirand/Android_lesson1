@@ -8,14 +8,6 @@
             android:id="@+id/nav_add_city"
            android:icon="@drawable/ic_menu_edit"
             android:title="@string/actionAddCity" />
-        <item
-            android:id="@+id/nav_avatar"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/avatar" />
-        <item
-            android:id="@+id/nav_name"
-            android:icon="@drawable/ic_menu_edit"
-            android:title="@string/nav_change_name" />
 
         <item
             android:id="@+id/nav_manage"
@@ -29,8 +21,8 @@
     <item android:title="@string/additionally">
         <menu>
             <item
-                android:id="@+id/about_the_developer"
-                android:title="@string/about_the_developer" />
+                android:id="@+id/about_the_app"
+                android:title="@string/about_the_app" />
             <item
                 android:id="@+id/feedback_form"
                 android:title="@string/feedback_form" />

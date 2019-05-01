@@ -75,7 +75,7 @@
     <string name="developer_name" translatable="false">by Vladimir Nehvedovich</string>
     <string name="tools">Tools</string>
     <string name="additionally">Additionally</string>
-    <string name="about_the_developer">About the developer</string>
+    <string name="about_the_app">About the app</string>
     <string name="feedback_form">Feedback form</string>
     <string name="message_subject">Application \'Pogoda\'</string>
     <string name="support_email" translatable="false">recipient@example.com</string>
@@ -104,5 +104,6 @@
     <string name="actionAddCity">Add city</string>
     <string name="input_city_name">Imput city name</string>
     <string name="add">Add</string>
+    <string name="app_version">v 1.0</string>
 
 </resources>
