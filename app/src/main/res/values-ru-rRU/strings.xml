@@ -55,5 +55,11 @@
     <string name="your_location">(Ваше местоположение)</string>
     <string name="my_location">Мое местоположение…</string>
     <string name="no_view_app">Приложение не найдено!</string>
+    <string name="confirmDelete">Вы действительно ходите удалить %s?</string>
+    <string name="no">Отмена</string>
+    <string name="yes">Да</string>
+    <string name="actionAddCity">Добавить город</string>
+    <string name="input_city_name">Введите название города</string>
+    <string name="add">Добавить</string>
 
 </resources>

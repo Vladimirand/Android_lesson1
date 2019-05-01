@@ -1,6 +1,7 @@
 package com.nehvedovich.vladimir.pogoda.screens.screens;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +23,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -29,6 +31,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,12 +44,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nehvedovich.vladimir.pogoda.R;
+import com.nehvedovich.vladimir.pogoda.screens.database.City;
+import com.nehvedovich.vladimir.pogoda.screens.database.CityRepository;
+import com.nehvedovich.vladimir.pogoda.screens.database.CityService;
 import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CitiesFragment;
 import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CityInfoFragment;
 import com.nehvedovich.vladimir.pogoda.screens.utils.BackgroundService;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
@@ -385,7 +392,7 @@ public class MainActivity extends AppCompatActivity
         AlertDialog.Builder chooseCity = new AlertDialog.Builder(this);
         chooseCity.setIcon(R.mipmap.ic_launcher);
         chooseCity.setTitle(R.string.choose_city);
-        final EditText input = new EditText(this);
+        final TextInputEditText input = new TextInputEditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         chooseCity.setView(input);
 
@@ -393,7 +400,7 @@ public class MainActivity extends AppCompatActivity
         chooseCity.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String city = input.getText().toString();
+                String city = Objects.requireNonNull(input.getText()).toString();
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                 intent.putExtra(CityInfoFragment.CITY_NAME_EXTRA, city);
                 intent.putExtra(CitiesFragment.CHECK_BOX_PRESSURE, pressure.isChecked());
@@ -416,6 +423,9 @@ public class MainActivity extends AppCompatActivity
             startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
         } else if (id == R.id.nav_name) {
             showNameDialog();
+
+        } else if (id == R.id.nav_add_city) {
+            showAddCity();
 
         } else if (id == R.id.nav_history) {
             startActivity(new Intent(MainActivity.this, HistoryActivity.class));
@@ -445,6 +455,30 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+    private void showAddCity() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.input_city_name);
+        final EditText input = new EditText(this);
+        alert.setView(input);
+        alert.setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Editable editable = input.getText();
+                if (editable != null) {
+                    String value = editable.toString().trim();
+                    if (value.length() > 0) {
+                        Activity activity = MainActivity.this;
+                        CityRepository.getInstance().add(new City(null, value));
+                        Intent intent = new Intent(activity, CityService.class);
+                        activity.startService(intent);
+                    }
+                }
+            }
+        });
+        alert.show();
+    }
+
 
     // метод для загрузки пользовательской аватарки из галереи
     @Override
@@ -484,14 +518,14 @@ public class MainActivity extends AppCompatActivity
     private void showNameDialog() {
         AlertDialog.Builder name = new AlertDialog.Builder(this);
         name.setTitle(R.string.nav_header_title);
-        final EditText input = new EditText(this);
+        final TextInputEditText input = new TextInputEditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         name.setView(input);
 
         name.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String name = input.getText().toString();
+                String name = Objects.requireNonNull(input.getText()).toString();
                 TextView n = findViewById(R.id.user_name);
                 n.setText(name);
             }
