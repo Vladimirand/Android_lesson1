@@ -11,9 +11,9 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:ignore="ContentDescription"
         android:scaleType="centerCrop"
-        android:src="@drawable/front" />
+        android:src="@drawable/front"
+        tools:ignore="ContentDescription" />
 
     <ImageView
         android:id="@+id/landscapeNight"
@@ -49,11 +49,44 @@
                     android:layout_marginEnd="5dp"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/clock"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="36sp" />
+                        android:layout_marginStart="15dp">
+
+                        <TextView
+                            android:id="@+id/textCoordination"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@string/my_location"/>
+
+                        <android.support.design.widget.FloatingActionButton
+                            android:id="@+id/locationButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toStartOf="@+id/textCoordination"
+                            app:maxImageSize="40dp"
+                            app:fabCustomSize="70dp"
+                            android:backgroundTint="@color/translucent"
+                            android:outlineAmbientShadowColor="@color/translucent"
+                            app:srcCompat="@android:drawable/ic_menu_myplaces"
+                            tools:targetApi="p"
+                            tools:ignore="RelativeOverlap" />
+
+                        <ProgressBar
+                            android:id="@+id/progressBarCoord"
+                            style="?android:attr/progressBarStyle"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_toEndOf="@+id/textCoordination"
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="5dp"
+                            android:indeterminateTint="@color/color_gray"
+                            android:indeterminateTintMode="src_atop"
+                            tools:targetApi="lollipop" />
+
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -102,7 +135,6 @@
                             android:text="@string/humidity"
                             android:textSize="18sp" />
                     </RelativeLayout>
-
                 </FrameLayout>
 
                 <fragment

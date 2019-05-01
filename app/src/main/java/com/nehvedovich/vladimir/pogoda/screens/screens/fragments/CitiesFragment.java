@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 
 import com.nehvedovich.vladimir.pogoda.R;
+import com.nehvedovich.vladimir.pogoda.screens.screens.MainActivity;
 import com.nehvedovich.vladimir.pogoda.screens.screens.SecondActivity;
 
 import java.util.Objects;
@@ -66,7 +67,7 @@ public class CitiesFragment extends Fragment {
     private final View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-
+            MainActivity.coordPut = false;
             Intent intent = new Intent();
             intent.setClass(Objects.requireNonNull(getActivity()), SecondActivity.class);
             Button btn = getActivity().findViewById(v.getId());
