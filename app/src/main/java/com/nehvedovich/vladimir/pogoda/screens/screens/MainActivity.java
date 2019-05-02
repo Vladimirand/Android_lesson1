@@ -34,8 +34,8 @@ import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -385,25 +385,46 @@ public class MainActivity extends AppCompatActivity
 
     //показать диалог выбора города (ПОИСК)
     private void showInputDialog() {
-        AlertDialog.Builder chooseCity = new AlertDialog.Builder(this);
+        final AlertDialog.Builder chooseCity = new AlertDialog.Builder(this);
         chooseCity.setIcon(R.mipmap.ic_launcher);
-        chooseCity.setTitle(R.string.choose_city);
+        chooseCity.setTitle(R.string.enter_city_name);
+        chooseCity.setMessage(R.string.enter_city_message);
         final TextInputEditText input = new TextInputEditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         chooseCity.setView(input);
 
-        //запускае активити с информациеей о погоде введенного с клавиатуры города
+        //запускаем активити с информациеей о погоде введенного с клавиатуры города
         chooseCity.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 String city = Objects.requireNonNull(input.getText()).toString();
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                intent.putExtra(CityInfoFragment.CITY_NAME_EXTRA, city);
-                intent.putExtra(CitiesFragment.CHECK_BOX_PRESSURE, pressure.isChecked());
-                intent.putExtra(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET, sunriseSunset.isChecked());
-                startActivity(intent);
+                if (city.length() > 1) {
+                    Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                    intent.putExtra(CityInfoFragment.CITY_NAME_EXTRA, city);
+                    intent.putExtra(CitiesFragment.CHECK_BOX_PRESSURE, pressure.isChecked());
+                    intent.putExtra(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET, sunriseSunset.isChecked());
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(MainActivity.this, getString(R.string.incorrect_city_name), Toast.LENGTH_SHORT).show();
+                   showInputDialog();
+                }
             }
         });
+        input.setHint(getString(R.string.hint_city_example));
+        input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                input.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        InputMethodManager inputMethodManager = (InputMethodManager) MainActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                });
+            }
+        });
+        input.requestFocus();
         chooseCity.show();
     }
 
@@ -447,23 +468,41 @@ public class MainActivity extends AppCompatActivity
 
     private void showAddCity() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
-        alert.setTitle(R.string.input_city_name);
-        final EditText input = new EditText(this);
+        alert.setTitle(R.string.enter_city_name);
+        alert.setMessage(R.string.enter_city_message);
+        final TextInputEditText input = new TextInputEditText(this);
         alert.setView(input);
         alert.setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
                 Editable editable = input.getText();
                 if (editable != null) {
                     String value = editable.toString().trim();
-                    if (value.length() > 0) {
+                    if (value.length() > 1) {
                         Activity activity = MainActivity.this;
                         CityRepository.getInstance().add(new City(null, value));
                         Intent intent = new Intent(activity, CityService.class);
                         activity.startService(intent);
+                    } else {
+                        Toast.makeText(MainActivity.this, getString(R.string.incorrect_city_name), Toast.LENGTH_SHORT).show();
+                        showAddCity();
                     }
                 }
             }
         });
+        input.setHint(getString(R.string.hint_city_example));
+        input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                input.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        InputMethodManager inputMethodManager = (InputMethodManager) MainActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                });
+            }
+        });
+        input.requestFocus();
         alert.show();
     }
 

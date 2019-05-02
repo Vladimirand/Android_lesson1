@@ -59,7 +59,10 @@
     <string name="no">Отмена</string>
     <string name="yes">Да</string>
     <string name="actionAddCity">Добавить город</string>
-    <string name="input_city_name">Введите название города</string>
+    <string name="enter_city_name">Введите название города</string>
     <string name="add">Добавить</string>
+    <string name="hint_city_example">Минск, BY</string>
+    <string name="enter_city_message">Вводите название города в формате: \'Минск\' или \'Минск, BY\'</string>
+    <string name="incorrect_city_name">Некорректное название города!</string>
 
 </resources>

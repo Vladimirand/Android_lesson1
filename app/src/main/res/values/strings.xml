@@ -102,8 +102,11 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="actionAddCity">Add city</string>
-    <string name="input_city_name">Imput city name</string>
+    <string name="enter_city_name">Enter city name</string>
     <string name="add">Add</string>
-    <string name="app_version">v 1.0</string>
+    <string name="app_version" translatable="false">v 1.0</string>
+    <string name="hint_city_example">Minsk, BY</string>
+    <string name="enter_city_message">Enter the name of the city in the format: \'Minsk\' or \'Minsk, BY\'</string>
+    <string name="incorrect_city_name">Incorrect city name!</string>
 
 </resources>
