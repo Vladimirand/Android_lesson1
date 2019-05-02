@@ -40,7 +40,6 @@ import retrofit2.Response;
 public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     public static final String CITY_NAME_EXTRA = "cityLookingFor";
-
     public static final String COORD_LATITUDE = "latitude";
     public static final String COORD_LONGITUDE = "longitude";
     private static final String FONT_FILENAME = "fonts/weather_icons.ttf";
@@ -94,7 +93,15 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         if (bundle != null) {
             cityName = layout.findViewById(R.id.cityNameInfo);
-            cityName.setText(bundle.getString(CITY_NAME_EXTRA));
+            String city = bundle.getString(CITY_NAME_EXTRA);
+
+            if (city != null && city.contains(",")) {
+                city = city.substring(0, city.indexOf(","));
+                cityName.setText(city);
+            } else {
+                cityName.setText(bundle.getString(CITY_NAME_EXTRA));
+            }
+
             latitude = bundle.getString(COORD_LATITUDE);
             longitude = bundle.getString(COORD_LONGITUDE);
             currentCityName = (bundle.getString(CITY_NAME_EXTRA));

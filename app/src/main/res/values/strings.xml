@@ -10,30 +10,17 @@
     <string name="humidity">%</string>
     <string name="pressure_mmHg">mmHg.</string>
 
-    <string name="city_name_1" translatable="false">Minsk</string>
-    <string name="city_name_2" translatable="false">Moscow</string>
-    <string name="city_name_3" translatable="false">Rome</string>
-    <string name="city_name_4" translatable="false">Saint Petersburg</string>
-
     <string name="wind_indication">Wind</string>
     <string name="humidity_indication">Humidity</string>
     <string name="pressure_indication">Pressure</string>
     <string name="dark_theme">Dark Theme</string>
     <string name="on_the_map">On the map</string>
-    <string name="feel_like_data" translatable="false"> N/A</string>
-    <string name="choose_city">Enter city</string>
     <string name="ok" translatable="false">OK</string>
     <string name="delete">Delete</string>
     <string name="link">Link</string>
     <string name="screenshot">Screenshot</string>
     <string name="location">en</string>
-
-    <string-array name="cities">
-        <item>Minsk</item>
-        <item>Moscow</item>
-        <item>Rome</item>
-        <item>Saint Petersburg</item>
-    </string-array>
+    <string name="choose_city">City ​​search</string>
 
     <string name="nav_header_title">Enter your name</string>
     <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>

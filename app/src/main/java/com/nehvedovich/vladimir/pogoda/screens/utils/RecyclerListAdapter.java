@@ -41,7 +41,11 @@ public class RecyclerListAdapter extends RecyclerView.Adapter<RecyclerListAdapte
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerListViewHolder recyclerListViewHolder, int i) {
-        recyclerListViewHolder.textView.setText(list.get(i).getName());
+        String cityName = list.get(i).getName();
+        if (cityName.contains(",")) {
+            cityName = cityName.substring(0, cityName.indexOf(","));
+        }
+        recyclerListViewHolder.textView.setText(cityName);
     }
 
     @Override

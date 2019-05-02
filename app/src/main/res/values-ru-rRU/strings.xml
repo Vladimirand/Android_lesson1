@@ -15,11 +15,12 @@
     <string name="pressure_indication">Давление</string>
     <string name="dark_theme">Темная тема</string>
     <string name="on_the_map">На карте</string>
-    <string name="choose_city">Введите город</string>
     <string name="delete">Удалить</string>
     <string name="link">Ссылка</string>
     <string name="screenshot">Скриншот</string>
     <string name="location">ru</string>
+    <string name="choose_city">Поиск города</string>
+
     <string name="sunrise">Восход</string>
     <string name="sunset">Закат</string>
     <string name="city_name">Город</string>
