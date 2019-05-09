@@ -4,11 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <ImageView
+        android:id="@+id/backgroundList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        style="@style/BackgroundNight"
+        tools:ignore="ContentDescription" />
+
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:background="@color/translucent"
         android:layout_marginStart="7dp"
         tools:text="TextView" />
 

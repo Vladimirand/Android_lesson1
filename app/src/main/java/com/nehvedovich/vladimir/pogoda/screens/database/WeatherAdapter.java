@@ -8,9 +8,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nehvedovich.vladimir.pogoda.R;
+import com.nehvedovich.vladimir.pogoda.screens.screens.MainActivity;
 
 // Адаптер для RecycleView
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHolder> {
@@ -61,9 +63,18 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.ViewHold
 
         private TextView textNote;
         private Weather weather;
+        private ImageView backGround;
 
         ViewHolder(View itemView) {
             super(itemView);
+
+            backGround = itemView.findViewById(R.id.backgroundList);
+            if (MainActivity.night) {
+                backGround.setVisibility(View.VISIBLE);
+            } else {
+                backGround.setVisibility(View.GONE);
+            }
+
             textNote = itemView.findViewById(R.id.textTitle);
             // При тапе на элементе – вытащим  меню
             textNote.setOnClickListener(new View.OnClickListener() {
