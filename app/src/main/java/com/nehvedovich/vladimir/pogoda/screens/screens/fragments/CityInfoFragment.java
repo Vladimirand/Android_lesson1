@@ -24,6 +24,7 @@ import com.nehvedovich.vladimir.pogoda.R;
 import com.nehvedovich.vladimir.pogoda.screens.database.WeatherDataSource;
 import com.nehvedovich.vladimir.pogoda.screens.rest.OpenWeatherRepo;
 import com.nehvedovich.vladimir.pogoda.screens.rest.entites.WeatherRequestRestModel;
+import com.nehvedovich.vladimir.pogoda.screens.screens.MainActivity;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -69,6 +70,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     String currentCityName;
     String latitude;
     String longitude;
+    Boolean internetConnection;
+    Boolean catsHelper = false;
 
     String msgException = "One or more fields not found in the JSON data";
     String apiKey = "bb0856d6336d3c2ca1a809b325fecefa";
@@ -76,7 +79,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     public static float lon;
     public static float lat;
-
 
     private WeatherDataSource notesDataSource;     // Источник данных
 
@@ -117,11 +119,15 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private void retrofitStart() {
         isOnline(Objects.requireNonNull(getContext())); //Проверяем подключение к интернету
-        if (currentCityName != null) {
-            requestRetrofit();  //загружаем данные погоды выбранного города
-        }
-        if (latitude != null & longitude != null) {
-            requestRetrofitByCoord();  //загружаем данные погоды, если получили местоположение
+        if (internetConnection) {
+            catsHelper = true;
+
+            if (currentCityName != null) {
+                requestRetrofit();  //загружаем данные погоды выбранного города
+            }
+            if (latitude != null & longitude != null) {
+                requestRetrofitByCoord();  //загружаем данные погоды, если получили местоположение
+            }
         }
     }
 
@@ -197,7 +203,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private void refreshList() {
         retrofitStart();
-        setUpdatedOn();
         swipeRefreshLayout.setRefreshing(false);
     }
 
@@ -460,10 +465,15 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void loadImage(String url) {
-        Picasso.get()
-                .load(url)
-                .error(R.drawable.error)
-                .into(imageView);
+        if (MainActivity.minimalisticIcons) {
+            imageView.setVisibility(View.INVISIBLE);
+            weatherIcon.setVisibility(View.VISIBLE);
+        } else {
+            Picasso.get()
+                    .load(url)
+                    .error(R.drawable.error)
+                    .into(imageView);
+        }
         progressBar.setVisibility(View.GONE);
     }
 
@@ -472,10 +482,21 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
+
+        final ImageView catsWeather = Objects.requireNonNull(getActivity()).findViewById(R.id.catsWeather);
+
         if (netInfo == null || !netInfo.isConnectedOrConnecting()) {
+            internetConnection = false;
             Toast.makeText(getContext(),
                     getString(R.string.error_internet_connection), Toast.LENGTH_LONG).show();
             showErrorDialog();
+            if (!catsHelper) {
+                catsWeather.setVisibility(View.VISIBLE);
+                catsHelper = false;
+            }
+        } else {
+            internetConnection = true;
+            catsWeather.setVisibility(View.GONE);
         }
     }
 

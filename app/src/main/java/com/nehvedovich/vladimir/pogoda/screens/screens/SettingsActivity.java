@@ -16,17 +16,19 @@ import com.nehvedovich.vladimir.pogoda.R;
 public class SettingsActivity extends AppCompatActivity {
 
     public CheckBox darkThemeCheckbox;
+    public CheckBox minimalisticIconsChB;
 
     private final String darkCBKey = "check";
+    private final String minimalCBKey = "checkMinimalistic";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
         initActionBar();
 
         darkThemeCheckbox = findViewById(R.id.darkThemeCheckBox);
+        minimalisticIconsChB = findViewById(R.id.minimalisticIcon);
         final ImageView darkBackground = findViewById(R.id.backgroundSettings);
 
         darkThemeCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -41,6 +43,13 @@ public class SettingsActivity extends AppCompatActivity {
                     darkBackground.setVisibility(View.GONE);
                     MainActivity.night = false;
                 }
+            }
+        });
+
+        minimalisticIconsChB.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                MainActivity.minimalisticIcons = isChecked;
             }
         });
     }
@@ -59,6 +68,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         darkThemeCheckbox.setChecked(loadCheckBoxDarkTheme());
+        minimalisticIconsChB.setChecked(loadCheckBoxMinimalisticIcon());
     }
 
     @Override
@@ -75,6 +85,7 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         saveCheckBoxDarkTheme(darkThemeCheckbox.isChecked());
+        saveCheckBoxMinimalisticIcon(minimalisticIconsChB.isChecked());
     }
 
     private void saveCheckBoxDarkTheme(final boolean isChecked) {
@@ -87,6 +98,18 @@ public class SettingsActivity extends AppCompatActivity {
     private boolean loadCheckBoxDarkTheme() {
         SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean(darkCBKey, false);
+    }
+
+    private void saveCheckBoxMinimalisticIcon(final boolean isChecked) {
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(minimalCBKey, isChecked);
+        editor.apply();
+    }
+
+    private boolean loadCheckBoxMinimalisticIcon() {
+        SharedPreferences sharedPreferences = getPreferences(Context.MODE_PRIVATE);
+        return sharedPreferences.getBoolean(minimalCBKey, false);
     }
 
     @Override

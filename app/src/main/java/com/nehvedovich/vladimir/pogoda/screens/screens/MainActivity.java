@@ -61,8 +61,11 @@ public class MainActivity extends AppCompatActivity
     private final String pressureChBKey = "check_pressure";
     private final String sunriseSunsetChBKey = "check_sunrise_sunset";
     private final String darkThemeKey = "save_night";
+    private final String minimalisticIconKey = "saveMinimalIcon";
+
     private final static String NOT_SUPPORTED_MESSAGE = "";  //Если сенсора не существует, то ничего не выводим
     public static boolean night;
+    public static boolean minimalisticIcons;
     public static boolean coordPut = true;
 
     private TextView humidityIcon;
@@ -114,6 +117,7 @@ public class MainActivity extends AppCompatActivity
 
         final SharedPreferences activityPrefs = getPreferences(Context.MODE_PRIVATE);
         readNightBackground(activityPrefs);
+        readMinimalisticIcon(activityPrefs);
     }
 
 
@@ -295,6 +299,7 @@ public class MainActivity extends AppCompatActivity
         saveCheckBoxSunriseSunset(sunriseSunset.isChecked());
         final SharedPreferences activityPrefs = getPreferences(Context.MODE_PRIVATE);
         saveNightBackground(activityPrefs);
+        saveMinimalisticIcon(activityPrefs);
     }
 
     @Override
@@ -326,6 +331,16 @@ public class MainActivity extends AppCompatActivity
 
     private void readNightBackground(SharedPreferences preferences) {
         night = preferences.getBoolean(darkThemeKey, false);
+    }
+
+    private void saveMinimalisticIcon(SharedPreferences preferences) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(minimalisticIconKey, minimalisticIcons);
+        editor.apply();
+    }
+
+    private void readMinimalisticIcon(SharedPreferences preferences) {
+        minimalisticIcons = preferences.getBoolean(minimalisticIconKey, false);
     }
 
     private void saveCheckBoxPressure(final boolean isChecked) {

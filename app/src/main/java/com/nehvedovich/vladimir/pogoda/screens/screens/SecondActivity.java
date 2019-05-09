@@ -32,7 +32,6 @@ public class SecondActivity extends AppCompatActivity {
     public static final int REQUEST_CODE_PERMISSION_WRITE_EXTERNAL_STORAGE = 0;
     private final String yandexHttp = "https://yandex.by/pogoda/maps/nowcast?from=main_maps_widget_bottom&from=home&ll=";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

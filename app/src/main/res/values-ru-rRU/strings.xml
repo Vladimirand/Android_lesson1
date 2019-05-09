@@ -65,5 +65,6 @@
     <string name="hint_city_example">Минск, BY</string>
     <string name="enter_city_message">Вводите название города в формате: \'Минск\' или \'Минск, BY\'</string>
     <string name="incorrect_city_name">Некорректное название города!</string>
+    <string name="minimalistic_Icons">Минималистичные иконки</string>
 
 </resources>

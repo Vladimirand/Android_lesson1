@@ -95,5 +95,6 @@
     <string name="hint_city_example">Minsk, BY</string>
     <string name="enter_city_message">Enter the name of the city in the format: \'Minsk\' or \'Minsk, BY\'</string>
     <string name="incorrect_city_name">Incorrect city name!</string>
+    <string name="minimalistic_Icons">Minimalistic Icons</string>
 
 </resources>
