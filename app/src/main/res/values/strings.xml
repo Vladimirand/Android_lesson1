@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Weather</string>
+    <string name="app_name">Weather BY</string>
     <string name="activity_name_settings">Settings</string>
     <string name="activity_name_temperature">History</string>
     <string name="pogoda">Weather</string>
@@ -64,7 +64,7 @@
     <string name="additionally">Additionally</string>
     <string name="about_the_app">About the app</string>
     <string name="feedback_form">Feedback form</string>
-    <string name="message_subject">Application \'Pogoda\'</string>
+    <string name="message_subject">Application \'Weather BY\'</string>
     <string name="support_email" translatable="false">recipient@example.com</string>
     <string name="problem_message">Describe your problem and add screenshot.</string>
     <string name="more_info_text">Additional data to display:</string>

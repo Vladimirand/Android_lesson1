@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Погода</string>
+    <string name="app_name">Погода BY</string>
     <string name="activity_name_temperature">История</string>
     <string name="activity_name_settings">Настройки</string>
     <string name="pogoda">Погода</string>
@@ -32,7 +32,7 @@
     <string name="additionally">Дополнительно</string>
     <string name="about_the_app">О приложении</string>
     <string name="feedback_form">Обратная связь</string>
-    <string name="message_subject">Приложение \'Погода\'</string>
+    <string name="message_subject">Приложение \'Погода BY\'</string>
     <string name="problem_message">Опишите вашу проблему и добавьте скриншот.</string>
 
     <string name="nav_header_desc">Заголовок навигационной панели</string>
@@ -52,7 +52,7 @@
     <string name="clear_the_history">Очистить историю</string>
     <string name="error_internet_connection">Нет соединения с интернетом!</string>
     <string name="error_city_not_found">Извините, город не найден</string>
-    <string name="error_internet_text">Проверте подключение к интернету и повторите попытку.</string>
+    <string name="error_internet_text">Проверьте подключение к интернету и повторите попытку.</string>
     <string name="your_location">(Ваше местоположение)</string>
     <string name="my_location">Мое местоположение…</string>
     <string name="no_view_app">Приложение не найдено!</string>

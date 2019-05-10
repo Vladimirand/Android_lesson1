@@ -23,7 +23,8 @@
             android:id="@+id/infoFragment"
             android:name="com.nehvedovich.vladimir.pogoda.screens.screens.CityInfoFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent">
 
             <ImageView
                 android:id="@+id/catsWeather"
