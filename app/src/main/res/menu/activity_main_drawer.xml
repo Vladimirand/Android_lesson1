@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_add_city"
+           android:icon="@drawable/ic_menu_edit"
+            android:title="@string/actionAddCity" />
+
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="@string/tools" />
+        <item
+            android:id="@+id/nav_history"
+            android:title="@string/history" />
+    </group>
+
+    <item android:title="@string/additionally">
+        <menu>
+            <item
+                android:id="@+id/about_the_app"
+                android:title="@string/about_the_app" />
+            <item
+                android:id="@+id/feedback_form"
+                android:title="@string/feedback_form" />
+        </menu>
+    </item>
+</menu>

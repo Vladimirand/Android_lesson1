@@ -1,21 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Мое приложение Погода</string>
+    <string name="app_name">Погода BY</string>
+    <string name="activity_name_temperature">История</string>
     <string name="activity_name_settings">Настройки</string>
     <string name="pogoda">Погода</string>
-    <string name="temperature">25°C</string>
     <string name="weather_conditions">Солнечно</string>
-    <string name="wind_speed">2 м/с,</string>
-    <string name="direction_wind">ю/з</string>
-    <string name="humidity">55 %</string>
-    <string name="pressure">760 мм.рт.ст.</string>
-    <string name="city_name_1">Минск</string>
-    <string name="city_name_2">Москва</string>
-    <string name="city_name_3">Рим</string>
-    <string name="city_name_4">Санкт-Петербург</string>
-    <string name="wind_indication">ветер</string>
-    <string name="humidity_indication">влажность</string>
-    <string name="pressure_indication">давление</string>
+    <string name="wind_speed_m_s"> м/с</string>
+    <string name="direction_wind">N/A</string>
+    <string name="humidity">%</string>
+    <string name="pressure_mmHg">мм.рт.ст.</string>
+
+    <string name="wind_indication">Ветер</string>
+    <string name="humidity_indication">Влажность</string>
+    <string name="pressure_indication">Давление</string>
     <string name="dark_theme">Темная тема</string>
-    <string name="more_information">Подробнее</string>
+    <string name="on_the_map">На карте</string>
+    <string name="delete">Удалить</string>
+    <string name="link">Ссылка</string>
+    <string name="screenshot">Скриншот</string>
+    <string name="location">ru</string>
+    <string name="choose_city">Поиск города</string>
+
+    <string name="sunrise">Восход</string>
+    <string name="sunset">Закат</string>
+    <string name="city_name">Город</string>
+    <string name="sunrise_sunset">Восход и закат</string>
+
+    <string name="place_not_found">
+Извините, данные о погоде не найдены.</string>
+    <string name="tools">Инструменты</string>
+    <string name="additionally">Дополнительно</string>
+    <string name="about_the_app">О приложении</string>
+    <string name="feedback_form">Обратная связь</string>
+    <string name="message_subject">Приложение \'Погода BY\'</string>
+    <string name="problem_message">Опишите вашу проблему и добавьте скриншот.</string>
+
+    <string name="nav_header_desc">Заголовок навигационной панели</string>
+    <string name="navigation_drawer_open">Открыть навигационную панель</string>
+    <string name="navigation_drawer_close">Закрыть навигационную панель</string>
+    <string name="more_info_text">Дополнительные данные для отображения:</string>
+    <string name="avatar">Сменить аватар</string>
+    <string name="send_mail_title">Отправить письмо…</string>
+    <string name="application_absent">Приложение не существует</string>
+    <string name="nav_change_name">Изменить имя</string>
+    <string name="nav_header_title">Введите ваше имя</string>
+    <string name="current_temperature">Актуальная температура</string>
+    <string name="last_update">Последнее обновление:</string>
+    <string name="error">Ошибка</string>
+    <string name="history">История</string>
+    <string name="no_items">Пусто</string>
+    <string name="clear_the_history">Очистить историю</string>
+    <string name="error_internet_connection">Нет соединения с интернетом!</string>
+    <string name="error_city_not_found">Извините, город не найден</string>
+    <string name="error_internet_text">Проверьте подключение к интернету и повторите попытку.</string>
+    <string name="your_location">(Ваше местоположение)</string>
+    <string name="my_location">Мое местоположение…</string>
+    <string name="no_view_app">Приложение не найдено!</string>
+    <string name="confirmDelete">Вы действительно ходите удалить %s?</string>
+    <string name="no">Отмена</string>
+    <string name="yes">Да</string>
+    <string name="actionAddCity">Добавить город</string>
+    <string name="enter_city_name">Введите название города</string>
+    <string name="add">Добавить</string>
+    <string name="hint_city_example">Минск, BY</string>
+    <string name="enter_city_message">Вводите название города в формате: \'Минск\' или \'Минск, BY\'</string>
+    <string name="incorrect_city_name">Некорректное название города!</string>
+    <string name="minimalistic_Icons">Минималистичные иконки</string>
+
 </resources>

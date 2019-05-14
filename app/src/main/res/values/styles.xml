@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--Base application theme. -->
     <!--<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">-->
     <style name="AppThemeNoTitle" parent="Theme.AppCompat.DayNight.NoActionBar">
@@ -25,9 +25,17 @@
         <item name="android:windowBackground">@color/color_gray</item>
     </style>
 
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
     <style name="TextStandardStyle" parent="TextAppearance.AppCompat.Medium">
         <item name="android:textSize">15sp</item>
         <item name="android:visibility">visible</item>
+    </style>
+
+    <style name="ButtonCityStyleNight">
+        <item name="android:layout_marginTop">8dp</item>
     </style>
 
     <style name="ButtonCityStyle">
@@ -41,7 +49,13 @@
 
     <style name="CheckBoxStyle">
         <item name="android:layout_marginTop">8dp</item>
-        <item name="android:buttonTint">@color/color_dark_slate_gray</item>
+        <item name="android:buttonTint" tools:targetApi="lollipop">@color/color_dark_slate_gray</item>
+    </style>
+
+    <style name="BackgroundNight">
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@color/color_cadet_blue</item>
+        <item name="android:visibility">gone</item>
     </style>
 
     <style name="ButtonBottomStyle">
@@ -49,8 +63,5 @@
         <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
     </style>
-
-    <!--Base application theme. -->
-
 
 </resources>

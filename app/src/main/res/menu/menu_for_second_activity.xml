@@ -1,0 +1,34 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.nehvedovich.vladimir.myapplication.MainActivity">
+
+    <item
+        android:id="@+id/shareButton"
+        android:layout_gravity="end"
+        android:icon="@android:drawable/ic_menu_share"
+        android:orderInCategory="100"
+        android:title="@string/choose_city"
+        app:showAsAction="ifRoom">
+
+        <menu>
+            <group>
+                <item
+                    android:id="@+id/share_link"
+                    android:orderInCategory="100"
+                    android:title="@string/link"
+                    app:showAsAction="never" />
+                <item
+                    android:id="@+id/share_screenshot"
+                    android:orderInCategory="100"
+                    android:title="@string/screenshot"
+                    app:showAsAction="never" />
+            </group>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/action_history"
+        android:orderInCategory="100"
+        android:title="@string/history"
+        app:showAsAction="never" />
+</menu>
