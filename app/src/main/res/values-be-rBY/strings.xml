@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Надвор\'е BY</string>
+    <string name="activity_name_temperature">Гісторыя</string>
+    <string name="activity_name_settings">Налады</string>
+    <string name="pogoda">Надвор\'е</string>
+    <string name="weather_conditions">Сонечна</string>
+    <string name="wind_speed_m_s"> м/с</string>
+    <string name="direction_wind">N/A</string>
+    <string name="humidity">%</string>
+    <string name="pressure_mmHg">мм.рт.ст.</string>
+
+    <string name="wind_indication">Вецер</string>
+    <string name="humidity_indication">Вільготнасць</string>
+    <string name="pressure_indication">Ціск</string>
+    <string name="dark_theme">Цёмная тэма</string>
+    <string name="on_the_map">На мапе</string>
+    <string name="delete">Выдаліць</string>
+    <string name="link">Спасылка</string>
+    <string name="screenshot">Скрыншот</string>
+    <string name="location">ru</string>
+    <string name="choose_city">Пошук горада</string>
+
+    <string name="sunrise">Узыход</string>
+    <string name="sunset">Закат</string>
+    <string name="city_name">Горад</string>
+    <string name="sunrise_sunset">Узыход і закат</string>
+
+    <string name="place_not_found">
+Выбачайце, дадзеныя аб надвор\'і не знойдзены.</string>
+    <string name="tools">Інструменты</string>
+    <string name="additionally">Дадаткова</string>
+    <string name="about_the_app">Аб дадатку</string>
+    <string name="feedback_form">Зваротная сувязь</string>
+    <string name="message_subject">Приложение \'Погода BY\'</string>
+    <string name="problem_message">Апішыце вашу праблему і далучыце скрыншот.</string>
+
+    <string name="nav_header_desc">Загаловак навігацыйнай панэлі</string>
+    <string name="navigation_drawer_open">Адкрыць навігацыйную панэль</string>
+    <string name="navigation_drawer_close">Зачыніць навігацыйную панэль</string>
+    <string name="more_info_text">Дадатковыя дадзеныя для адлюстравання:</string>
+    <string name="avatar">Змяніць аватар</string>
+    <string name="send_mail_title">Адправіць ліст…</string>
+    <string name="application_absent">Прыкладанне не існуе</string>
+    <string name="nav_change_name">Змяніць імя</string>
+    <string name="nav_header_title">Увядзіце ваша імя</string>
+    <string name="current_temperature">Актуальная тэмпература</string>
+    <string name="last_update">Апошняе абнаўленне:</string>
+    <string name="error">Памылка</string>
+    <string name="history">Гісторыя</string>
+    <string name="no_items">Пуста</string>
+    <string name="clear_the_history">Ачысціць гісторыю</string>
+    <string name="error_internet_connection">Няма злучэння з інтэрнэтам!</string>
+    <string name="error_city_not_found">Выбачайце, горад не знойдзены</string>
+    <string name="error_internet_text">Праверце падлучэнне да інтэрнэту і паспрабуйце ізноў.</string>
+    <string name="your_location">(Ваша месцазнаходжанне)</string>
+    <string name="my_location">Маё месцазнаходжанне…</string>
+    <string name="no_view_app">Прыкладанне не знойдзена!</string>
+    <string name="confirmDelete">Вы сапраўды хочаце выдаліць %s?</string>
+    <string name="no">Адмена</string>
+    <string name="yes">Так</string>
+    <string name="actionAddCity">Дадаць горад</string>
+    <string name="enter_city_name">Увядзіце назву горада</string>
+    <string name="add">Дадаць</string>
+    <string name="hint_city_example">Минск, BY</string>
+    <string name="enter_city_message">Ўводзьце назву горада ў фармаце: \'Минск\' або \'Минск, BY\'</string>
+    <string name="incorrect_city_name">Несапраўдная назва горада!</string>
+    <string name="minimalistic_Icons">Мінімалістычныя іконкі</string>
+
+</resources>

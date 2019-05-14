@@ -1,12 +1,12 @@
 package com.nehvedovich.vladimir.pogoda.screens.screens;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -18,10 +18,10 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -29,37 +29,43 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nehvedovich.vladimir.pogoda.R;
+import com.nehvedovich.vladimir.pogoda.screens.database.City;
+import com.nehvedovich.vladimir.pogoda.screens.database.CityRepository;
+import com.nehvedovich.vladimir.pogoda.screens.database.CityService;
 import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CitiesFragment;
 import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CityInfoFragment;
 import com.nehvedovich.vladimir.pogoda.screens.utils.BackgroundService;
 
-import java.io.IOException;
 import java.util.Locale;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SensorEventListener {
 
     private static final int PERMISSION_REQUEST_CODE = 10;
-    static final int GALLERY_REQUEST = 1;
     private static final String FONT_FILENAME = "fonts/weather_icons.ttf";
 
     private final String pressureChBKey = "check_pressure";
     private final String sunriseSunsetChBKey = "check_sunrise_sunset";
     private final String darkThemeKey = "save_night";
+    private final String minimalisticIconKey = "saveMinimalIcon";
+
     private final static String NOT_SUPPORTED_MESSAGE = "";  //Если сенсора не существует, то ничего не выводим
     public static boolean night;
+    public static boolean minimalisticIcons;
     public static boolean coordPut = true;
 
     private TextView humidityIcon;
@@ -111,6 +117,7 @@ public class MainActivity extends AppCompatActivity
 
         final SharedPreferences activityPrefs = getPreferences(Context.MODE_PRIVATE);
         readNightBackground(activityPrefs);
+        readMinimalisticIcon(activityPrefs);
     }
 
 
@@ -292,6 +299,7 @@ public class MainActivity extends AppCompatActivity
         saveCheckBoxSunriseSunset(sunriseSunset.isChecked());
         final SharedPreferences activityPrefs = getPreferences(Context.MODE_PRIVATE);
         saveNightBackground(activityPrefs);
+        saveMinimalisticIcon(activityPrefs);
     }
 
     @Override
@@ -323,6 +331,16 @@ public class MainActivity extends AppCompatActivity
 
     private void readNightBackground(SharedPreferences preferences) {
         night = preferences.getBoolean(darkThemeKey, false);
+    }
+
+    private void saveMinimalisticIcon(SharedPreferences preferences) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(minimalisticIconKey, minimalisticIcons);
+        editor.apply();
+    }
+
+    private void readMinimalisticIcon(SharedPreferences preferences) {
+        minimalisticIcons = preferences.getBoolean(minimalisticIconKey, false);
     }
 
     private void saveCheckBoxPressure(final boolean isChecked) {
@@ -382,25 +400,46 @@ public class MainActivity extends AppCompatActivity
 
     //показать диалог выбора города (ПОИСК)
     private void showInputDialog() {
-        AlertDialog.Builder chooseCity = new AlertDialog.Builder(this);
+        final AlertDialog.Builder chooseCity = new AlertDialog.Builder(this);
         chooseCity.setIcon(R.mipmap.ic_launcher);
-        chooseCity.setTitle(R.string.choose_city);
-        final EditText input = new EditText(this);
+        chooseCity.setTitle(R.string.enter_city_name);
+        chooseCity.setMessage(R.string.enter_city_message);
+        final TextInputEditText input = new TextInputEditText(this);
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         chooseCity.setView(input);
 
-        //запускае активити с информациеей о погоде введенного с клавиатуры города
+        //запускаем активити с информациеей о погоде введенного с клавиатуры города
         chooseCity.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String city = input.getText().toString();
-                Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                intent.putExtra(CityInfoFragment.CITY_NAME_EXTRA, city);
-                intent.putExtra(CitiesFragment.CHECK_BOX_PRESSURE, pressure.isChecked());
-                intent.putExtra(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET, sunriseSunset.isChecked());
-                startActivity(intent);
+
+                String city = Objects.requireNonNull(input.getText()).toString();
+                if (city.length() > 1) {
+                    Intent intent = new Intent(MainActivity.this, SecondActivity.class);
+                    intent.putExtra(CityInfoFragment.CITY_NAME_EXTRA, city);
+                    intent.putExtra(CitiesFragment.CHECK_BOX_PRESSURE, pressure.isChecked());
+                    intent.putExtra(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET, sunriseSunset.isChecked());
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(MainActivity.this, getString(R.string.incorrect_city_name), Toast.LENGTH_SHORT).show();
+                   showInputDialog();
+                }
             }
         });
+        input.setHint(getString(R.string.hint_city_example));
+        input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                input.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        InputMethodManager inputMethodManager = (InputMethodManager) MainActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                });
+            }
+        });
+        input.requestFocus();
         chooseCity.show();
     }
 
@@ -409,13 +448,8 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = menuItem.getItemId();
         coordPut = false;
-        if (id == R.id.nav_avatar) {
-            //пользователь может выбрать аватарку из галерии
-            Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-            photoPickerIntent.setType("image/*");
-            startActivityForResult(photoPickerIntent, GALLERY_REQUEST);
-        } else if (id == R.id.nav_name) {
-            showNameDialog();
+        if (id == R.id.nav_add_city) {
+            showAddCity();
 
         } else if (id == R.id.nav_history) {
             startActivity(new Intent(MainActivity.this, HistoryActivity.class));
@@ -425,8 +459,8 @@ public class MainActivity extends AppCompatActivity
             return true;
 
 
-        } else if (id == R.id.about_the_developer) {
-            showDeveloperDialog();
+        } else if (id == R.id.about_the_app) {
+            showAppDialog();
         } else if (id == R.id.feedback_form) {
             //пользователь может отправить сообщение в техподдержку по email
             Intent i = new Intent(Intent.ACTION_SENDTO);
@@ -446,56 +480,54 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    // метод для загрузки пользовательской аватарки из галереи
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
-        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
 
-        Bitmap bitmap = null;
-        ImageView imageView = findViewById(R.id.avatarView);
-
-        if (requestCode == GALLERY_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                Uri selectedImage = imageReturnedIntent.getData();
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), selectedImage);
-                } catch (IOException e) {
-                    e.printStackTrace();
+    private void showAddCity() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(R.string.enter_city_name);
+        alert.setMessage(R.string.enter_city_message);
+        final TextInputEditText input = new TextInputEditText(this);
+        alert.setView(input);
+        alert.setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                Editable editable = input.getText();
+                if (editable != null) {
+                    String value = editable.toString().trim();
+                    if (value.length() > 1) {
+                        Activity activity = MainActivity.this;
+                        CityRepository.getInstance().add(new City(null, value));
+                        Intent intent = new Intent(activity, CityService.class);
+                        activity.startService(intent);
+                    } else {
+                        Toast.makeText(MainActivity.this, getString(R.string.incorrect_city_name), Toast.LENGTH_SHORT).show();
+                        showAddCity();
+                    }
                 }
-                imageView.setImageBitmap(bitmap);
             }
-        }
+        });
+        input.setHint(getString(R.string.hint_city_example));
+        input.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                input.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        InputMethodManager inputMethodManager = (InputMethodManager) MainActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+                    }
+                });
+            }
+        });
+        input.requestFocus();
+        alert.show();
     }
+
 
     //показываем окно с информацией о разработчике
-    private void showDeveloperDialog() {
+    private void showAppDialog() {
         AlertDialog.Builder byAuthor = new AlertDialog.Builder(this);
         byAuthor.setIcon(R.mipmap.ic_launcher);
-        byAuthor.setTitle(R.string.developer_name);
-
-        byAuthor.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        });
+        byAuthor.setTitle(R.string.app_name);
+        byAuthor.setMessage(R.string.app_version);
         byAuthor.show();
-    }
-
-    private void showNameDialog() {
-        AlertDialog.Builder name = new AlertDialog.Builder(this);
-        name.setTitle(R.string.nav_header_title);
-        final EditText input = new EditText(this);
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        name.setView(input);
-
-        name.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                String name = input.getText().toString();
-                TextView n = findViewById(R.id.user_name);
-                n.setText(name);
-            }
-        });
-        name.show();
     }
 }

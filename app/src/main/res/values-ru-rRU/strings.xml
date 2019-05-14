@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Погода</string>
+    <string name="app_name">Погода BY</string>
     <string name="activity_name_temperature">История</string>
     <string name="activity_name_settings">Настройки</string>
     <string name="pogoda">Погода</string>
@@ -15,11 +15,12 @@
     <string name="pressure_indication">Давление</string>
     <string name="dark_theme">Темная тема</string>
     <string name="on_the_map">На карте</string>
-    <string name="choose_city">Введите город</string>
     <string name="delete">Удалить</string>
     <string name="link">Ссылка</string>
     <string name="screenshot">Скриншот</string>
     <string name="location">ru</string>
+    <string name="choose_city">Поиск города</string>
+
     <string name="sunrise">Восход</string>
     <string name="sunset">Закат</string>
     <string name="city_name">Город</string>
@@ -29,9 +30,9 @@
 Извините, данные о погоде не найдены.</string>
     <string name="tools">Инструменты</string>
     <string name="additionally">Дополнительно</string>
-    <string name="about_the_developer">О разработчике</string>
+    <string name="about_the_app">О приложении</string>
     <string name="feedback_form">Обратная связь</string>
-    <string name="message_subject">Приложение \'Погода\'</string>
+    <string name="message_subject">Приложение \'Погода BY\'</string>
     <string name="problem_message">Опишите вашу проблему и добавьте скриншот.</string>
 
     <string name="nav_header_desc">Заголовок навигационной панели</string>
@@ -51,9 +52,19 @@
     <string name="clear_the_history">Очистить историю</string>
     <string name="error_internet_connection">Нет соединения с интернетом!</string>
     <string name="error_city_not_found">Извините, город не найден</string>
-    <string name="error_internet_text">Проверте подключение к интернету и повторите попытку.</string>
+    <string name="error_internet_text">Проверьте подключение к интернету и повторите попытку.</string>
     <string name="your_location">(Ваше местоположение)</string>
     <string name="my_location">Мое местоположение…</string>
     <string name="no_view_app">Приложение не найдено!</string>
+    <string name="confirmDelete">Вы действительно ходите удалить %s?</string>
+    <string name="no">Отмена</string>
+    <string name="yes">Да</string>
+    <string name="actionAddCity">Добавить город</string>
+    <string name="enter_city_name">Введите название города</string>
+    <string name="add">Добавить</string>
+    <string name="hint_city_example">Минск, BY</string>
+    <string name="enter_city_message">Вводите название города в формате: \'Минск\' или \'Минск, BY\'</string>
+    <string name="incorrect_city_name">Некорректное название города!</string>
+    <string name="minimalistic_Icons">Минималистичные иконки</string>
 
 </resources>

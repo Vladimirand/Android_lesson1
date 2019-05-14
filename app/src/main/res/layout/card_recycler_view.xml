@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5sp"
+    app:cardCornerRadius="4sp"
+    app:cardElevation="0sp"
+    app:cardBackgroundColor="@color/translucent">
+
+    <TextView
+        android:id="@+id/city_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8sp"
+        android:textSize="24sp"
+        android:textColor="@color/color_black"
+        android:gravity="center" />
+
+</android.support.design.card.MaterialCardView>
+

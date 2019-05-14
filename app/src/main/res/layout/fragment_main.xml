@@ -10,7 +10,6 @@
         tools:context=".screens.screens.MainActivity">
 
         <LinearLayout
-            android:id="@+id/cities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -19,33 +18,11 @@
             android:orientation="vertical"
             tools:ignore="UselessParent">
 
-            <Button
-                android:id="@+id/to_city_1"
-                style="@style/ButtonCityStyle"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/cities"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/city_name_1" />
-
-            <Button
-                android:id="@+id/to_city_2"
-                style="@style/ButtonCityStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/city_name_2" />
-
-            <Button
-                android:id="@+id/to_city_4"
-                style="@style/ButtonCityStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/city_name_4" />
-
-            <Button
-                android:id="@+id/to_city_3"
-                style="@style/ButtonCityStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/city_name_3" />
+                android:layout_height="match_parent"
+                android:choiceMode="singleChoice" />
 
             <TextView
                 android:layout_width="match_parent"

@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nehvedovich.vladimir.pogoda.R;
@@ -78,6 +79,18 @@ public class HistoryActivity extends AppCompatActivity {
         weatherDataReader.Refresh();
         adapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        final ImageView darkBackground = findViewById(R.id.backgroundHistory);
+        if (MainActivity.night) {
+            darkBackground.setVisibility(View.VISIBLE);
+        } else {
+            darkBackground.setVisibility(View.GONE);
+        }
     }
 
     //меню
