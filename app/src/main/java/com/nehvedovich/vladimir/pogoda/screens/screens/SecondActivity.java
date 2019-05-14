@@ -30,8 +30,7 @@ import java.io.IOException;
 public class SecondActivity extends AppCompatActivity {
     public File imagePath;
     public static final int REQUEST_CODE_PERMISSION_WRITE_EXTERNAL_STORAGE = 0;
-    private final String yandexHttp = "https://yandex.by/pogoda/maps/nowcast?from=main_maps_widget_bottom&from=home&ll=";
-
+    private final String yandexHttp = "https://yandex.by/pogoda/maps/nowcast?from=main_maps_widget_bottom&le_Lightning=1&lat=";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,7 +111,7 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                Uri uri = Uri.parse(yandexHttp + CityInfoFragment.lon + "_" + CityInfoFragment.lat + "&z=9");
+                Uri uri = Uri.parse(yandexHttp + CityInfoFragment.lat + "&lon=" + CityInfoFragment.lon + "&ll=" + CityInfoFragment.lon + "_" + CityInfoFragment.lat + "&z=9");
                 intent.setData(uri);
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
