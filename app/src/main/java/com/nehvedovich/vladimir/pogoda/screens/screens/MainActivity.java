@@ -29,8 +29,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -405,7 +403,6 @@ public class MainActivity extends AppCompatActivity
         chooseCity.setTitle(R.string.enter_city_name);
         chooseCity.setMessage(R.string.enter_city_message);
         final TextInputEditText input = new TextInputEditText(this);
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
         chooseCity.setView(input);
 
         //запускаем активити с информациеей о погоде введенного с клавиатуры города
@@ -413,7 +410,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                String city = Objects.requireNonNull(input.getText()).toString();
+                String inputText = Objects.requireNonNull(input.getText()).toString();
+                String city = firstUpperCase(inputText);
                 if (city.length() > 1) {
                     Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                     intent.putExtra(CityInfoFragment.CITY_NAME_EXTRA, city);
@@ -489,19 +487,18 @@ public class MainActivity extends AppCompatActivity
         alert.setView(input);
         alert.setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-                Editable editable = input.getText();
-                if (editable != null) {
-                    String value = editable.toString().trim();
-                    if (value.length() > 1) {
+
+                    String inputText = Objects.requireNonNull(input.getText()).toString();
+                   String city = firstUpperCase(inputText);
+                    if (city.length() > 1) {
                         Activity activity = MainActivity.this;
-                        CityRepository.getInstance().add(new City(null, value));
+                        CityRepository.getInstance().add(new City(null, city));
                         Intent intent = new Intent(activity, CityService.class);
                         activity.startService(intent);
                     } else {
                         Toast.makeText(MainActivity.this, getString(R.string.incorrect_city_name), Toast.LENGTH_SHORT).show();
                         showAddCity();
                     }
-                }
             }
         });
         input.setHint(getString(R.string.hint_city_example));
@@ -529,5 +526,10 @@ public class MainActivity extends AppCompatActivity
         byAuthor.setTitle(R.string.app_name);
         byAuthor.setMessage(R.string.app_version);
         byAuthor.show();
+    }
+
+    public String firstUpperCase(String word){
+        if(word == null || word.isEmpty()) return ""; //или return word;
+        return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
 }
