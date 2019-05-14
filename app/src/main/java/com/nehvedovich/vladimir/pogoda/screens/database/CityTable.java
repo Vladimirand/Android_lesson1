@@ -16,7 +16,7 @@ class CityTable {
     static void createTable(SQLiteDatabase database) {
         database.execSQL("CREATE TABLE " + TABLE_NAME + " (" + COLUMN_ID
                 + " INTEGER PRIMARY KEY AUTOINCREMENT," + COLUMN_CITY_NAME + " TEXT);");
-        String[] cities = {"Минск", "Гродно", "Брест", "Гомель", "Могилев", "Витебск"};
+        String[] cities = {"Минск", "Гродно", "Брест", "Гомель", "Могилёв", "Витебск"};
         for (String cityName : cities) {
             addCity(new City(null, cityName), database);
         }
