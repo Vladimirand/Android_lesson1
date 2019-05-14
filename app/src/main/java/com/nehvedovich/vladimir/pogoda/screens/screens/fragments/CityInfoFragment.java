@@ -224,7 +224,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                     @Override
                     public void onFailure(@NonNull Call<WeatherRequestRestModel> call, @NonNull Throwable t) {
-                        loadImage("error");
+                        loadImage(R.drawable.error);
                     }
                 });
     }
@@ -247,7 +247,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                     @Override
                     public void onFailure(@NonNull Call<WeatherRequestRestModel> call, @NonNull Throwable t) {
-                        loadImage("error");
+                        loadImage(R.drawable.error);
                     }
                 });
     }
@@ -269,7 +269,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void setInfoError() {
-        loadImage("https://i.pinimg.com/originals/32/81/56/328156fb3ce91b68e080b37eecd66fd6.png");
+        loadImage(R.drawable.not_found);
         Toast.makeText(getContext(),
                 getString(R.string.error_city_not_found), Toast.LENGTH_LONG).show();
     }
@@ -374,63 +374,63 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     private void setWeatherIcon(int actualId, long sunrise, long sunset) {
         int id = actualId / 100; // Упрощение кодов (int оставляет только целочисленное значение)
         String icon = "";
-        String url = "";
+        int image = 0;
         long currentTime = new Date().getTime();
 
         if (actualId == 800) {
             if (currentTime >= sunrise && currentTime < sunset) {
                 icon = getString(R.string.weather_sunny);
-                url = "http://clipart-library.com/img/1816931.png";
+                image = R.drawable.weather_sunny;
             } else {
                 icon = getString(R.string.weather_clear_night);
-                url = "http://clipart-library.com/img/1817023.png";
+                image = R.drawable.weather_clear_night;
             }
         } else if (actualId == 801) {
             if (currentTime >= sunrise && currentTime < sunset) {
                 icon = getString(R.string.weather_day_cloudy);
-                url = "http://clipart-library.com/img/1816960.png";
+                image = R.drawable.weather_day_cloudy;
             } else {
                 icon = getString(R.string.weather_night_cloudy);
-                url = "http://clipart-library.com/image_gallery/583348.png";
+                image = R.drawable.weather_night_cloudy;
             }
         } else if (actualId == 802) {
             icon = getString(R.string.weather_cloud);
-            url = "https://upload.wikimedia.org/wikipedia/commons/4/40/Draw_cloudy.png";
+            image = R.drawable.weather_cloud;
         } else if ((actualId == 803) | (actualId == 804)) {
             icon = getString(R.string.weather_cloudy);
-            url = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Weather-heavy-overcast.svg/480px-Weather-heavy-overcast.svg.png";
+            image = R.drawable.weather_cloudy;
         } else {
             switch (id) {
                 case 2:
                     icon = getString(R.string.weather_thunder);
-                    url = "http://clipart-library.com/img/1816972.png";
+                    image = R.drawable.weather_thunder;
                     break;
                 case 3:
                     icon = getString(R.string.weather_drizzle);
-                    url = "https://www.longy.com.au/sites/default/files/kisspng-weather-rain-computer-icons-cloud-clip-art-clouds-5ab45ec3d2c9d0.9747451715217701798634.png";
+                    image = R.drawable.weather_drizzle;
                     break;
                 case 5:
                     icon = getString(R.string.weather_rainy);
-                    url = "https://cognigen-cellular.com/images/showering-clipart-rain-shower-6.png";
+                    image = R.drawable.weather_rainy;
                     break;
                 case 6:
                     icon = getString(R.string.weather_snowy);
-                    url = "http://clipart-library.com/img/1816994.png";
+                    image = R.drawable.weather_snowy;
                     break;
                 case 7:
                     icon = getString(R.string.weather_foggy);
-                    url = "https://cdn3.iconfinder.com/data/icons/flat-main-weather-conditions-2/842/fog-512.png";
+                    image = R.drawable.weather_foggy;
                     break;
                 case 8:
                     icon = getString(R.string.weather_cloudy);
-                    url = "https://upload.wikimedia.org/wikipedia/commons/4/40/Draw_cloudy.png";
+                    image = R.drawable.weather_cloud;
                     break;
                 // Можете доработать приложение, найдя все иконки и распарсив все значения
                 default:
                     break;
             }
         }
-        loadImage(url);
+        loadImage(image);
         weatherIcon.setText(icon);
     }
 
@@ -464,13 +464,13 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         updatedTextView.setText(String.format("%s %s", getString(R.string.last_update), updatedOn));
     }
 
-    private void loadImage(String url) {
+    private void loadImage(int image) {
         if (MainActivity.minimalisticIcons) {
             imageView.setVisibility(View.INVISIBLE);
             weatherIcon.setVisibility(View.VISIBLE);
         } else {
             Picasso.get()
-                    .load(url)
+                    .load(image)
                     .error(R.drawable.error)
                     .into(imageView);
         }
