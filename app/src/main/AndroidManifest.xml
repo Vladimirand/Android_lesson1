@@ -38,6 +38,7 @@
             android:name=".screens.screens.SecondActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeSettings" />
+
         <activity
             android:name=".screens.screens.SettingsActivity"
             android:label="@string/activity_name_settings"
@@ -45,10 +46,15 @@
             android:theme="@style/AppThemeSettings" />
 
         <activity
-        android:name=".screens.screens.HistoryActivity"
-        android:label="@string/activity_name_temperature"
-        android:screenOrientation="portrait"
-        android:theme="@style/AppThemeSettings"/>
+            android:name=".screens.screens.HistoryActivity"
+            android:label="@string/activity_name_temperature"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeSettings" />
+
+        <activity
+            android:name=".screens.screens.WebViewActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <service android:name=".screens.utils.BackgroundService" />
         <service android:name=".screens.database.CityService" />
