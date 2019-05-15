@@ -71,7 +71,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     String latitude;
     String longitude;
     Boolean internetConnection;
-    Boolean catsHelper = false;
+    Boolean catsHelper = false; //для того, чтобы определять в каких случаях показываем картинку с котами
 
     String msgException = "One or more fields not found in the JSON data";
     String apiKey = "bb0856d6336d3c2ca1a809b325fecefa";
