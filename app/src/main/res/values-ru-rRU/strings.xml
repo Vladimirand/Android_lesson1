@@ -13,7 +13,7 @@
     <string name="wind_indication">Ветер</string>
     <string name="humidity_indication">Влажность</string>
     <string name="pressure_indication">Давление</string>
-    <string name="dark_theme">Темная тема</string>
+    <string name="dark_theme">Темный фон</string>
     <string name="on_the_map">На карте</string>
     <string name="delete">Удалить</string>
     <string name="link">Ссылка</string>
@@ -66,5 +66,7 @@
     <string name="enter_city_message">Вводите название города в формате: \'Минск\' или \'Минск, BY\'</string>
     <string name="incorrect_city_name">Некорректное название города!</string>
     <string name="minimalistic_Icons">Минималистичные иконки</string>
+    <string name="openWeatherMapText">Данные предоставлены OpenWeatherMap</string>
+    <string name="mapInfoText">Отображение погоды на карте - Технология Яндекса</string>
 
 </resources>

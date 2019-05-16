@@ -481,6 +481,7 @@ public class MainActivity extends AppCompatActivity
 
     private void showAddCity() {
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setIcon(R.mipmap.ic_launcher);
         alert.setTitle(R.string.enter_city_name);
         alert.setMessage(R.string.enter_city_message);
         final TextInputEditText input = new TextInputEditText(this);
@@ -524,7 +525,7 @@ public class MainActivity extends AppCompatActivity
         AlertDialog.Builder byAuthor = new AlertDialog.Builder(this);
         byAuthor.setIcon(R.mipmap.ic_launcher);
         byAuthor.setTitle(R.string.app_name);
-        byAuthor.setMessage(R.string.app_version);
+        byAuthor.setMessage(getString(R.string.app_version) + "\n \n" + getString(R.string.openWeatherMapText) + "\n \n" + getString(R.string.mapInfoText));
         byAuthor.show();
     }
 
