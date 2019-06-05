@@ -11,9 +11,18 @@ public class WeatherRequestRestModel {
     @SerializedName("wind") public WindRestModel wind;
     @SerializedName("rain") public  RainRestModel rain;
     @SerializedName("clouds") public  CloudsRestModel clouds;
+    @SerializedName("snow") public  SnowRestModel snow;
     @SerializedName("dt") public long dt;
     @SerializedName("sys") public  SysRestModel sys;
     @SerializedName("id") public  long id;
     @SerializedName("name") public String name;
-    @SerializedName("cod") public int cod;
+    @SerializedName("cod") public String cod;
+
+    // for forecast 5 day respons
+    @SerializedName("city") public CityRestModel cityInfo;
+    @SerializedName("message") public String message;
+    @SerializedName("cnt") public int cnt;
+    @SerializedName("list") public ListRestModel[] list;
+
+
 }

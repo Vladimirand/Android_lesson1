@@ -4,5 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 
 public class RainRestModel {
+    @SerializedName("1h") public float h1;
     @SerializedName("3h") public float h3;
 }
