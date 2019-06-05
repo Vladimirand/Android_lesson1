@@ -66,5 +66,7 @@
     <string name="enter_city_message">Ўводзьце назву горада ў фармаце: \'Минск\' або \'Минск, BY\'</string>
     <string name="incorrect_city_name">Несапраўдная назва горада!</string>
     <string name="minimalistic_Icons">Мінімалістычныя іконкі</string>
+    <string name="openWeatherMapText">Дадзеныя прадастаўлены OpenWeatherMap</string>
+    <string name="mapInfoText">Адлюстраванне надвор\'я на мапе - Тэхналогія Яндэкса</string>
 
 </resources>

@@ -11,11 +11,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -107,7 +107,7 @@ public class SecondActivity extends AppCompatActivity {
     }
 
     private void detailsButton() {
-        Button details = findViewById(R.id.moreInformation);
+        AppCompatButton details = findViewById(R.id.moreInformation);
         details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

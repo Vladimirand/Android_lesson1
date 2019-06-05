@@ -48,6 +48,22 @@
     <string name="pressure_icon" translatable="false">&#xf079;</string>
     <string name="wind_icon" translatable="false">&#xf050;</string>
 
+
+    <!--<string name="icon01d" translatable="false">&#xf00d;</string>-->
+    <!--<string name="icon01n" translatable="false">&#xf02e;</string>-->
+    <!--<string name="icon50d" translatable="false">&#xf014;</string>-->
+    <!--<string name="icon03d" translatable="false">&#xf041;</string>-->
+    <!--<string name="icon03n" translatable="false">&#xf041;</string>-->
+    <!--<string name="icon04d" translatable="false">&#xf013;</string>-->
+    <!--<string name="icon04n" translatable="false">&#xf013;</string>-->
+    <!--<string name="icon02d" translatable="false">&#xf002;</string>-->
+    <!--<string name="icon02n" translatable="false">&#xf086;</string>-->
+    <!--<string name="icon10d" translatable="false">&#xf019;</string>-->
+    <!--<string name="icon13d" translatable="false">&#xf01b;</string>-->
+    <!--<string name="icon11d" translatable="false">&#xf01e;</string>-->
+    <!--<string name="icon09d" translatable="false">&#xf01c;</string>-->
+
+
     <string name="north_wind_icon" translatable="false">&#xf044;</string>
     <string name="south_wind_icon" translatable="false">&#xf058;</string>
     <string name="east_wind_icon" translatable="false">&#xf048;</string>
