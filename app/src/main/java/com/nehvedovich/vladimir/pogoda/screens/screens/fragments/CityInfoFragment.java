@@ -350,7 +350,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         lon = model.coordinates.lon;
         lat = model.coordinates.lat;
         cityId = String.valueOf(model.id);
-        requestRetrofitForecastH(cityId);
+        requestRetrofitForecast3h(cityId);
     }
 
     private void setInfoError() {
@@ -602,7 +602,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         errorConnection.show();
     }
 
-    private void requestRetrofitForecastH(final String id) {
+    private void requestRetrofitForecast3h(final String id) {
         OpenWeatherRepo.getSingleton().getAPI().loadForecastWeatherHourly(id,
                 apiKey, units, getString(R.string.location))
                 .enqueue(new Callback<WeatherRequestRestModel>() {
@@ -611,7 +611,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                                            @NonNull Response<WeatherRequestRestModel> response) {
                         if (response.body() != null && response.isSuccessful()) {
                             modelH = response.body();
-                            setForecastTemperature();
+                            setForecastData();
                             forecastWeather.setVisibility(View.VISIBLE);
                         }
                     }
@@ -622,7 +622,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                 });
     }
 
-    private void setForecastTemperature() {
+    private void setForecastData() {
         Double t1 = (double) modelH.list[0].main.temp;
         Double t2 = (double) modelH.list[1].main.temp;
         Double t3 = (double) modelH.list[2].main.temp;
