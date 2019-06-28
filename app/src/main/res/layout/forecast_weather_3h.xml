@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/translucent"
     tools:context=".screens.screens.SecondActivity">
 
     <android.support.v4.widget.NestedScrollView
@@ -20,29 +23,28 @@
                 android:id="@+id/forecastWeather"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:visibility="gone"
-                tools:visibility="visible"
-                android:background="@color/translucent"
-                android:orientation="horizontal">
+                tools:visibility="visible">
 
                 <LinearLayout
+                    style="@style/LinearForecastStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/temp1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        tools:text="10 C" />
+                        tools:text="10 ℃" />
 
                     <TextView
                         android:id="@+id/weather_icon1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        tools:text="icon" />
 
                     <LinearLayout
                         android:id="@+id/viewWind1"
@@ -55,7 +57,7 @@
                             style="@style/TextStandardStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="2,5 m/s " />
+                            tools:text="2,5 m/s" />
 
                         <TextView
                             android:id="@+id/directionWind1"
@@ -67,10 +69,9 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    style="@style/LinearForecastStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/temp2"
@@ -108,10 +109,9 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    style="@style/LinearForecastStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/temp3"
@@ -149,10 +149,9 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    style="@style/LinearForecastStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/temp4"
@@ -190,10 +189,9 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    style="@style/LinearForecastStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/temp5"
@@ -231,10 +229,9 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    style="@style/LinearForecastStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/temp6"
@@ -272,10 +269,9 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    style="@style/LinearForecastStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/temp7"
@@ -311,11 +307,11 @@
                             tools:text=">" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <LinearLayout
+                    style="@style/LinearForecastStyle"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="7dp"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
                     <TextView
                         android:id="@+id/temp8"
@@ -354,4 +350,4 @@
             </LinearLayout>
         </HorizontalScrollView>
     </android.support.v4.widget.NestedScrollView>
-</LinearLayout>
+</android.support.design.card.MaterialCardView>

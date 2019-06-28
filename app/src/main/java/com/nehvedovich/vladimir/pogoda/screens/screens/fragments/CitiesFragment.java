@@ -158,6 +158,4 @@ public class CitiesFragment extends Fragment {
         CheckBox feelLike = Objects.requireNonNull(getActivity()).findViewById(R.id.checkBoxSunriseAndSunset);
         return feelLike.isChecked();
     }
-
-
 }

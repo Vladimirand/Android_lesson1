@@ -87,21 +87,14 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     private TextView weatherIcon7;
     private TextView weatherIcon8;
 
-//    private TextView windText1;
-//    private TextView windText2;
-//    private TextView windText3;
-//    private TextView windText4;
-//    private TextView windText5;
-//    private TextView windText6;
-//    private TextView windText7;
-//
-//    private TextView windDirIcon1;
-//    private TextView windDirIcon2;
-//    private TextView windDirIcon3;
-//    private TextView windDirIcon4;
-//    private TextView windDirIcon5;
-//    private TextView windDirIcon6;
-//    private TextView windDirIcon7;
+    private TextView windText1;
+    private TextView windText2;
+    private TextView windText3;
+    private TextView windText4;
+    private TextView windText5;
+    private TextView windText6;
+    private TextView windText7;
+    private TextView windText8;
 
     WeatherRequestRestModel model = new WeatherRequestRestModel();
     WeatherRequestRestModel modelH = new WeatherRequestRestModel();
@@ -260,20 +253,24 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         weatherIcon6 = layout.findViewById(R.id.weather_icon6);
         weatherIcon7 = layout.findViewById(R.id.weather_icon7);
         weatherIcon8 = layout.findViewById(R.id.weather_icon8);
-//        windText1 = layout.findViewById(R.id.textWind1);
-//        windText2 = layout.findViewById(R.id.textWind2);
-//        windText3 = layout.findViewById(R.id.textWind3);
-//        windText4 = layout.findViewById(R.id.textWind4);
-//        windText5 = layout.findViewById(R.id.textWind5);
-//        windText6 = layout.findViewById(R.id.textWind6);
-//        windText7 = layout.findViewById(R.id.textWind7);
-//        windDirIcon1 = layout.findViewById(R.id.directionWind1);
-//        windDirIcon2 = layout.findViewById(R.id.directionWind2);
-//        windDirIcon3 = layout.findViewById(R.id.directionWind3);
-//        windDirIcon4 = layout.findViewById(R.id.directionWind4);
-//        windDirIcon5 = layout.findViewById(R.id.directionWind5);
-//        windDirIcon6 = layout.findViewById(R.id.directionWind6);
-//        windDirIcon7 = layout.findViewById(R.id.directionWind7);
+        windText1 = layout.findViewById(R.id.textWind1);
+        windText2 = layout.findViewById(R.id.textWind2);
+        windText3 = layout.findViewById(R.id.textWind3);
+        windText4 = layout.findViewById(R.id.textWind4);
+        windText5 = layout.findViewById(R.id.textWind5);
+        windText6 = layout.findViewById(R.id.textWind6);
+        windText7 = layout.findViewById(R.id.textWind7);
+        windText8 = layout.findViewById(R.id.textWind8);
+
+        windText1.setTypeface(weatherFont);
+        windText2.setTypeface(weatherFont);
+        windText3.setTypeface(weatherFont);
+        windText4.setTypeface(weatherFont);
+        windText5.setTypeface(weatherFont);
+        windText6.setTypeface(weatherFont);
+        windText7.setTypeface(weatherFont);
+        windText8.setTypeface(weatherFont);
+
         weatherIcon1.setTypeface(weatherFont);
         weatherIcon2.setTypeface(weatherFont);
         weatherIcon3.setTypeface(weatherFont);
@@ -435,8 +432,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         long sunset = model.sys.sunset;
         String icon = "";
         long currentTime = new Date().getTime();
-//        setWeatherIcon(id, sunrise * 1000,
-//                sunset * 1000, icon);
         icon = setWeatherIcon(id, sunrise * 1000,
                 sunset * 1000, currentTime, icon, true);
         weatherIcon.setText(icon);
@@ -543,7 +538,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
             icon = getString(R.string.north_wind_icon);
         }
         return icon;
-//        directionWindIcon.setText(String.format(", %s", icon));
     }
 
     private void setUpdatedOn() {
@@ -622,6 +616,20 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                 });
     }
 
+    private String getForecastWind(int i) {
+        String info = "";
+        try {
+            Double speed = (double) modelH.list[i].wind.speed;
+            //получаем направление ветра
+            int deg = (int) modelH.list[i].wind.deg;
+            String icon = setWindDirectionIcon(deg);
+            info = String.format("%s %s, %s", String.format(Locale.US, "%.0f", speed), getString(R.string.wind_speed_m_s), icon);
+        } catch (Exception e) {
+            Log.d("Log", msgException + "(in forecast 'wind')" + i);//FIXME Обработка ошибки
+        }
+        return info;
+    }
+
     private void setForecastData() {
         Double t1 = (double) modelH.list[0].main.temp;
         Double t2 = (double) modelH.list[1].main.temp;
@@ -670,14 +678,23 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         String icon7 = setWeatherIconH(6, tm7);
         String icon8 = setWeatherIconH(7, tm7);
 
-        weatherIcon1.setText(String.format("  %s\n%s", icon1, time1));
-        weatherIcon2.setText(String.format("  %s\n%s", icon2, time2));
-        weatherIcon3.setText(String.format("  %s\n%s", icon3, time3));
-        weatherIcon4.setText(String.format("  %s\n%s", icon4, time4));
-        weatherIcon5.setText(String.format("  %s\n%s", icon5, time5));
-        weatherIcon6.setText(String.format("  %s\n%s", icon6, time6));
-        weatherIcon7.setText(String.format("  %s\n%s", icon7, time7));
-        weatherIcon8.setText(String.format("  %s\n%s", icon8, time8));
+        weatherIcon1.setText(icon1);
+        weatherIcon2.setText(icon2);
+        weatherIcon3.setText(icon3);
+        weatherIcon4.setText(icon4);
+        weatherIcon5.setText(icon5);
+        weatherIcon6.setText(icon6);
+        weatherIcon7.setText(icon7);
+        weatherIcon8.setText(icon8);
+
+        windText1.setText(String.format("%s\n %s", getForecastWind(0), time1));
+        windText2.setText(String.format("%s\n %s", getForecastWind(1), time2));
+        windText3.setText(String.format("%s\n %s", getForecastWind(2), time3));
+        windText4.setText(String.format("%s\n %s", getForecastWind(3), time4));
+        windText5.setText(String.format("%s\n %s", getForecastWind(4), time5));
+        windText6.setText(String.format("%s\n %s", getForecastWind(5), time6));
+        windText7.setText(String.format("%s\n %s", getForecastWind(6), time7));
+        windText8.setText(String.format("%s\n %s", getForecastWind(7), time8));
     }
 
     private String setWeatherIconH(int i, long time) {

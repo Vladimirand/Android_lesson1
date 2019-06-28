@@ -64,4 +64,9 @@
         <item name="android:clickable">true</item>
     </style>
 
+    <style name="LinearForecastStyle">
+        <item name="android:layout_margin">7dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
 </resources>
