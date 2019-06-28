@@ -121,11 +121,14 @@
                         tools:visibility="visible" />
 
                     <LinearLayout
+                        android:id="@+id/windAndHumidityInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:baselineAligned="false"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <android.support.design.card.MaterialCardView
                             android:layout_width="match_parent"
@@ -208,12 +211,15 @@
                     </LinearLayout>
 
                     <android.support.design.card.MaterialCardView
+                        android:id="@+id/pressureInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardBackgroundColor="@color/translucent"
                         android:layout_marginTop="5dp"
                         app:cardCornerRadius="7dp"
-                        app:cardElevation="0dp">
+                        app:cardElevation="0dp"
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
                         <RelativeLayout
                             android:id="@+id/viewPressure"
@@ -265,7 +271,7 @@
                         android:layout_marginTop="20dp"
                         android:indeterminateTint="@color/color_gray"
                         android:indeterminateTintMode="src_atop"
-                        tools:targetApi="lollipop" />
+                        tools:targetApi="lollipop"/>
 
                 </LinearLayout>
             </ScrollView>

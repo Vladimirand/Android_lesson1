@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.card.MaterialCardView;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
@@ -49,6 +50,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private LinearLayout forecastWeather;
+    private LinearLayout windAndHumidity;
+    private MaterialCardView pressureInfo;
 
     private TextView cityTextView;
     private TextView sunriseTextView;
@@ -144,10 +147,9 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
             pressure = bundle.getBoolean(CitiesFragment.CHECK_BOX_PRESSURE);
             sunriseSunset = bundle.getBoolean(CitiesFragment.CHECK_BOX_SUNRISE_AND_SUNSET);
         }
+        getCheckBox(layout, sunriseSunset, pressure);
 
         retrofitStart(); //загружаем данные погоды
-
-        getCheckBox(layout, sunriseSunset, pressure);
         return layout;
     }
 
@@ -155,15 +157,15 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         isOnline(Objects.requireNonNull(getContext())); //Проверяем подключение к интернету
         if (internetConnection) {
             catsHelper = true;
-
             if (latitude != null & longitude != null) {
                 requestRetrofitByCoord();  //загружаем данные погоды, если получили местоположение
             } else {
                 if (currentCityName != null) {
                     requestRetrofit();  //загружаем данные погоды выбранного города
-
                 }
             }
+        } else {
+            progressBar.setVisibility(View.GONE);
         }
     }
 
@@ -237,6 +239,9 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         imageView = layout.findViewById(R.id.imageView);
         forecastWeather = layout.findViewById(R.id.forecastWeather);
+        windAndHumidity = layout.findViewById(R.id.windAndHumidityInfo);
+        pressureInfo = layout.findViewById(R.id.pressureInfo);
+
         temp1 = layout.findViewById(R.id.temp1);
         temp2 = layout.findViewById(R.id.temp2);
         temp3 = layout.findViewById(R.id.temp3);
@@ -341,6 +346,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         setHumidity();
         setSunriseAndSunset();
         setWind();
+        windAndHumidity.setVisibility(View.VISIBLE);
         detailsBtn.setVisibility(View.VISIBLE);
         setUpdatedOn();
         getDataForHistory();
@@ -408,6 +414,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         double i = (double) pressure * 0.750062;
         String si = String.format(Locale.US, "%.0f", i); //отображаем только значение до запятой
         pressureTextView.setText(String.format("%s %s", si, getString(R.string.pressure_mmHg)));
+        pressureInfo.setVisibility(View.VISIBLE);
     }
 
     private void setCityFullNameByCoord() {
