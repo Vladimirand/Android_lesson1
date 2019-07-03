@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="5dp"
     tools:context=".screens.screens.SecondActivity">
 
 
@@ -270,7 +270,7 @@
                         layout="@layout/forecast_weather_daily"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp" />
+                        android:layout_marginTop="14dp" />
 
                     <TextView
                         android:id="@+id/data"
