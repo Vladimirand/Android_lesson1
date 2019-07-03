@@ -115,5 +115,8 @@
     <string name="minimalistic_Icons">Minimalistic Icons</string>
     <string name="openWeatherMapText">Data provided by OpenWeatherMap</string>
     <string name="mapInfoText">Displaying weather on a map - Yandex Technology</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="day">Day</string>
+    <string name="night">Night</string>
 
 </resources>

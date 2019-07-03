@@ -9,21 +9,6 @@
     android:layout_margin="10dp"
     tools:context=".screens.screens.SecondActivity">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end">
-
-        <TextView
-            android:id="@+id/textTemperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:text=""
-            android:textSize="48sp"
-            tools:text="26 ℃" />
-
-    </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
@@ -48,20 +33,47 @@
                     android:background="@color/transparent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/cityNameInfo"
-                        android:layout_width="220dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="32sp"
-                        tools:text="Minsk" />
-
-                    <TextView
-                        android:id="@+id/cityName"
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="2dp"
-                        android:textSize="15sp"
-                        tools:text="Minsk, BY" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/cityNameInfo"
+                                android:layout_width="210dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="32sp"
+                                tools:text="Minsk" />
+
+                            <TextView
+                                android:id="@+id/cityName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="2dp"
+                                android:textSize="15sp"
+                                tools:text="Minsk, BY" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/textTemperature"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:text=""
+                                android:textSize="46sp"
+                                tools:text="26 ℃" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -133,10 +145,10 @@
                         <android.support.design.card.MaterialCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="5dp"
                             android:layout_weight="1"
                             app:cardBackgroundColor="@color/translucent"
                             app:cardCornerRadius="7dp"
-                            android:layout_marginEnd="5dp"
                             app:cardElevation="0dp">
 
                             <RelativeLayout
@@ -214,11 +226,11 @@
                         android:id="@+id/pressureInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/translucent"
                         android:layout_marginTop="5dp"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/translucent"
                         app:cardCornerRadius="7dp"
                         app:cardElevation="0dp"
-                        android:visibility="gone"
                         tools:visibility="visible">
 
                         <RelativeLayout
@@ -254,6 +266,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp" />
 
+                    <include
+                        layout="@layout/forecast_weather_daily"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+
                     <TextView
                         android:id="@+id/data"
                         style="@style/TextStandardStyle"
@@ -271,7 +289,7 @@
                         android:layout_marginTop="20dp"
                         android:indeterminateTint="@color/color_gray"
                         android:indeterminateTintMode="src_atop"
-                        tools:targetApi="lollipop"/>
+                        tools:targetApi="lollipop" />
 
                 </LinearLayout>
             </ScrollView>

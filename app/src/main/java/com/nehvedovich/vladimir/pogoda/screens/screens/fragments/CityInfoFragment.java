@@ -50,6 +50,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     private SwipeRefreshLayout swipeRefreshLayout;
 
     private LinearLayout forecastWeather;
+    private LinearLayout forecastWeatherDaily;
+
     private LinearLayout windAndHumidity;
     private MaterialCardView pressureInfo;
 
@@ -71,6 +73,18 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     private ProgressBar progressBar;
     private ImageView imageView;
     private TextView cityName;
+
+    private TextView dayOfWeek2;
+    private TextView dayOfWeek3;
+    private TextView dayOfWeek4;
+    private TextView weatherNightIcon1;
+    private TextView weatherDailyIcon1;
+    private TextView weatherNightIcon2;
+    private TextView weatherDailyIcon2;
+    private TextView weatherNightIcon3;
+    private TextView weatherDailyIcon3;
+    private TextView weatherNightIcon4;
+    private TextView weatherDailyIcon4;
 
     private TextView temp1;
     private TextView temp2;
@@ -239,6 +253,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         imageView = layout.findViewById(R.id.imageView);
         forecastWeather = layout.findViewById(R.id.forecastWeather);
+        forecastWeatherDaily = layout.findViewById(R.id.forecastWeatherDaily);
         windAndHumidity = layout.findViewById(R.id.windAndHumidityInfo);
         pressureInfo = layout.findViewById(R.id.pressureInfo);
 
@@ -284,6 +299,27 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         weatherIcon6.setTypeface(weatherFont);
         weatherIcon7.setTypeface(weatherFont);
         weatherIcon8.setTypeface(weatherFont);
+
+        dayOfWeek2 = layout.findViewById(R.id.day_of_week2);
+        dayOfWeek3 = layout.findViewById(R.id.day_of_week3);
+        dayOfWeek4 = layout.findViewById(R.id.day_of_week4);
+
+        weatherNightIcon1 = layout.findViewById(R.id.weather_night_icon1);
+        weatherDailyIcon1 = layout.findViewById(R.id.weather_daily_icon1);
+        weatherNightIcon1.setTypeface(weatherFont);
+        weatherDailyIcon1.setTypeface(weatherFont);
+        weatherNightIcon2 = layout.findViewById(R.id.weather_night_icon2);
+        weatherDailyIcon2 = layout.findViewById(R.id.weather_daily_icon2);
+        weatherNightIcon2.setTypeface(weatherFont);
+        weatherDailyIcon2.setTypeface(weatherFont);
+        weatherNightIcon3 = layout.findViewById(R.id.weather_night_icon3);
+        weatherDailyIcon3 = layout.findViewById(R.id.weather_daily_icon3);
+        weatherNightIcon3.setTypeface(weatherFont);
+        weatherDailyIcon3.setTypeface(weatherFont);
+        weatherNightIcon4 = layout.findViewById(R.id.weather_night_icon4);
+        weatherDailyIcon4 = layout.findViewById(R.id.weather_daily_icon4);
+        weatherNightIcon4.setTypeface(weatherFont);
+        weatherDailyIcon4.setTypeface(weatherFont);
     }
 
     private void refreshList() {
@@ -614,6 +650,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                             modelH = response.body();
                             setForecastData();
                             forecastWeather.setVisibility(View.VISIBLE);
+                            forecastWeatherDaily.setVisibility(View.VISIBLE);
+                            setForecastDailyData();
                         }
                     }
 
@@ -658,7 +696,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         DateFormat df; //отображение только времени часы/минуты
         df = new SimpleDateFormat("HH:mm", Locale.US);
-
         long tm1 = (modelH.list[0].dt * 1000);
         String time1 = df.format(tm1);
         long tm2 = (modelH.list[1].dt * 1000);
@@ -712,5 +749,81 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         icon = setWeatherIcon(id, sunrise * 1000,
                 sunset * 1000, time, icon, false);
         return icon;
+    }
+
+    private String setWeatherIconDaily(int i, long time) {
+        int id = modelH.list[i].weather[0].id;
+        long sunrise = 0;
+        long sunset = 1;
+        String icon = "";
+        icon = setWeatherIcon(id, sunrise,
+                sunset, time, icon, false);
+        return icon;
+    }
+
+    private void setForecastDailyData() {
+        long tm1 = (modelH.list[0].dt * 1000);
+        DateFormat dfHour;
+        dfHour = new SimpleDateFormat("HH", Locale.US); //берем только "часы"
+        int hour = Integer.parseInt(dfHour.format(tm1));
+        int i = (24 - hour + 15) / 3; //определяем какой эллемент в маассиве нам нужен
+
+        Double tempDay1 = (double) modelH.list[i].main.temp;
+        Double tempNight1 = (double) modelH.list[i + 4].main.temp;
+
+        String iconDay1 = setWeatherIconDaily(i, 0);
+        String iconNight1 = setWeatherIconDaily(i + 4, 1);
+
+        weatherDailyIcon1.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempDay1), iconDay1, getForecastWind(i)));
+        weatherNightIcon1.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempNight1), iconNight1, getForecastWind(i + 4)));
+
+        //прогноз на 2-ой день
+        DateFormat df; //отображение только времени часы/минуты
+        df = new SimpleDateFormat("EEEE", Locale.getDefault());
+        long day2 = (modelH.list[i + 8].dt * 1000);
+        String dayWeek2 = df.format(day2);
+        dayOfWeek2.setText(firstUpperCase(dayWeek2));
+
+        Double tempDay2 = (double) modelH.list[i + 8].main.temp;
+        Double tempNight2 = (double) modelH.list[i + 12].main.temp;
+
+        String iconDay2 = setWeatherIconDaily(i + 8, 0);
+        String iconNight2 = setWeatherIconDaily(i + 12, 1);
+
+        weatherDailyIcon2.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempDay2), iconDay2, getForecastWind(i + 8)));
+        weatherNightIcon2.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempNight2), iconNight2, getForecastWind(i + 12)));
+
+        //прогноз на 3-ий день
+        long day3 = (modelH.list[i + 16].dt * 1000);
+        String dayWeek3 = df.format(day3);
+        dayOfWeek3.setText(firstUpperCase(dayWeek3));
+
+        Double tempDay3 = (double) modelH.list[i + 16].main.temp;
+        Double tempNight3 = (double) modelH.list[i + 20].main.temp;
+
+        String iconDay3 = setWeatherIconDaily(i + 16, 0);
+        String iconNight3 = setWeatherIconDaily(i + 20, 1);
+
+        weatherDailyIcon3.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempDay3), iconDay3, getForecastWind(i + 16)));
+        weatherNightIcon3.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempNight3), iconNight3, getForecastWind(i + 20)));
+
+        //прогноз на 4-ый день
+        long day4 = (modelH.list[i + 24].dt * 1000);
+        String dayWeek4 = df.format(day4);
+        dayOfWeek4.setText(firstUpperCase(dayWeek4));
+
+        Double tempDay4 = (double) modelH.list[i + 24].main.temp;
+        Double tempNight4 = (double) modelH.list[i + 28].main.temp;
+
+        String iconDay4 = setWeatherIconDaily(i + 24, 0);
+        String iconNight4 = setWeatherIconDaily(i + 28, 1);
+
+        weatherDailyIcon4.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempDay4), iconDay4, getForecastWind(i + 24)));
+        weatherNightIcon4.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempNight4), iconNight4, getForecastWind(i + 28)));
+    }
+
+    public String firstUpperCase(String word) {
+        if (word == null || word.isEmpty()) return ""; //или return word;
+        return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
 }

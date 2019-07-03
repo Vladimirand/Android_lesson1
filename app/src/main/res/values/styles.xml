@@ -69,4 +69,9 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="LinearForecastDailyStyle">
+        <item name="android:layout_marginStart">40dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
 </resources>

@@ -68,5 +68,8 @@
     <string name="minimalistic_Icons">Минималистичные иконки</string>
     <string name="openWeatherMapText">Данные предоставлены OpenWeatherMap</string>
     <string name="mapInfoText">Отображение погоды на карте - Технология Яндекса</string>
+    <string name="tomorrow">Завтра</string>
+    <string name="day">Днем</string>
+    <string name="night">Ночью</string>
 
 </resources>
