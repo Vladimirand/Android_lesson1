@@ -76,15 +76,12 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private TextView dayOfWeek2;
     private TextView dayOfWeek3;
-    private TextView dayOfWeek4;
     private TextView weatherNightIcon1;
     private TextView weatherDailyIcon1;
     private TextView weatherNightIcon2;
     private TextView weatherDailyIcon2;
     private TextView weatherNightIcon3;
     private TextView weatherDailyIcon3;
-    private TextView weatherNightIcon4;
-    private TextView weatherDailyIcon4;
 
     private TextView temp1;
     private TextView temp2;
@@ -302,7 +299,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         dayOfWeek2 = layout.findViewById(R.id.day_of_week2);
         dayOfWeek3 = layout.findViewById(R.id.day_of_week3);
-        dayOfWeek4 = layout.findViewById(R.id.day_of_week4);
 
         weatherNightIcon1 = layout.findViewById(R.id.weather_night_icon1);
         weatherDailyIcon1 = layout.findViewById(R.id.weather_daily_icon1);
@@ -316,10 +312,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         weatherDailyIcon3 = layout.findViewById(R.id.weather_daily_icon3);
         weatherNightIcon3.setTypeface(weatherFont);
         weatherDailyIcon3.setTypeface(weatherFont);
-        weatherNightIcon4 = layout.findViewById(R.id.weather_night_icon4);
-        weatherDailyIcon4 = layout.findViewById(R.id.weather_daily_icon4);
-        weatherNightIcon4.setTypeface(weatherFont);
-        weatherDailyIcon4.setTypeface(weatherFont);
     }
 
     private void refreshList() {
@@ -806,21 +798,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         weatherDailyIcon3.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempDay3), iconDay3, getForecastWind(i + 16)));
         weatherNightIcon3.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempNight3), iconNight3, getForecastWind(i + 20)));
-
-        //прогноз на 4-ый день
-        long day4 = (modelH.list[i + 24].dt * 1000);
-        String dayWeek4 = df.format(day4);
-        dayOfWeek4.setText(firstUpperCase(dayWeek4));
-
-        Double tempDay4 = (double) modelH.list[i + 24].main.temp;
-        Double tempNight4 = (double) modelH.list[i + 28].main.temp;
-
-        String iconDay4 = setWeatherIconDaily(i + 24, 0);
-        String iconNight4 = setWeatherIconDaily(i + 28, 1);
-
-        weatherDailyIcon4.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempDay4), iconDay4, getForecastWind(i + 24)));
-        weatherNightIcon4.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempNight4), iconNight4, getForecastWind(i + 28)));
-    }
+       }
 
     public String firstUpperCase(String word) {
         if (word == null || word.isEmpty()) return ""; //или return word;
