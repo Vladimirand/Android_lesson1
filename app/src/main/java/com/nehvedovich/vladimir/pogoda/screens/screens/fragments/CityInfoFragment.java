@@ -743,7 +743,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         return icon;
     }
 
-    private String setWeatherIconDaily(int i, long time) {
+    private String setWeatherIconDaily(int i, long time) {  //чтобы не доставать дату из массива, урощаем
         int id = modelH.list[i].weather[0].id;
         long sunrise = 0;
         long sunset = 1;
@@ -758,7 +758,12 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         DateFormat dfHour;
         dfHour = new SimpleDateFormat("HH", Locale.US); //берем только "часы"
         int hour = Integer.parseInt(dfHour.format(tm1));
-        int i = (24 - hour + 15) / 3; //определяем какой эллемент в маассиве нам нужен
+        int i;
+        if (hour == 0) {    //определяем какой эллемент в маассиве нам нужен
+            i = 4;
+        } else {
+            i = (24 - hour + 15 - 3) / 3;
+        }
 
         Double tempDay1 = (double) modelH.list[i].main.temp;
         Double tempNight1 = (double) modelH.list[i + 4].main.temp;
@@ -798,7 +803,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         weatherDailyIcon3.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempDay3), iconDay3, getForecastWind(i + 16)));
         weatherNightIcon3.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempNight3), iconNight3, getForecastWind(i + 20)));
-       }
+    }
 
     public String firstUpperCase(String word) {
         if (word == null || word.isEmpty()) return ""; //или return word;
