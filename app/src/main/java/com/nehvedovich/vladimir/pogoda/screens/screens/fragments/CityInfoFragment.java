@@ -758,7 +758,12 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         DateFormat dfHour;
         dfHour = new SimpleDateFormat("HH", Locale.US); //берем только "часы"
         int hour = Integer.parseInt(dfHour.format(tm1));
-        int i = (24 - hour + 15) / 3; //определяем какой эллемент в маассиве нам нужен
+        int i;
+        if (hour == 0) {    //определяем какой эллемент в маассиве нам нужен
+            i = 5;
+        } else {
+            i = (24 - hour + 15) / 3;
+        }
 
         Double tempDay1 = (double) modelH.list[i].main.temp;
         Double tempNight1 = (double) modelH.list[i + 4].main.temp;
