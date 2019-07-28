@@ -40,10 +40,14 @@
     <string name="weather_cloudy" translatable="false">&#xf013;</string>
     <string name="weather_day_cloudy" translatable="false">&#xf002;</string>
     <string name="weather_night_cloudy" translatable="false">&#xf086;</string>
+    <string name="weather_sun_clouds_rain" translatable="false">&#xf008;</string>
+    <string name="weather_night_clouds_rain" translatable="false">&#xf036;</string>
     <string name="weather_rainy" translatable="false">&#xf019;</string>
+    <string name="weather_showers" translatable="false">&#xf01a;</string>
     <string name="weather_snowy" translatable="false">&#xf01b;</string>
     <string name="weather_thunder" translatable="false">&#xf01e;</string>
     <string name="weather_drizzle" translatable="false">&#xf01c;</string>
+
     <string name="temperature_icon" translatable="false">&#xf055;</string>
     <string name="humidity_icon" translatable="false">&#xf07a;</string>
     <string name="pressure_icon" translatable="false">&#xf079;</string>

@@ -511,6 +511,19 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                 icon = getString(R.string.weather_night_cloudy);
                 image = R.drawable.weather_night_cloudy;
             }
+        } else if ((actualId == 500) | (actualId == 501) | (actualId == 502) | (actualId == 503) | (actualId == 504)) {
+            if (currentTime >= sunrise && currentTime < sunset) {
+                icon = getString(R.string.weather_sun_clouds_rain);
+                image = R.drawable.weather_sun_clouds_rain;
+            } else {
+                icon = getString(R.string.weather_night_clouds_rain);
+                image = R.drawable.weather_night_clouds_rain;
+            }
+
+        } else if ((actualId == 521) | (actualId == 522) | (actualId == 531)) {
+            icon = getString(R.string.weather_showers);
+            image = R.drawable.weather_showers;
+
         } else if (actualId == 802) {
             icon = getString(R.string.weather_cloud);
             image = R.drawable.weather_cloud;
