@@ -71,5 +71,6 @@
     <string name="tomorrow">Завтра</string>
     <string name="day">Днем</string>
     <string name="night">Ночью</string>
+    <string name="share_app">Поделиться приложением</string>
 
 </resources>
