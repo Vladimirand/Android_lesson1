@@ -17,6 +17,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -29,6 +30,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,6 +62,7 @@ public class MainActivity extends AppCompatActivity
     private final String sunriseSunsetChBKey = "check_sunrise_sunset";
     private final String darkThemeKey = "save_night";
     private final String minimalisticIconKey = "saveMinimalIcon";
+    private final String appInGooglePlay = "https://play.google.com/store/apps/details?id=com.nehvedovich.vladimir.pogoda";
 
     private final static String NOT_SUPPORTED_MESSAGE = "";  //Если сенсора не существует, то ничего не выводим
     public static boolean night;
@@ -95,6 +98,22 @@ public class MainActivity extends AppCompatActivity
         } else {
             // Пермиссии нет, будем запрашивать у пользователя
             requestLocationPermissions();
+        }
+
+        //Проверка версии SDK устройства
+        if (Build.VERSION.SDK_INT >= 23) {
+            //динамическое получение прав на INTERNET
+            if (checkSelfPermission(android.Manifest.permission.INTERNET)
+                    == PackageManager.PERMISSION_GRANTED) {
+                Log.d("Log", "Permission internet is granted");
+
+                //делаете что-то с интернетом
+
+            } else {
+                Log.d("Log", "Permission internet is revoked");
+                //запрашиваем разрешение
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.INTERNET}, 1);
+            }
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -420,7 +439,7 @@ public class MainActivity extends AppCompatActivity
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, getString(R.string.incorrect_city_name), Toast.LENGTH_SHORT).show();
-                   showInputDialog();
+                    showInputDialog();
                 }
             }
         });
@@ -472,6 +491,18 @@ public class MainActivity extends AppCompatActivity
                         getString(R.string.application_absent), Toast.LENGTH_SHORT).show();
             }
         }
+        else if (id == R.id.share_app) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, appInGooglePlay);
+            intent.setType("text/plain");
+
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+            } else {
+                Toast.makeText(MainActivity.this, "\n" +
+                        getString(R.string.application_absent), Toast.LENGTH_SHORT).show();
+            }
+        }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -489,17 +520,17 @@ public class MainActivity extends AppCompatActivity
         alert.setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
 
-                    String inputText = Objects.requireNonNull(input.getText()).toString();
-                   String city = firstUpperCase(inputText);
-                    if (city.length() > 1) {
-                        Activity activity = MainActivity.this;
-                        CityRepository.getInstance().add(new City(null, city));
-                        Intent intent = new Intent(activity, CityService.class);
-                        activity.startService(intent);
-                    } else {
-                        Toast.makeText(MainActivity.this, getString(R.string.incorrect_city_name), Toast.LENGTH_SHORT).show();
-                        showAddCity();
-                    }
+                String inputText = Objects.requireNonNull(input.getText()).toString();
+                String city = firstUpperCase(inputText);
+                if (city.length() > 1) {
+                    Activity activity = MainActivity.this;
+                    CityRepository.getInstance().add(new City(null, city));
+                    Intent intent = new Intent(activity, CityService.class);
+                    activity.startService(intent);
+                } else {
+                    Toast.makeText(MainActivity.this, getString(R.string.incorrect_city_name), Toast.LENGTH_SHORT).show();
+                    showAddCity();
+                }
             }
         });
         input.setHint(getString(R.string.hint_city_example));
@@ -529,8 +560,8 @@ public class MainActivity extends AppCompatActivity
         byAuthor.show();
     }
 
-    public String firstUpperCase(String word){
-        if(word == null || word.isEmpty()) return ""; //или return word;
+    public String firstUpperCase(String word) {
+        if (word == null || word.isEmpty()) return ""; //или return word;
         return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
 }
