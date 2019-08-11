@@ -788,7 +788,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         weatherNightIcon1.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempNight1), iconNight1, getForecastWind(i + 4)));
 
         //прогноз на 2-ой день
-        DateFormat df; //отображение только времени часы/минуты
+        DateFormat df; //отображение дня недели
         df = new SimpleDateFormat("EEEE", Locale.getDefault());
         long day2 = (modelH.list[i + 8].dt * 1000);
         String dayWeek2 = df.format(day2);
