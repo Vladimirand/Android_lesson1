@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/translucent"
     app:cardCornerRadius="10dp"
     app:cardElevation="0dp"
-    app:cardBackgroundColor="@color/translucent"
     tools:context=".screens.screens.SecondActivity">
 
     <android.support.v4.widget.NestedScrollView
@@ -34,6 +34,7 @@
 
                     <TextView
                         android:id="@+id/temp1"
+                        style="@style/TextStandardStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -41,9 +42,9 @@
 
                     <TextView
                         android:id="@+id/weather_icon1"
+                        style="@style/WeatherIcon3hStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         tools:text="icon" />
 
                     <LinearLayout
@@ -75,6 +76,7 @@
 
                     <TextView
                         android:id="@+id/temp2"
+                        style="@style/TextStandardStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -82,9 +84,9 @@
 
                     <TextView
                         android:id="@+id/weather_icon2"
+                        style="@style/WeatherIcon3hStyle"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:id="@+id/viewWind2"
@@ -115,6 +117,7 @@
 
                     <TextView
                         android:id="@+id/temp3"
+                        style="@style/TextStandardStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -122,9 +125,9 @@
 
                     <TextView
                         android:id="@+id/weather_icon3"
+                        style="@style/WeatherIcon3hStyle"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:id="@+id/viewWind3"
@@ -155,6 +158,7 @@
 
                     <TextView
                         android:id="@+id/temp4"
+                        style="@style/TextStandardStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -162,9 +166,9 @@
 
                     <TextView
                         android:id="@+id/weather_icon4"
+                        style="@style/WeatherIcon3hStyle"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:id="@+id/viewWind4"
@@ -195,6 +199,7 @@
 
                     <TextView
                         android:id="@+id/temp5"
+                        style="@style/TextStandardStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -202,9 +207,9 @@
 
                     <TextView
                         android:id="@+id/weather_icon5"
+                        style="@style/WeatherIcon3hStyle"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:id="@+id/viewWind5"
@@ -235,6 +240,7 @@
 
                     <TextView
                         android:id="@+id/temp6"
+                        style="@style/TextStandardStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -242,9 +248,9 @@
 
                     <TextView
                         android:id="@+id/weather_icon6"
+                        style="@style/WeatherIcon3hStyle"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:id="@+id/viewWind6"
@@ -275,6 +281,7 @@
 
                     <TextView
                         android:id="@+id/temp7"
+                        style="@style/TextStandardStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -282,9 +289,9 @@
 
                     <TextView
                         android:id="@+id/weather_icon7"
+                        style="@style/WeatherIcon3hStyle"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:id="@+id/viewWind7"
@@ -315,6 +322,7 @@
 
                     <TextView
                         android:id="@+id/temp8"
+                        style="@style/TextStandardStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -322,9 +330,9 @@
 
                     <TextView
                         android:id="@+id/weather_icon8"
+                        style="@style/WeatherIcon3hStyle"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center" />
+                        android:layout_height="wrap_content" />
 
                     <LinearLayout
                         android:id="@+id/viewWind8"

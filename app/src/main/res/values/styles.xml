@@ -74,4 +74,10 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="WeatherIcon3hStyle">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+
 </resources>

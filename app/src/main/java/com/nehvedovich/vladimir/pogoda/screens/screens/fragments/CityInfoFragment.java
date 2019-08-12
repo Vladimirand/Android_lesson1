@@ -822,7 +822,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         weatherDailyIcon3.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempDay3), iconDay3, getForecastWind(i + 16)));
         weatherNightIcon3.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempNight3), iconNight3, getForecastWind(i + 20)));
-       }
+    }
 
     public String firstUpperCase(String word) {
         if (word == null || word.isEmpty()) return ""; //или return word;
