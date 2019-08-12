@@ -748,11 +748,17 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private String setWeatherIconH(int i, long time) {
         int id = modelH.list[i].weather[0].id;
-        long sunrise = model.sys.sunrise;
-        long sunset = model.sys.sunset;
+        long sunrise = model.sys.sunrise * 1000;
+        long sunset = model.sys.sunset * 1000;
+
+        DateFormat dfHour;
+        dfHour = new SimpleDateFormat("HH", Locale.US); //берем только "часы"
+        long sSunrise = Integer.parseInt(dfHour.format(sunrise));
+        long sSunset = Integer.parseInt(dfHour.format(sunset));
+        long presentTime = Integer.parseInt(dfHour.format(time));
         String icon = "";
-        icon = setWeatherIcon(id, sunrise * 1000,
-                sunset * 1000, time, icon, false);
+        icon = setWeatherIcon(id, sSunrise,
+                sSunset, presentTime, icon, false);
         return icon;
     }
 
