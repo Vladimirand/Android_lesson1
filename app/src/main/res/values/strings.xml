@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Weather BY</string>
-    <string name="app_version" translatable="false">v. 1.3.6</string>
+    <string name="app_version" translatable="false">v. 1.3.7</string>
     <string name="support_email" translatable="false">ivladimir_n@mail.ru</string>
 
     <string name="activity_name_settings">Settings</string>
@@ -103,7 +103,7 @@
     <string name="incorrect_city_name">Incorrect city name!</string>
     <string name="minimalistic_Icons">Minimalistic Icons</string>
     <string name="openWeatherMapText">Data provided by OpenWeatherMap</string>
-    <string name="mapInfoText">Displaying weather on a map - Yandex Technology</string>
+    <string name="mapInfoText">Displaying weather on a map - Yandex technology</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="day">Day</string>
     <string name="night">Night</string>
