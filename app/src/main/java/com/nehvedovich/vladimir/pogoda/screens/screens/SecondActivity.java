@@ -56,10 +56,7 @@ public class SecondActivity extends AppCompatActivity {
             onBackPressed();
             return true;
         }
-        if (item.getItemId() == R.id.action_history) {
-            startActivity(new Intent(SecondActivity.this, HistoryActivity.class));
-            return true;
-        }
+
         //отправляем ссылку о состоянии погоды в городе отображенном на экране
         if (item.getItemId() == R.id.share_link) {
             Intent intent = new Intent(Intent.ACTION_SEND);

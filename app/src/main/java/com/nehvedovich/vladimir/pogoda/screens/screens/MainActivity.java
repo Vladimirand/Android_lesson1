@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity
     String longitude;
 
     //чтобы системный шрифт не переходил в приложение (шрифт постоянный)
-    public  void adjustFontScale( Configuration configuration) {
+    public void adjustFontScale(Configuration configuration) {
 
         configuration.fontScale = (float) 1.0;
         DisplayMetrics metrics = getResources().getDisplayMetrics();
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adjustFontScale( getResources().getConfiguration());
+        adjustFontScale(getResources().getConfiguration());
         setContentView(R.layout.activity_main);
 
         // Проверим на пермиссии, и если их нет, запросим у пользователя
@@ -227,7 +227,6 @@ public class MainActivity extends AppCompatActivity
                 public void onProviderDisabled(String provider) {
                 }
             });
-
         }
     }
 
@@ -423,10 +422,6 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             return true;
         }
-        if (id == R.id.action_history) {
-            startActivity(new Intent(MainActivity.this, HistoryActivity.class));
-            return true;
-        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -483,9 +478,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_add_city) {
             showAddCity();
 
-        } else if (id == R.id.nav_history) {
-            startActivity(new Intent(MainActivity.this, HistoryActivity.class));
-
         } else if (id == R.id.nav_manage) {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             return true;
@@ -505,8 +497,7 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this, "\n" +
                         getString(R.string.application_absent), Toast.LENGTH_SHORT).show();
             }
-        }
-        else if (id == R.id.share_app) {
+        } else if (id == R.id.share_app) {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.putExtra(Intent.EXTRA_TEXT, appInGooglePlay);
             intent.setType("text/plain");

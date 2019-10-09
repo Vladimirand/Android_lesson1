@@ -23,7 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.nehvedovich.vladimir.pogoda.R;
-import com.nehvedovich.vladimir.pogoda.screens.database.WeatherDataSource;
 import com.nehvedovich.vladimir.pogoda.screens.rest.OpenWeatherRepo;
 import com.nehvedovich.vladimir.pogoda.screens.rest.entites.WeatherRequestRestModel;
 import com.nehvedovich.vladimir.pogoda.screens.screens.MainActivity;
@@ -128,7 +127,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     public static float lon;
     public static float lat;
 
-    private WeatherDataSource notesDataSource;     // Источник данных
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -139,7 +137,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         boolean pressure = false;
         boolean sunriseSunset = false;
 
-        initDataSource();
+//        initDataSource();
 
         if (bundle != null) {
             cityName = layout.findViewById(R.id.cityNameInfo);
@@ -210,11 +208,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         sunriseTextView = textSunrise;
         sunsetTextView = textSunset;
-    }
-
-    private void initDataSource() {
-        notesDataSource = new WeatherDataSource(getContext());
-        notesDataSource.open();
     }
 
     public void initVew(View layout) {
@@ -377,7 +370,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         windAndHumidity.setVisibility(View.VISIBLE);
         detailsBtn.setVisibility(View.VISIBLE);
         setUpdatedOn();
-        getDataForHistory();
         lon = model.coordinates.lon;
         lat = model.coordinates.lat;
         cityId = String.valueOf(model.id);
@@ -388,16 +380,6 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         loadImage(R.drawable.not_found);
         Toast.makeText(getContext(),
                 getString(R.string.error_city_not_found), Toast.LENGTH_LONG).show();
-    }
-
-    private void getDataForHistory() {
-        Date currentTime = Calendar.getInstance().getTime();
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm", Locale.US);
-        String time = dateFormat.format(new Date(currentTime.getTime()));
-
-        String weatherDescription = String.valueOf(model.weather[0].description);
-        Double temp = (double) model.main.temp;
-        notesDataSource.addNote(currentCityName, String.format("%s ℃", String.format(Locale.US, "%.0f", temp)), weatherDescription, time);
     }
 
     private void setWind() {
