@@ -2,6 +2,7 @@ package com.nehvedovich.vladimir.pogoda.screens.screens.fragments;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -15,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -26,6 +26,7 @@ import com.nehvedovich.vladimir.pogoda.R;
 import com.nehvedovich.vladimir.pogoda.screens.rest.OpenWeatherRepo;
 import com.nehvedovich.vladimir.pogoda.screens.rest.entites.WeatherRequestRestModel;
 import com.nehvedovich.vladimir.pogoda.screens.screens.MainActivity;
+import com.nehvedovich.vladimir.pogoda.screens.screens.WebViewActivity;
 import com.squareup.picasso.Picasso;
 
 import java.text.DateFormat;
@@ -109,6 +110,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     private TextView windText7;
     private TextView windText8;
 
+    private TextView onMap;
+
     WeatherRequestRestModel model = new WeatherRequestRestModel();
     WeatherRequestRestModel modelH = new WeatherRequestRestModel();
 
@@ -159,6 +162,9 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         getCheckBox(layout, sunriseSunset, pressure);
 
         retrofitStart(); //загружаем данные погоды
+
+        detailsButton();
+
         return layout;
     }
 
@@ -305,6 +311,8 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         weatherDailyIcon3 = layout.findViewById(R.id.weather_daily_icon3);
         weatherNightIcon3.setTypeface(weatherFont);
         weatherDailyIcon3.setTypeface(weatherFont);
+
+        onMap = layout.findViewById(R.id.onMap);
     }
 
     private void refreshList() {
@@ -358,8 +366,21 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                 });
     }
 
+    private void detailsButton() {
+        onMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                final String yandexHttp = getString(R.string.yandexWeatherMap);
+                String url = (yandexHttp + CityInfoFragment.lat + "&lon=" + CityInfoFragment.lon + "&ll=" + CityInfoFragment.lon + "_" + CityInfoFragment.lat + "&z=9");
+                intent.setClass(Objects.requireNonNull(getContext()), WebViewActivity.class);
+                intent.putExtra(WebViewActivity.URL, url);
+                startActivity(intent);
+            }
+        });
+    }
+
     private void setInformation() {
-        final Button detailsBtn = Objects.requireNonNull(getActivity()).findViewById(R.id.moreInformation);
         setWeatherIcon();
         setTemperature();
         setWeather();
@@ -368,7 +389,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         setSunriseAndSunset();
         setWind();
         windAndHumidity.setVisibility(View.VISIBLE);
-        detailsBtn.setVisibility(View.VISIBLE);
+        onMap.setVisibility(View.VISIBLE);
         setUpdatedOn();
         lon = model.coordinates.lon;
         lat = model.coordinates.lat;

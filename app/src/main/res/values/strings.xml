@@ -17,7 +17,7 @@
     <string name="humidity_indication">Humidity</string>
     <string name="pressure_indication">Pressure</string>
     <string name="dark_theme">Dark background</string>
-    <string name="on_the_map">On the map</string>
+    <string name="on_the_map"><u>View weather on a map</u></string>
     <string name="ok" translatable="false">OK</string>
     <string name="delete">Delete</string>
     <string name="link">Link</string>
@@ -108,5 +108,6 @@
     <string name="day">Day</string>
     <string name="night">Night</string>
     <string name="share_app">Share app</string>
+    <string name="yandexWeatherMap" translatable="false"><![CDATA[https://yandex.by/pogoda/maps/nowcast?from=main_maps_widget_bottom&le_Lightning=1&lat=]]></string>
 
 </resources>

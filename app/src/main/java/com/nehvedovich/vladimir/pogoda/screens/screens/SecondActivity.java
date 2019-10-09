@@ -11,13 +11,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.nehvedovich.vladimir.pogoda.R;
 import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CityInfoFragment;
@@ -30,7 +27,6 @@ import java.io.IOException;
 public class SecondActivity extends AppCompatActivity {
     public File imagePath;
     public static final int REQUEST_CODE_PERMISSION_WRITE_EXTERNAL_STORAGE = 0;
-    private final String yandexHttp = "https://yandex.by/pogoda/maps/nowcast?from=main_maps_widget_bottom&le_Lightning=1&lat=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +43,6 @@ public class SecondActivity extends AppCompatActivity {
             actionbar.setHomeButtonEnabled(true);
             actionbar.setDisplayHomeAsUpEnabled(true);
         }
-        detailsButton();
     }
 
     @Override
@@ -55,28 +50,6 @@ public class SecondActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
-        }
-
-        //отправляем ссылку о состоянии погоды в городе отображенном на экране
-        if (item.getItemId() == R.id.share_link) {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-
-            TextView city = findViewById(R.id.cityName);
-            String cityName = (String) city.getText();
-            if (cityName.contains(" ")) {
-                cityName = cityName.substring(0, cityName.indexOf(","));
-            }
-
-            String t = (yandexHttp + cityName);
-            intent.putExtra(Intent.EXTRA_TEXT, t);
-            intent.setType("text/plain");
-
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            } else {
-                Toast.makeText(SecondActivity.this, "\n" +
-                        getString(R.string.application_absent), Toast.LENGTH_SHORT).show();
-            }
         }
 
         //Делаем скриншот экрана и отправляем его другу
@@ -101,20 +74,6 @@ public class SecondActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_for_second_activity, menu);
         return true;
-    }
-
-    private void detailsButton() {
-        AppCompatButton details = findViewById(R.id.moreInformation);
-        details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                String url = (yandexHttp + CityInfoFragment.lat + "&lon=" + CityInfoFragment.lon + "&ll=" + CityInfoFragment.lon + "_" + CityInfoFragment.lat + "&z=9");
-                intent.setClass(SecondActivity.this, WebViewActivity.class);
-                intent.putExtra(WebViewActivity.URL, url);
-                startActivity(intent);
-            }
-        });
     }
 
     public Bitmap takeScreenshot() {

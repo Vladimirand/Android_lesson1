@@ -36,20 +36,4 @@
         </FrameLayout>
 
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_margin="10dp">
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/moreInformation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/on_the_map"
-            android:visibility="invisible"
-            tools:visibility="visible" />
-
-    </RelativeLayout>
 </FrameLayout>

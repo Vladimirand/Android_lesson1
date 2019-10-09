@@ -14,7 +14,7 @@
     <string name="humidity_indication">Влажность</string>
     <string name="pressure_indication">Давление</string>
     <string name="dark_theme">Темный фон</string>
-    <string name="on_the_map">На карте</string>
+    <string name="on_the_map"><u>Посмотреть погоду на карте</u></string>
     <string name="delete">Удалить</string>
     <string name="link">Ссылка</string>
     <string name="screenshot">Скриншот</string>
