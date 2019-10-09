@@ -2,7 +2,8 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -24,11 +25,33 @@
                 android:layout_height="match_parent"
                 android:choiceMode="singleChoice" />
 
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="5dp"
+                app:cardCornerRadius="4dp"
+                app:cardElevation="0dp"
+                app:cardBackgroundColor="@color/translucent">
+
+                <TextView
+                    android:id="@+id/addCityBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8sp"
+                    android:textSize="24sp"
+                    android:textColor="@color/color_dim_gray"
+                    android:gravity="center"
+                    android:text="@string/actionAddCity"
+                    android:background="@drawable/btn_pressed_background"/>
+
+            </android.support.v7.widget.CardView>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="25dp"
-                android:text="@string/more_info_text" />
+                android:text="@string/more_info_text"/>
 
             <RadioGroup
                 android:id="@+id/checkBoxGroup"

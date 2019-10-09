@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity
         startSensors();
         initWeatherFont();
         serviceInfoStart();
+        addCityButton();
 
         FloatingActionButton fab = findViewById(R.id.locationButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -569,5 +570,16 @@ public class MainActivity extends AppCompatActivity
     public String firstUpperCase(String word) {
         if (word == null || word.isEmpty()) return ""; //или return word;
         return word.substring(0, 1).toUpperCase() + word.substring(1);
+    }
+
+    private void addCityButton() {
+        final TextView addCity = findViewById(R.id.addCityBtn);
+        addCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                coordPut = false;
+                showAddCity();
+            }
+        });
     }
 }
