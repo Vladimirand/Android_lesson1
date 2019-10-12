@@ -5,14 +5,9 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_add_city"
-           android:icon="@drawable/ic_menu_add"
-            android:title="@string/actionAddCity" />
-
-        <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/tools" />
+            android:title="@string/activity_name_settings" />
     </group>
 
     <item android:title="@string/additionally">

@@ -6,6 +6,8 @@
 
     <item
         android:gravity="center"
+        android:height="300dp"
+        android:width="300dp"
         android:drawable="@drawable/weather_main_icon">
 
     </item>

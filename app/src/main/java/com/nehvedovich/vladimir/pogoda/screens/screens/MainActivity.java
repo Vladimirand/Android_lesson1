@@ -476,10 +476,7 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = menuItem.getItemId();
         coordPut = false;
-        if (id == R.id.nav_add_city) {
-            showAddCity();
-
-        } else if (id == R.id.nav_manage) {
+        if (id == R.id.nav_manage) {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             return true;
 
