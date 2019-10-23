@@ -11,7 +11,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.nehvedovich.vladimir.pogoda.R;
 

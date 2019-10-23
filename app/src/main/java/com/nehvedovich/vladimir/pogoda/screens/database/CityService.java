@@ -2,7 +2,8 @@ package com.nehvedovich.vladimir.pogoda.screens.database;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.support.annotation.Nullable;
+
+import androidx.annotation.Nullable;
 
 import com.nehvedovich.vladimir.pogoda.screens.utils.WConstants;
 

@@ -10,12 +10,12 @@
     tools:context=".screens.screens.SecondActivity">
 
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -141,7 +141,7 @@
                         android:visibility="gone"
                         tools:visibility="visible">
 
-                        <android.support.design.card.MaterialCardView
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="5dp"
@@ -184,9 +184,9 @@
                                     android:layout_toEndOf="@+id/textWind"
                                     android:textSize="22sp" />
                             </RelativeLayout>
-                        </android.support.design.card.MaterialCardView>
+                        </com.google.android.material.card.MaterialCardView>
 
-                        <android.support.design.card.MaterialCardView
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -218,10 +218,10 @@
                                     android:layout_toEndOf="@+id/iconHumidity"
                                     android:text="@string/null_data" />
                             </RelativeLayout>
-                        </android.support.design.card.MaterialCardView>
+                        </com.google.android.material.card.MaterialCardView>
                     </LinearLayout>
 
-                    <android.support.design.card.MaterialCardView
+                    <com.google.android.material.card.MaterialCardView
                         android:id="@+id/pressureInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -259,7 +259,7 @@
 
 
                         </RelativeLayout>
-                    </android.support.design.card.MaterialCardView>
+                    </com.google.android.material.card.MaterialCardView>
 
                     <TextView
                         android:id="@+id/onMap"
@@ -307,6 +307,6 @@
 
                 </LinearLayout>
             </ScrollView>
-        </android.support.v4.widget.NestedScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </FrameLayout>
