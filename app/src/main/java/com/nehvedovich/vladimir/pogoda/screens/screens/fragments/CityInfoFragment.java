@@ -113,23 +113,23 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private TextView onMap;
 
-    WeatherRequestRestModel model = new WeatherRequestRestModel();
-    WeatherRequestRestModel modelH = new WeatherRequestRestModel();
+    private WeatherRequestRestModel model = new WeatherRequestRestModel();
+    private WeatherRequestRestModel modelH = new WeatherRequestRestModel();
 
-    String currentCityName;
-    String latitude;
-    String longitude;
-    Boolean internetConnection;
-    Boolean catsHelper = false; //для того, чтобы определять в каких случаях показываем картинку с котами
+    private String currentCityName;
+    private String latitude;
+    private String longitude;
+    private Boolean internetConnection;
+    private Boolean catsHelper = false; //для того, чтобы определять в каких случаях показываем картинку с котами
 
-    String msgException = "One or more fields not found in the JSON data";
-    String apiKey = "bb0856d6336d3c2ca1a809b325fecefa";
-    String units = "metric";
+    private String msgException = "One or more fields not found in the JSON data";
+    private String apiKey = "bb0856d6336d3c2ca1a809b325fecefa";
+    private String units = "metric";
 
-    String cityId;
+    private String cityId;
 
-    public static float lon;
-    public static float lat;
+    private static float lon;
+    private static float lat;
 
 
     @Override
@@ -192,7 +192,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 //        progressBar.setVisibility(View.VISIBLE);
     }
 
-    public void getCheckBox(View layout, boolean sunriseSunset, boolean pressure) {
+    private void getCheckBox(View layout, boolean sunriseSunset, boolean pressure) {
         //Обработка CheckBox SunriseAndSunset
         TextView textSunrise = layout.findViewById(R.id.textSunrise);
         TextView textSunset = layout.findViewById(R.id.textSunset);
@@ -217,7 +217,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         sunsetTextView = textSunset;
     }
 
-    public void initVew(View layout) {
+    private void initVew(View layout) {
         Typeface weatherFont = Typeface.createFromAsset(Objects.requireNonNull(getActivity()).getAssets(), FONT_FILENAME);
 
         cityTextView = layout.findViewById(R.id.cityName);
@@ -613,9 +613,10 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     //метод длчя проверки наличия подключения к интернету (если подключения нету - выводим сообщение)
-    public void isOnline(Context context) {
+    private void isOnline(Context context) {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        assert cm != null;
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
 
         final ImageView catsWeather = Objects.requireNonNull(getActivity()).findViewById(R.id.catsWeather);
@@ -828,7 +829,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         weatherNightIcon3.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempNight3), iconNight3, getForecastWind(i + 20)));
     }
 
-    public String firstUpperCase(String word) {
+    private String firstUpperCase(String word) {
         if (word == null || word.isEmpty()) return ""; //или return word;
         return word.substring(0, 1).toUpperCase() + word.substring(1);
     }
