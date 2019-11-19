@@ -339,7 +339,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                     @Override
                     public void onFailure(@NonNull Call<WeatherRequestRestModel> call, @NonNull Throwable t) {
-                        loadImage(R.drawable.error);
+                        loadImageForError(R.drawable.error);
                     }
                 });
     }
@@ -362,7 +362,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
                     @Override
                     public void onFailure(@NonNull Call<WeatherRequestRestModel> call, @NonNull Throwable t) {
-                        loadImage(R.drawable.error);
+                        loadImageForError(R.drawable.error);
                     }
                 });
     }
@@ -399,7 +399,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void setInfoError() {
-        loadImage(R.drawable.not_found);
+        loadImageForError(R.drawable.not_found);
         Toast.makeText(getContext(),
                 getString(R.string.error_city_not_found), Toast.LENGTH_LONG).show();
     }
@@ -609,6 +609,14 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
                     .error(R.drawable.error)
                     .into(imageView);
         }
+        progressBar.setVisibility(View.GONE);
+    }
+
+    private void loadImageForError(int image) {
+        Picasso.get()
+                .load(image)
+                .error(R.drawable.error)
+                .into(imageView);
         progressBar.setVisibility(View.GONE);
     }
 
