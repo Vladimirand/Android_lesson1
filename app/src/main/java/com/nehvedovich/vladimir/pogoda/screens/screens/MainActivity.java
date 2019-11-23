@@ -484,14 +484,12 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.about_the_app) {
             showAppDialog();
-        } else if (id == R.id.feedback_form) {
-            //пользователь может отправить сообщение в техподдержку по email
-            Intent i = new Intent(Intent.ACTION_SENDTO);
-            i.setData(Uri.parse("mailto:" + getString(R.string.support_email)));
-            i.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.message_subject));
-            i.putExtra(Intent.EXTRA_TEXT, getString(R.string.problem_message));
+        } else if (id == R.id.review_app) {
+            //Открываем приложение в "Google Play"
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(appInGooglePlay));
             try {
-                startActivity(Intent.createChooser(i, getString(R.string.send_mail_title)));
+                startActivity(i);
             } catch (android.content.ActivityNotFoundException ex) {
                 Toast.makeText(MainActivity.this, "\n" +
                         getString(R.string.application_absent), Toast.LENGTH_SHORT).show();

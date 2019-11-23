@@ -17,13 +17,13 @@
                 android:icon="@drawable/ic_menu_information"
                 android:title="@string/about_the_app" />
             <item
-                android:id="@+id/feedback_form"
-                android:icon="@drawable/ic_menu_send"
-                android:title="@string/feedback_form" />
-            <item
                 android:id="@+id/share_app"
                 android:icon="@drawable/ic_menu_share"
                 android:title="@string/share_app" />
+            <item
+                android:id="@+id/review_app"
+                android:icon="@drawable/ic_menu_review"
+                android:title="@string/review_app" />
         </menu>
     </item>
 </menu>
