@@ -77,12 +77,15 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     private TextView dayOfWeek2;
     private TextView dayOfWeek3;
+    private TextView dayOfWeek4;
     private TextView weatherNightIcon1;
     private TextView weatherDailyIcon1;
     private TextView weatherNightIcon2;
     private TextView weatherDailyIcon2;
     private TextView weatherNightIcon3;
     private TextView weatherDailyIcon3;
+    private TextView weatherNightIcon4;
+    private TextView weatherDailyIcon4;
 
     private TextView temp1;
     private TextView temp2;
@@ -112,6 +115,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
     private TextView windText8;
 
     private TextView onMap;
+    private MaterialCardView infoDay5;
 
     private WeatherRequestRestModel model = new WeatherRequestRestModel();
     private WeatherRequestRestModel modelH = new WeatherRequestRestModel();
@@ -253,6 +257,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         forecastWeatherDaily = layout.findViewById(R.id.forecastWeatherDaily);
         windAndHumidity = layout.findViewById(R.id.windAndHumidityInfo);
         pressureInfo = layout.findViewById(R.id.pressureInfo);
+        infoDay5 = layout.findViewById(R.id.forecast5Day);
 
         temp1 = layout.findViewById(R.id.temp1);
         temp2 = layout.findViewById(R.id.temp2);
@@ -299,6 +304,7 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         dayOfWeek2 = layout.findViewById(R.id.day_of_week2);
         dayOfWeek3 = layout.findViewById(R.id.day_of_week3);
+        dayOfWeek4 = layout.findViewById(R.id.day_of_week4);
 
         weatherNightIcon1 = layout.findViewById(R.id.weather_night_icon1);
         weatherDailyIcon1 = layout.findViewById(R.id.weather_daily_icon1);
@@ -312,7 +318,10 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
         weatherDailyIcon3 = layout.findViewById(R.id.weather_daily_icon3);
         weatherNightIcon3.setTypeface(weatherFont);
         weatherDailyIcon3.setTypeface(weatherFont);
-
+        weatherNightIcon4 = layout.findViewById(R.id.weather_night_icon4);
+        weatherDailyIcon4 = layout.findViewById(R.id.weather_daily_icon4);
+        weatherNightIcon4.setTypeface(weatherFont);
+        weatherDailyIcon4.setTypeface(weatherFont);
         onMap = layout.findViewById(R.id.onMap);
     }
 
@@ -835,6 +844,33 @@ public class CityInfoFragment extends Fragment implements SwipeRefreshLayout.OnR
 
         weatherDailyIcon3.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempDay3), iconDay3, getForecastWind(i + 16)));
         weatherNightIcon3.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempNight3), iconNight3, getForecastWind(i + 20)));
+
+        //прогноз на 4-ий день(5-ый)
+
+
+        Date currentTime = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("HH", Locale.US);
+        String t = dateFormat.format(new Date(currentTime.getTime())); //время запроса данных т.к. с 0 до 3 прогноз на 5-ый день не приходит
+        int carentTime = Integer.parseInt(t);
+
+        Log.d("LOG", "TIME - " + carentTime);
+        if (carentTime > 3) {
+            infoDay5.setVisibility(View.VISIBLE);
+            long day4 = (modelH.list[i + 24].dt * 1000);
+            String dayWeek4 = df.format(day4);
+            dayOfWeek4.setText(firstUpperCase(dayWeek4));
+
+            Double tempDay4 = (double) modelH.list[i + 24].main.temp;
+            Double tempNight4 = (double) modelH.list[i + 28].main.temp;
+
+            String iconDay4 = setWeatherIconDaily(i + 24, 0);
+            String iconNight4 = setWeatherIconDaily(i + 28, 1);
+
+            weatherDailyIcon4.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempDay4), iconDay4, getForecastWind(i + 24)));
+            weatherNightIcon4.setText(String.format("%s ℃  %s    %s", String.format(Locale.US, "%.0f", tempNight4), iconNight4, getForecastWind(i + 28)));
+        } else {
+            infoDay5.setVisibility(View.GONE);
+        }
     }
 
     private String firstUpperCase(String word) {
