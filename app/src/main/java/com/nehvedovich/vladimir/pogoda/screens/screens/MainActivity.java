@@ -66,7 +66,6 @@ public class MainActivity extends AppCompatActivity
     private final String sunriseSunsetChBKey = "check_sunrise_sunset";
     private final String darkThemeKey = "save_night";
     private final String minimalisticIconKey = "saveMinimalIcon";
-    private final String appInGooglePlay = "https://play.google.com/store/apps/details?id=com.nehvedovich.vladimir.pogoda";
 
     private final static String NOT_SUPPORTED_MESSAGE = "";  //Если сенсора не существует, то ничего не выводим
     public static boolean night;
@@ -93,7 +92,9 @@ public class MainActivity extends AppCompatActivity
         configuration.fontScale = (float) 1.0;
         DisplayMetrics metrics = getResources().getDisplayMetrics();
         WindowManager wm = (WindowManager) getSystemService(WINDOW_SERVICE);
-        wm.getDefaultDisplay().getMetrics(metrics);
+        if (wm != null) {
+            wm.getDefaultDisplay().getMetrics(metrics);
+        }
         metrics.scaledDensity = configuration.fontScale * metrics.density;
         getBaseContext().getResources().updateConfiguration(configuration, metrics);
     }
@@ -177,12 +178,16 @@ public class MainActivity extends AppCompatActivity
 
     private void startSensors() {
         mSensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mTemperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE); // requires API level 14.
+        if (mSensorManager != null) {
+            mTemperature = mSensorManager.getDefaultSensor(Sensor.TYPE_AMBIENT_TEMPERATURE); // requires API level 14.
+        }
 
         if (mTemperature == null) {
             temperatureLabel.setText(NOT_SUPPORTED_MESSAGE);
         }
-        mHumidity = mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
+        if (mSensorManager != null) {
+            mHumidity = mSensorManager.getDefaultSensor(Sensor.TYPE_RELATIVE_HUMIDITY);
+        }
 
         if (mHumidity == null) {
             humidityLabel.setText(NOT_SUPPORTED_MESSAGE);
@@ -199,7 +204,10 @@ public class MainActivity extends AppCompatActivity
         Criteria criteria = new Criteria();
         criteria.setAccuracy(Criteria.ACCURACY_COARSE);
 
-        String provider = locationManager.getBestProvider(criteria, true);
+        String provider = null;
+        if (locationManager != null) {
+            provider = locationManager.getBestProvider(criteria, true);
+        }
         if (provider != null) {
             // Будем получать геоположение через каждые 3 секунд или каждые 2000 метров
             locationManager.requestLocationUpdates(provider, 3000, 2000, new LocationListener() {
@@ -443,6 +451,7 @@ public class MainActivity extends AppCompatActivity
 
                 String inputText = Objects.requireNonNull(input.getText()).toString();
                 String city = firstUpperCase(inputText);
+                city = delSpace(city);
                 if (city.length() > 1) {
                     Intent intent = new Intent(MainActivity.this, SecondActivity.class);
                     intent.putExtra(CityInfoFragment.CITY_NAME_EXTRA, city);
@@ -463,7 +472,9 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void run() {
                         InputMethodManager inputMethodManager = (InputMethodManager) MainActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
-                        inputMethodManager.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+                        if (inputMethodManager != null) {
+                            inputMethodManager.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+                        }
                     }
                 });
             }
@@ -487,7 +498,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.review_app) {
             //Открываем приложение в "Google Play"
             Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(appInGooglePlay));
+            i.setData(Uri.parse(getString(R.string.app_in_google_play)));
             try {
                 startActivity(i);
             } catch (android.content.ActivityNotFoundException ex) {
@@ -496,7 +507,7 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.share_app) {
             Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.putExtra(Intent.EXTRA_TEXT, appInGooglePlay);
+            intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.app_in_google_play));
             intent.setType("text/plain");
 
             if (intent.resolveActivity(getPackageManager()) != null) {
@@ -525,6 +536,7 @@ public class MainActivity extends AppCompatActivity
 
                 String inputText = Objects.requireNonNull(input.getText()).toString();
                 String city = firstUpperCase(inputText);
+                city = delSpace(city);
                 if (city.length() > 1) {
                     Activity activity = MainActivity.this;
                     CityRepository.getInstance().add(new City(null, city));
@@ -544,7 +556,9 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void run() {
                         InputMethodManager inputMethodManager = (InputMethodManager) MainActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
-                        inputMethodManager.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+                        if (inputMethodManager != null) {
+                            inputMethodManager.showSoftInput(input, InputMethodManager.SHOW_IMPLICIT);
+                        }
                     }
                 });
             }
@@ -566,6 +580,12 @@ public class MainActivity extends AppCompatActivity
     public String firstUpperCase(String word) {
         if (word == null || word.isEmpty()) return ""; //или return word;
         return word.substring(0, 1).toUpperCase() + word.substring(1);
+    }
+
+    //Удаление пробела в начале и в конце названия
+    public String delSpace(String word) {
+        if (word == null || word.isEmpty()) return ""; //или return word;
+        return word.trim();
     }
 
     private void addCityButton() {
