@@ -37,7 +37,7 @@ public class CitiesFragment extends Fragment {
     public static final String CHECK_BOX_PRESSURE = "checkBoxPressure";
     public static final String CHECK_BOX_SUNRISE_AND_SUNSET = "checkBoxSunriseAndSunset";
 
-    final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -150,12 +150,12 @@ public class CitiesFragment extends Fragment {
         outState.putParcelable(WConstants.WEATHER, simpleView);
     }
 
-    public Boolean getCheckBoxPressure() {
+    private Boolean getCheckBoxPressure() {
         CheckBox pressure = Objects.requireNonNull(getActivity()).findViewById(R.id.checkBoxPressure);
         return pressure.isChecked();
     }
 
-    public Boolean getCheckBoxSunriseSunset() {
+    private Boolean getCheckBoxSunriseSunset() {
         CheckBox feelLike = Objects.requireNonNull(getActivity()).findViewById(R.id.checkBoxSunriseAndSunset);
         return feelLike.isChecked();
     }
