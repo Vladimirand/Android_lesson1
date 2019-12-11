@@ -9,4 +9,6 @@ public class SysRestModel {
     @SerializedName("country") public String country;
     @SerializedName("sunrise") public long sunrise;
     @SerializedName("sunset") public long sunset;
+
+    @SerializedName("pod") public String pod;
 }

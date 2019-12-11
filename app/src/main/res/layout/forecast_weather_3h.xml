@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/translucent"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="0dp"
+    tools:context=".screens.screens.SecondActivity">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ScrollingActivity">
+
+        <HorizontalScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/forecastWeather"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    style="@style/LinearForecastStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/temp1"
+                        style="@style/TextStandardStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        tools:text="10 ℃" />
+
+                    <TextView
+                        android:id="@+id/weather_icon1"
+                        style="@style/WeatherIcon3hStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="icon" />
+
+                    <LinearLayout
+                        android:id="@+id/viewWind1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textWind1"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="2,5 m/s" />
+
+                        <TextView
+                            android:id="@+id/directionWind1"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text=">" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/LinearForecastStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/temp2"
+                        style="@style/TextStandardStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        tools:text="10 C" />
+
+                    <TextView
+                        android:id="@+id/weather_icon2"
+                        style="@style/WeatherIcon3hStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/viewWind2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textWind2"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="2,5 m/s " />
+
+                        <TextView
+                            android:id="@+id/directionWind2"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text=">" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/LinearForecastStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/temp3"
+                        style="@style/TextStandardStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        tools:text="10 C" />
+
+                    <TextView
+                        android:id="@+id/weather_icon3"
+                        style="@style/WeatherIcon3hStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/viewWind3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textWind3"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="2,5 m/s " />
+
+                        <TextView
+                            android:id="@+id/directionWind3"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text=">" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/LinearForecastStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/temp4"
+                        style="@style/TextStandardStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        tools:text="10 C" />
+
+                    <TextView
+                        android:id="@+id/weather_icon4"
+                        style="@style/WeatherIcon3hStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/viewWind4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textWind4"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="2,5 m/s " />
+
+                        <TextView
+                            android:id="@+id/directionWind4"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text=">" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/LinearForecastStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/temp5"
+                        style="@style/TextStandardStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        tools:text="10 C" />
+
+                    <TextView
+                        android:id="@+id/weather_icon5"
+                        style="@style/WeatherIcon3hStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/viewWind5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textWind5"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="2,5 m/s " />
+
+                        <TextView
+                            android:id="@+id/directionWind5"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text=">" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/LinearForecastStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/temp6"
+                        style="@style/TextStandardStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        tools:text="10 C" />
+
+                    <TextView
+                        android:id="@+id/weather_icon6"
+                        style="@style/WeatherIcon3hStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/viewWind6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textWind6"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="2,5 m/s " />
+
+                        <TextView
+                            android:id="@+id/directionWind6"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text=">" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/LinearForecastStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/temp7"
+                        style="@style/TextStandardStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        tools:text="10 C" />
+
+                    <TextView
+                        android:id="@+id/weather_icon7"
+                        style="@style/WeatherIcon3hStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/viewWind7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textWind7"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="2,5 m/s " />
+
+                        <TextView
+                            android:id="@+id/directionWind7"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text=">" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/LinearForecastStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/temp8"
+                        style="@style/TextStandardStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        tools:text="10 C" />
+
+                    <TextView
+                        android:id="@+id/weather_icon8"
+                        style="@style/WeatherIcon3hStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <LinearLayout
+                        android:id="@+id/viewWind8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textWind8"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="2,5 m/s " />
+
+                        <TextView
+                            android:id="@+id/directionWind8"
+                            style="@style/TextStandardStyle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text=">" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </HorizontalScrollView>
+    </androidx.core.widget.NestedScrollView>
+</com.google.android.material.card.MaterialCardView>

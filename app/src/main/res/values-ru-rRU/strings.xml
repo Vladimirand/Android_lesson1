@@ -13,8 +13,8 @@
     <string name="wind_indication">Ветер</string>
     <string name="humidity_indication">Влажность</string>
     <string name="pressure_indication">Давление</string>
-    <string name="dark_theme">Темная тема</string>
-    <string name="on_the_map">На карте</string>
+    <string name="dark_theme">Темный фон</string>
+    <string name="on_the_map"><u>Посмотреть погоду на карте</u></string>
     <string name="delete">Удалить</string>
     <string name="link">Ссылка</string>
     <string name="screenshot">Скриншот</string>
@@ -32,6 +32,7 @@
     <string name="additionally">Дополнительно</string>
     <string name="about_the_app">О приложении</string>
     <string name="feedback_form">Обратная связь</string>
+    <string name="review_app">Оценить приложение</string>
     <string name="message_subject">Приложение \'Погода BY\'</string>
     <string name="problem_message">Опишите вашу проблему и добавьте скриншот.</string>
 
@@ -66,5 +67,11 @@
     <string name="enter_city_message">Вводите название города в формате: \'Минск\' или \'Минск, BY\'</string>
     <string name="incorrect_city_name">Некорректное название города!</string>
     <string name="minimalistic_Icons">Минималистичные иконки</string>
+    <string name="openWeatherMapText">Данные предоставлены OpenWeatherMap</string>
+    <string name="mapInfoText">Отображение погоды на карте - технология Яндекса</string>
+    <string name="tomorrow">Завтра</string>
+    <string name="day">Днем</string>
+    <string name="night">Ночью</string>
+    <string name="share_app">Поделиться приложением</string>
 
 </resources>

@@ -12,5 +12,6 @@
     <color name="color_cadet_blue">#5F9EA0</color>
     <color name="color_light_grey">#D6DAD6</color>
     <color name="color_black">#000000</color>
+    <color name="color_dim_gray">#696969</color>
 
 </resources>

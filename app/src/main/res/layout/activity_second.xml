@@ -16,7 +16,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         android:orientation="vertical">
 
         <FrameLayout
@@ -36,19 +36,4 @@
         </FrameLayout>
 
     </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:layout_margin="10dp">
-
-        <Button
-            android:id="@+id/moreInformation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/on_the_map"
-            android:visibility="gone" />
-
-    </RelativeLayout>
 </FrameLayout>

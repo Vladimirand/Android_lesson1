@@ -7,30 +7,26 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.nehvedovich.vladimir.pogoda.R;
 import com.nehvedovich.vladimir.pogoda.screens.screens.fragments.CityInfoFragment;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class SecondActivity extends AppCompatActivity {
     public File imagePath;
     public static final int REQUEST_CODE_PERMISSION_WRITE_EXTERNAL_STORAGE = 0;
-    private final String yandexHttp = "https://yandex.by/pogoda/maps/nowcast?from=main_maps_widget_bottom&from=home&ll=";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +43,6 @@ public class SecondActivity extends AppCompatActivity {
             actionbar.setHomeButtonEnabled(true);
             actionbar.setDisplayHomeAsUpEnabled(true);
         }
-        detailsButton();
     }
 
     @Override
@@ -55,31 +50,6 @@ public class SecondActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home) {
             onBackPressed();
             return true;
-        }
-        if (item.getItemId() == R.id.action_history) {
-            startActivity(new Intent(SecondActivity.this, HistoryActivity.class));
-            return true;
-        }
-        //отправляем ссылку о состоянии погоды в городе отображенном на экране
-        if (item.getItemId() == R.id.share_link) {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-
-            TextView city = findViewById(R.id.cityName);
-            String cityName = (String) city.getText();
-            if (cityName.contains(" ")) {
-                cityName = cityName.substring(0, cityName.indexOf(","));
-            }
-
-            String t = (yandexHttp + cityName);
-            intent.putExtra(Intent.EXTRA_TEXT, t);
-            intent.setType("text/plain");
-
-            if (intent.resolveActivity(getPackageManager()) != null) {
-                startActivity(intent);
-            } else {
-                Toast.makeText(SecondActivity.this, "\n" +
-                        getString(R.string.application_absent), Toast.LENGTH_SHORT).show();
-            }
         }
 
         //Делаем скриншот экрана и отправляем его другу
@@ -106,24 +76,6 @@ public class SecondActivity extends AppCompatActivity {
         return true;
     }
 
-    private void detailsButton() {
-        Button details = findViewById(R.id.moreInformation);
-        details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_VIEW);
-                Uri uri = Uri.parse(yandexHttp + CityInfoFragment.lon + "_" + CityInfoFragment.lat + "&z=9");
-                intent.setData(uri);
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(SecondActivity.this, "\n" +
-                            getString(R.string.application_absent), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
     public Bitmap takeScreenshot() {
         View rootView = findViewById(android.R.id.content).getRootView();
         rootView.setDrawingCacheEnabled(true);
@@ -138,8 +90,6 @@ public class SecondActivity extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
-        } catch (FileNotFoundException e) {
-            Log.e("GREC", e.getMessage(), e);
         } catch (IOException e) {
             Log.e("GREC", e.getMessage(), e);
         }

@@ -13,8 +13,8 @@
     <string name="wind_indication">Вецер</string>
     <string name="humidity_indication">Вільготнасць</string>
     <string name="pressure_indication">Ціск</string>
-    <string name="dark_theme">Цёмная тэма</string>
-    <string name="on_the_map">На мапе</string>
+    <string name="dark_theme">Цёмны фон</string>
+    <string name="on_the_map"><u>Паглядзець надвор\'е на мапе</u></string>
     <string name="delete">Выдаліць</string>
     <string name="link">Спасылка</string>
     <string name="screenshot">Скрыншот</string>
@@ -32,6 +32,7 @@
     <string name="additionally">Дадаткова</string>
     <string name="about_the_app">Аб дадатку</string>
     <string name="feedback_form">Зваротная сувязь</string>
+    <string name="review_app">Ацаніць прыкладанне</string>
     <string name="message_subject">Приложение \'Погода BY\'</string>
     <string name="problem_message">Апішыце вашу праблему і далучыце скрыншот.</string>
 
@@ -66,5 +67,11 @@
     <string name="enter_city_message">Ўводзьце назву горада ў фармаце: \'Минск\' або \'Минск, BY\'</string>
     <string name="incorrect_city_name">Несапраўдная назва горада!</string>
     <string name="minimalistic_Icons">Мінімалістычныя іконкі</string>
+    <string name="openWeatherMapText">Дадзеныя прадастаўлены OpenWeatherMap</string>
+    <string name="mapInfoText">Адлюстраванне надвор\'я на мапе - тэхналогія Яндэкса</string>
+    <string name="tomorrow">Заўтра</string>
+    <string name="day">Днём</string>
+    <string name="night">Ноччу</string>
+    <string name="share_app">Падзяліцца дадаткам</string>
 
 </resources>

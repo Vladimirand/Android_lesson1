@@ -6,15 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.nehvedovich.vladimir.pogoda.R;
 import com.nehvedovich.vladimir.pogoda.screens.database.City;
@@ -36,7 +37,7 @@ public class CitiesFragment extends Fragment {
     public static final String CHECK_BOX_PRESSURE = "checkBoxPressure";
     public static final String CHECK_BOX_SUNRISE_AND_SUNSET = "checkBoxSunriseAndSunset";
 
-    final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -149,65 +150,13 @@ public class CitiesFragment extends Fragment {
         outState.putParcelable(WConstants.WEATHER, simpleView);
     }
 
-
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
-//        Button button1 = view.findViewById(R.id.to_city_1);
-//        Button button2 = view.findViewById(R.id.to_city_2);
-//        Button button3 = view.findViewById(R.id.to_city_3);
-//        Button button4 = view.findViewById(R.id.to_city_4);
-//
-//        addClickEffect(button1);
-//        addClickEffect(button2);
-//        addClickEffect(button3);
-//        addClickEffect(button4);
-//        button1.setOnClickListener(onClickListener);
-//        button2.setOnClickListener(onClickListener);
-//        button3.setOnClickListener(onClickListener);
-//        button4.setOnClickListener(onClickListener);
-//    }
-//
-//    //подсветка при нажатии кнопки
-//    void addClickEffect(View view) {
-//        Drawable drawableNormal = view.getBackground();
-//        Drawable drawablePressed = Objects.requireNonNull(view.getBackground().getConstantState()).newDrawable();
-//        drawablePressed.mutate();
-//        drawablePressed.setColorFilter(Color.argb(255, 255, 255, 255), PorterDuff.Mode.SRC_ATOP);
-//
-//        StateListDrawable listDrawable = new StateListDrawable();
-//        listDrawable.addState(new int[]{android.R.attr.state_pressed}, drawablePressed);
-//        listDrawable.addState(new int[]{}, drawableNormal);
-//        view.setBackground(listDrawable);
-//    }
-
-//    private final View.OnClickListener onClickListener2 = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View v) {
-//            MainActivity.coordPut = false;
-//            Intent intent = new Intent();
-//            intent.setClass(Objects.requireNonNull(getActivity()), SecondActivity.class);
-//            Button btn = getActivity().findViewById(v.getId());
-//            String cityName = (String) btn.getText();
-//            if (cityName != null) {
-//                intent.putExtra(CityInfoFragment.CITY_NAME_EXTRA, cityName);
-//                btn.setPressed(true);
-//            }
-//            intent.putExtra(CHECK_BOX_PRESSURE, getCheckBoxPressure());
-//            intent.putExtra(CHECK_BOX_SUNRISE_AND_SUNSET, getCheckBoxSunriseSunset());
-//            startActivity(intent);
-//        }
-//    };
-
-    public Boolean getCheckBoxPressure() {
+    private Boolean getCheckBoxPressure() {
         CheckBox pressure = Objects.requireNonNull(getActivity()).findViewById(R.id.checkBoxPressure);
         return pressure.isChecked();
     }
 
-    public Boolean getCheckBoxSunriseSunset() {
+    private Boolean getCheckBoxSunriseSunset() {
         CheckBox feelLike = Objects.requireNonNull(getActivity()).findViewById(R.id.checkBoxSunriseAndSunset);
         return feelLike.isChecked();
     }
-
-
 }

@@ -6,37 +6,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="5dp"
     tools:context=".screens.screens.SecondActivity">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end">
 
-        <TextView
-            android:id="@+id/textTemperature"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="5dp"
-            android:text=""
-            android:textSize="48sp" />
-
-    </RelativeLayout>
-
-    <android.support.v4.widget.SwipeRefreshLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="50dp">
+        android:layout_height="wrap_content">
 
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:context=".ScrollingActivity"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp">
+            tools:context=".ScrollingActivity">
 
             <ScrollView
                 android:layout_width="match_parent"
@@ -49,18 +32,47 @@
                     android:background="@color/transparent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/cityNameInfo"
-                        android:layout_width="220dp"
-                        android:layout_height="wrap_content"
-                        android:textSize="32sp" />
-
-                    <TextView
-                        android:id="@+id/cityName"
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="2dp"
-                        android:textSize="15sp" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/cityNameInfo"
+                                android:layout_width="210dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="32sp"
+                                tools:text="Minsk" />
+
+                            <TextView
+                                android:id="@+id/cityName"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="2dp"
+                                android:textSize="15sp"
+                                tools:text="Minsk, BY" />
+                        </LinearLayout>
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/textTemperature"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:text=""
+                                android:textSize="46sp"
+                                tools:text="26 ℃" />
+                        </RelativeLayout>
+                    </LinearLayout>
+
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
@@ -77,7 +89,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/icon_font_size"
-                            android:visibility="gone" />
+                            android:visibility="gone"
+                            tools:text="Ok"
+                            tools:visibility="visible" />
 
                         <TextView
                             android:id="@+id/textSunrise"
@@ -85,7 +99,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_above="@+id/textSunset"
-                            android:layout_alignStart="@+id/textSunset" />
+                            android:layout_alignStart="@+id/textSunset"
+                            tools:text="Sunset: 6:00" />
 
                         <TextView
                             android:id="@+id/textSunset"
@@ -95,7 +110,8 @@
                             android:layout_alignBottom="@+id/imageView"
                             android:layout_marginStart="17dp"
                             android:layout_marginBottom="15dp"
-                            android:layout_toEndOf="@+id/imageView" />
+                            android:layout_toEndOf="@+id/imageView"
+                            tools:text="Sunrise: 21:00" />
 
                     </RelativeLayout>
 
@@ -103,116 +119,172 @@
                         android:id="@+id/weather_conditions"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="20sp" />
+                        android:textSize="20sp"
+                        tools:text="Sunny" />
 
                     <TextView
                         android:id="@+id/weather_expected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:visibility="gone" />
+                        android:visibility="gone"
+                        tools:text="Snowy"
+                        tools:visibility="visible" />
 
                     <LinearLayout
+                        android:id="@+id/windAndHumidityInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:baselineAligned="false"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        tools:visibility="visible">
 
-                        <RelativeLayout
-                            android:id="@+id/viewWind"
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="2dp"
-                            android:layout_marginBottom="2dp"
+                            android:layout_marginEnd="5dp"
                             android:layout_weight="1"
-                            android:background="@color/translucent"
-                            android:gravity="center">
+                            app:cardBackgroundColor="@color/translucent"
+                            app:cardCornerRadius="7dp"
+                            app:cardElevation="0dp">
 
-                            <TextView
-                                android:id="@+id/iconWind"
-                                style="@style/TextStandardStyle"
-                                android:layout_width="wrap_content"
+                            <RelativeLayout
+                                android:id="@+id/viewWind"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="7dp"
-                                android:textSize="20sp" />
+                                android:gravity="center">
 
-                            <TextView
-                                android:id="@+id/textWind"
-                                style="@style/TextStandardStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignBottom="@+id/iconWind"
-                                android:layout_marginEnd="5dp"
-                                android:layout_marginBottom="3dp"
-                                android:layout_toEndOf="@+id/iconWind"
-                                android:text="@string/null_data" />
+                                <TextView
+                                    android:id="@+id/iconWind"
+                                    style="@style/TextStandardStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="7dp"
+                                    android:textSize="22sp" />
 
-                            <TextView
-                                android:id="@+id/directionWind"
-                                style="@style/TextStandardStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignBottom="@+id/iconWind"
-                                android:layout_toEndOf="@+id/textWind"
-                                android:textSize="22sp" />
-                        </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/textWind"
+                                    style="@style/TextStandardStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/iconWind"
+                                    android:layout_marginEnd="5dp"
+                                    android:layout_marginBottom="3dp"
+                                    android:layout_toEndOf="@+id/iconWind"
+                                    android:text="@string/null_data" />
 
-                        <RelativeLayout
-                            android:id="@+id/viewHumidity"
+                                <TextView
+                                    android:id="@+id/directionWind"
+                                    style="@style/TextStandardStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/iconWind"
+                                    android:layout_toEndOf="@+id/textWind"
+                                    android:textSize="22sp" />
+                            </RelativeLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginBottom="2dp"
                             android:layout_weight="1"
-                            android:background="@color/translucent"
-                            android:gravity="center">
+                            app:cardBackgroundColor="@color/translucent"
+                            app:cardCornerRadius="7dp"
+                            app:cardElevation="0dp">
 
-                            <TextView
-                                android:id="@+id/iconHumidity"
-                                style="@style/TextStandardStyle"
-                                android:layout_width="wrap_content"
+                            <RelativeLayout
+                                android:id="@+id/viewHumidity"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginEnd="7dp"
-                                android:textSize="20sp" />
+                                android:gravity="center">
 
-                            <TextView
-                                android:id="@+id/textHumidity"
-                                style="@style/TextStandardStyle"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignBottom="@+id/iconHumidity"
-                                android:layout_marginBottom="3dp"
-                                android:layout_toEndOf="@+id/iconHumidity"
-                                android:text="@string/null_data" />
-                        </RelativeLayout>
+                                <TextView
+                                    android:id="@+id/iconHumidity"
+                                    style="@style/TextStandardStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginEnd="7dp"
+                                    android:textSize="22sp" />
+
+                                <TextView
+                                    android:id="@+id/textHumidity"
+                                    style="@style/TextStandardStyle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignBottom="@+id/iconHumidity"
+                                    android:layout_marginBottom="3dp"
+                                    android:layout_toEndOf="@+id/iconHumidity"
+                                    android:text="@string/null_data" />
+                            </RelativeLayout>
+                        </com.google.android.material.card.MaterialCardView>
                     </LinearLayout>
 
-                    <RelativeLayout
-                        android:id="@+id/viewPressure"
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/pressureInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/translucent"
-                        android:gravity="center">
+                        android:layout_marginTop="5dp"
+                        android:visibility="gone"
+                        app:cardBackgroundColor="@color/translucent"
+                        app:cardCornerRadius="7dp"
+                        app:cardElevation="0dp"
+                        tools:visibility="visible">
 
-                        <TextView
-                            android:id="@+id/iconPressure"
-                            style="@style/TextStandardStyle"
-                            android:layout_width="wrap_content"
+                        <RelativeLayout
+                            android:id="@+id/viewPressure"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="7dp"
-                            android:text=""
-                            android:textSize="20sp" />
+                            android:gravity="center">
 
-                        <TextView
-                            android:id="@+id/textPressure"
-                            style="@style/TextStandardStyle"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/iconPressure"
-                            android:layout_marginBottom="3dp"
-                            android:layout_toEndOf="@+id/iconPressure"
-                            android:text="@string/null_data" />
-                    </RelativeLayout>
+                            <TextView
+                                android:id="@+id/iconPressure"
+                                style="@style/TextStandardStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="7dp"
+                                android:text=""
+                                android:textSize="22sp" />
+
+                            <TextView
+                                android:id="@+id/textPressure"
+                                style="@style/TextStandardStyle"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignBottom="@+id/iconPressure"
+                                android:layout_marginBottom="3dp"
+                                android:layout_toEndOf="@+id/iconPressure"
+                                android:text="@string/null_data" />
+
+
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/onMap"
+                        style="@style/TextStandardStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="7dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginStart="5dp"
+                        android:background="@drawable/btn_pressed_background"
+                        android:text="@string/on_the_map"
+                        android:visibility="gone"
+                        tools:visibility="visible"/>
+
+                    <include
+                        layout="@layout/forecast_weather_3h"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp" />
+
+                    <include
+                        layout="@layout/forecast_weather_daily"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp" />
 
                     <TextView
                         android:id="@+id/data"
@@ -228,13 +300,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="50dp"
+                        android:layout_marginTop="20dp"
                         android:indeterminateTint="@color/color_gray"
                         android:indeterminateTintMode="src_atop"
                         tools:targetApi="lollipop" />
 
                 </LinearLayout>
             </ScrollView>
-        </android.support.v4.widget.NestedScrollView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </FrameLayout>

@@ -10,4 +10,5 @@ public class MainRestModel {
     @SerializedName("temp_max") public float tempMax;
     @SerializedName("sea_level") public float seaLevel;
     @SerializedName("grnd_level") public float grndLevel;
+    @SerializedName("temp_kf") public float tempKf;
 }

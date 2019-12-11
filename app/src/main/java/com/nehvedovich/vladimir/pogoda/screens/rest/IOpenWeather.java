@@ -20,4 +20,9 @@ public interface IOpenWeather {
                                                      @Query("units") String units,
                                                      @Query("lang") String lang);
 
+    @GET("data/2.5/forecast")
+    Call<WeatherRequestRestModel> loadForecastWeatherHourly(@Query("id") String cityId,
+                                                             @Query("appid") String keyApi,
+                                                             @Query("units") String units,
+                                                             @Query("lang") String lang);
 }
